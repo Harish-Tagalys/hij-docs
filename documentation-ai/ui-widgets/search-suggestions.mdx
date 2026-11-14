@@ -1,6 +1,5 @@
 ---
 title: "Search suggestions widget"
-sidebarTitle: "Search suggestions"
 description: "Attach the HIJ suggestions widget to your store's query input field to show query suggestions, matching products, recent and popular queries while the shopper types."
 ---
 
@@ -11,11 +10,11 @@ The suggestions widget attaches to the query input field your theme already has.
 - **Recent queries**: the shopper's own last queries (only with analytics consent).
 - **Popular queries**: shown when the field is focused but still empty.
 
-![Wireframe of the suggestions panel open under the query input field, with query suggestions on the left and product suggestions on the right](/assets/suggestions-wireframe.svg)
+<Image src="/assets/suggestions-wireframe.svg" alt="Wireframe of the suggestions panel open under the query input field, with query suggestions on the left and product suggestions on the right" />
 
-<Info>
+<Callout kind="info">
 The widget doesn't render its own input. It enhances an existing `<input>`, so the field keeps your theme's styling and still submits your normal results page when the shopper presses Enter.
-</Info>
+</Callout>
 
 ## Initialization
 
@@ -43,9 +42,9 @@ HIJ.UIWidgets.SearchSuggestions.init(inputSelector, configurationOptions)
 </script>
 ```
 
-<Warning>
+<Callout kind="alert">
 Turn off the browser's own saved-entries list for this input in your theme, or the two lists overlap. The widget doesn't change attributes on your input.
-</Warning>
+</Callout>
 
 ### Options
 
@@ -76,7 +75,7 @@ The widget follows the combobox pattern: the input gets `role="combobox"`, `aria
 
 ## Templates
 
-<Accordion title="panel">
+<Expandable title="panel">
 
 The outer container. It receives every section already rendered as `props.sections`.
 
@@ -90,9 +89,9 @@ templates: {
 }
 ```
 
-</Accordion>
+</Expandable>
 
-<Accordion title="querySuggestions">
+<Expandable title="querySuggestions">
 
 | Prop | Type | Description |
 | --- | --- | --- |
@@ -116,9 +115,9 @@ templates: {
 }
 ```
 
-</Accordion>
+</Expandable>
 
-<Accordion title="productSuggestions">
+<Expandable title="productSuggestions">
 
 ```javascript
 templates: {
@@ -140,21 +139,21 @@ templates: {
 }
 ```
 
-</Accordion>
+</Expandable>
 
-<Accordion title="recentQueries">
+<Expandable title="recentQueries">
 
 Recent queries are stored in `localStorage` for 30 days and only when `analyticsConsentProvided()` returns `true`. Call `args.helpers.removeRecentQuery(query)` to let shoppers delete one.
 
-</Accordion>
+</Expandable>
 
-<Accordion title="popularQueries">
+<Expandable title="popularQueries">
 
 Popular queries come from the last 7 days of search traffic in the shopper's market. Pin or hide queries in the HIJ dashboard.
 
-</Accordion>
+</Expandable>
 
-<Accordion title="emptyState">
+<Expandable title="emptyState">
 
 Shown when nothing matches the typed text. Return `null` to close the panel instead.
 
@@ -168,7 +167,7 @@ templates: {
 }
 ```
 
-</Accordion>
+</Expandable>
 
 ## Callbacks
 
@@ -179,6 +178,6 @@ templates: {
 | `onSelect` | `(item, type)` | An item was chosen. `type` is `query`, `product`, `recent` or `popular`. Return `false` to stop the default navigation. |
 | `onFailure` | `(error)` | The request failed. The panel stays closed. |
 
-<Tip>
+<Callout kind="tip">
 To send the shopper to a collection instead of the results page for certain queries, set up a redirect in the dashboard. Query suggestions follow redirects the same way the [search results widget](/ui-widgets/search-results) does.
-</Tip>
+</Callout>

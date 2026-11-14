@@ -1,6 +1,5 @@
 ---
 title: "HIJ Search developer docs"
-sidebarTitle: "Introduction"
 description: "Developer documentation for HIJ Search: UI widgets, the headless Connector SDK and the v2 REST API."
 ---
 
@@ -12,9 +11,9 @@ HIJ Search adds product search, search suggestions and merchandised collections 
 | Headless (Connector) | `HIJ.Connector.*` | Custom front ends that render their own UI | [Collections connector](/connector/collections) |
 | REST API | `GET https://api.hij-search.example/v2/...` | Server-side rendering and native apps | [API overview](/api/overview) |
 
-Current releases: UI widgets **{{UI_WIDGETS_VERSION}}**, Connector **{{CONNECTOR_VERSION}}**.
+Current releases: UI widgets **3.0.20**, Connector **3.0.21**.
 
-<CardGroup cols={2}>
+<Columns cols="2">
   <Card title="UI widgets quick start" icon="rocket" href="/ui-widgets/quick-start">
     Load the SDK, configure it and render your first widget.
   </Card>
@@ -33,6 +32,6 @@ Current releases: UI widgets **{{UI_WIDGETS_VERSION}}**, Connector **{{CONNECTOR
   <Card title="Connector changelog" icon="clock-rotate-left" href="/changelog/connector">
     Every connector release from 3.0.15 onwards.
   </Card>
-</CardGroup>
+</Columns>
 
 Still running SDK 2.x? The frozen [2.x documentation](/v2/ui-widgets/quick-start) is kept for existing stores. New integrations should use 3.x.

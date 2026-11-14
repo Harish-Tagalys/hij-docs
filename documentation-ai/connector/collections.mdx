@@ -1,18 +1,15 @@
 ---
 title: "Collections connector"
-sidebarTitle: "Collections"
 description: "Fetch a merchandised collection with the headless HIJ Connector and render your own product listing page with filters, sort options and pagination."
 ---
 
-import { Since } from "/snippets/since.jsx";
-
-<Info>
+<Callout kind="info">
 The Collections connector returns data only. Your code renders the page. If you'd rather use ready-made widgets, see the [UI widgets quick start](/ui-widgets/quick-start).
-</Info>
+</Callout>
 
-<Info>
+<Callout kind="info">
 Collections are merchandised in the HIJ dashboard: pinned products, boosted brands and hidden products all apply to the response automatically.
-</Info>
+</Callout>
 
 <Card title="Configuring failover for the Collections connector" icon="life-ring" href="/reuse/page-b" />
 
@@ -21,7 +18,7 @@ Collections are merchandised in the HIJ dashboard: pinned products, boosted bran
 Load the Connector and set the configuration once per page, exactly as in the [quick start](/ui-widgets/quick-start), but with the Connector script:
 
 ```html
-<script src="https://cdn.hij-search.example/hij-connector-{{CONNECTOR_VERSION}}.min.js" defer></script>
+<script src="https://cdn.hij-search.example/hij-connector-3.0.21.min.js" defer></script>
 ```
 
 ## Initialization
@@ -55,7 +52,7 @@ HIJ.Connector.Collection.call({
 | `filters` | object | No | \{\} | 3.0.0 | Applied filters keyed by filter ID. Checkbox filters take an array of item IDs; range filters take `{ min, max }`. | `f[colour][]=blue` |
 | `fields` | string[] | No | all | 3.0.3 | Product fields to return. | `fields` |
 | `includeFilters` | boolean | No | `true` | 3.0.6 | Set to `false` to skip filters when you only need products, for example on page 2+. | `include_filters` |
-| `promoTiles` | boolean | No | `false` | 3.0.15 | Return the promotional tiles configured for this collection, with their grid positions. <Since sdk="connector" v="3.0.15" /> | `promo_tiles` |
+| `promoTiles` | boolean | No | `false` | 3.0.15 | Return the promotional tiles configured for this collection, with their grid positions. (Added in connector 3.0.15) | `promo_tiles` |
 | `context` | object | No | \{\} | 3.0.0 | Extra context passed through to analytics. | (not sent) |
 
 ## Rendering the product listing page
@@ -152,7 +149,7 @@ A typical `renderProductListingPage` does the following:
 
 #### Filter
 
-<Accordion title="getFilters()">
+<Expandable title="getFilters()">
 
 Returns every filter in the response, in dashboard order.
 
@@ -161,9 +158,9 @@ var filters = helpers.getFilters();
 // [{ id: "colour", label: "Colour", type: "checkbox", items: [...] }, ...]
 ```
 
-</Accordion>
+</Expandable>
 
-<Accordion title="getFilterById(filterId)">
+<Expandable title="getFilterById(filterId)">
 
 | Argument | Type | Description |
 | --- | --- | --- |
@@ -171,27 +168,27 @@ var filters = helpers.getFilters();
 
 Returns the filter, or `undefined` if it isn't in the response.
 
-</Accordion>
+</Expandable>
 
-<Accordion title="getFilterItemById(filterId, filterItemId)">
+<Expandable title="getFilterItemById(filterId, filterItemId)">
 
 | Argument | Type | Description |
 | --- | --- | --- |
 | `filterId` | string | ID of the filter. |
 | `filterItemId` | string | ID of the item. Nested items are found too. |
 
-</Accordion>
+</Expandable>
 
-<Accordion title="getAppliedFilters()">
+<Expandable title="getAppliedFilters()">
 
 ```javascript
 helpers.getAppliedFilters();
 // { colour: ["blue", "green"], price: { min: 20, max: 80 } }
 ```
 
-</Accordion>
+</Expandable>
 
-<Accordion title="applyFilter(filterId, value)">
+<Expandable title="applyFilter(filterId, value)">
 
 | Argument | Type | Description |
 | --- | --- | --- |
@@ -200,9 +197,9 @@ helpers.getAppliedFilters();
 
 Applying a filter resets the page to 1 and fetches again.
 
-</Accordion>
+</Expandable>
 
-<Accordion title="clearFilter(filterId, value)">
+<Expandable title="clearFilter(filterId, value)">
 
 Removes one value, or the whole filter when `value` is left out.
 
@@ -211,15 +208,15 @@ Removes one value, or the whole filter when `value` is left out.
 | `filterId` | string | ID of the filter. |
 | `value` | string | Optional item ID. |
 
-</Accordion>
+</Expandable>
 
-<Accordion title="clearAllFilters()">
+<Expandable title="clearAllFilters()">
 
 Removes every applied filter and fetches again.
 
-</Accordion>
+</Expandable>
 
-<Accordion title="isFilterApplied(filterId)">
+<Expandable title="isFilterApplied(filterId)">
 
 | Argument | Type | Description |
 | --- | --- | --- |
@@ -227,17 +224,17 @@ Removes every applied filter and fetches again.
 
 Returns `true` if any value of the filter is applied.
 
-</Accordion>
+</Expandable>
 
 #### Sort options
 
-<Accordion title="getSortOptions()">
+<Expandable title="getSortOptions()">
 
 Returns the sort options with the applied one marked `selected: true`.
 
-<Warning>
+<Callout kind="alert">
 **Changed in connector 3.0.19:** this helper was called `getSortChoices()` before 3.0.19. The old name was removed, not deprecated. See the [3.0.19 changelog entry](/changelog/connector#3-0-19).
-</Warning>
+</Callout>
 
 ```javascript
 helpers.getSortOptions().forEach(function (option) {
@@ -245,75 +242,75 @@ helpers.getSortOptions().forEach(function (option) {
 });
 ```
 
-</Accordion>
+</Expandable>
 
-<Accordion title="getSortOptionById(sortOptionId)">
+<Expandable title="getSortOptionById(sortOptionId)">
 
 | Argument | Type | Description |
 | --- | --- | --- |
 | `sortOptionId` | string | ID of the sort option. |
 
-</Accordion>
+</Expandable>
 
-<Accordion title="getAppliedSortOption()">
+<Expandable title="getAppliedSortOption()">
 
 Returns the applied sort option, or the collection's default.
 
-</Accordion>
+</Expandable>
 
-<Accordion title="applySortOption(sortOptionId)">
+<Expandable title="applySortOption(sortOptionId)">
 
 | Argument | Type | Description |
 | --- | --- | --- |
 | `sortOptionId` | string | ID of the sort option. Resets the page to 1. |
 
-</Accordion>
+</Expandable>
 
 #### Pagination
 
-<Accordion title="goToPage(pageNumber)">
+<Expandable title="goToPage(pageNumber)">
 
 | Argument | Type | Description |
 | --- | --- | --- |
 | `pageNumber` | number | Page to load. Out-of-range values are clamped. |
 
-</Accordion>
+</Expandable>
 
-<Accordion title="goToNextPage() and goToPreviousPage()">
+<Expandable title="goToNextPage() and goToPreviousPage()">
 
 Load the next or previous page. They do nothing on the last or first page.
 
-</Accordion>
+</Expandable>
 
-<Accordion title="getCurrentPage(), getTotalPages(), hasNextPage(), hasPreviousPage()">
+<Expandable title="getCurrentPage(), getTotalPages(), hasNextPage(), hasPreviousPage()">
 
 Read the pagination state without fetching.
 
-</Accordion>
+</Expandable>
 
 #### Products
 
-<Accordion title="getProducts()">
+<Expandable title="getProducts()">
 
-Returns the products on the current page. With `promoTiles: true` <Since sdk="connector" v="3.0.15" />, promotional tiles are **not** mixed in; insert them yourself from `response.promo_tiles`.
+Returns the products on the current page. With `promoTiles: true` (Added in connector 3.0.15), promotional tiles are **not** mixed in; insert them yourself from `response.promo_tiles`.
 
-</Accordion>
+</Expandable>
 
-<Accordion title="getTotalProductsCount()">
+<Expandable title="getTotalProductsCount()">
 
 Total products matching the applied filters.
 
-</Accordion>
+</Expandable>
 
 #### Request state
 
-<Accordion title="getRequestParams()">
+<Expandable title="getRequestParams()">
 
 Returns the params for the current state, ready to pass to `call()` again, for example after a back navigation.
 
-</Accordion>
+</Expandable>
 
-<Accordion title="getEncodedQueryString(requestParams)">
+<Expandable title="getEncodedQueryString(requestParams)">
 
 Encodes params into a query string so you can keep state in the URL.
 
@@ -323,7 +320,7 @@ history.replaceState(null, "", "?" + qs);
 // ?hij_sort=price-asc&hij_page=2&hij_f%5Bcolour%5D%5B%5D=blue
 ```
 
-</Accordion>
+</Expandable>
 
 ## Analytics
 

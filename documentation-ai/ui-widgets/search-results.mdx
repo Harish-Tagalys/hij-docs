@@ -1,12 +1,11 @@
 ---
 title: "Search results widget"
-sidebarTitle: "Search results"
 description: "Initialise and customise the HIJ search results widget: options, templates for every part of the page, helpers and callbacks."
 ---
 
-<Info>
+<Callout kind="info">
 **Search redirects:** if a query matches a redirect set up in the HIJ dashboard, the widget sends the shopper to the redirect URL before rendering any results. Turn this off with `params.followRedirects: false`.
-</Info>
+</Callout>
 
 ## Initialization
 
@@ -16,7 +15,7 @@ HIJ.UIWidgets.SearchResults.init(selector, configurationOptions)
 
 `init` accepts two arguments.
 
-<Accordion title="selector: string">
+<Expandable title="selector: string">
 
 The CSS selector of the element the widget renders into. The element must exist and be visible when `init` runs.
 
@@ -24,9 +23,9 @@ The CSS selector of the element the widget renders into. The element must exist 
 HIJ.UIWidgets.SearchResults.init("#hij-search-results", configurationOptions)
 ```
 
-</Accordion>
+</Expandable>
 
-<Accordion title="configurationOptions: object">
+<Expandable title="configurationOptions: object">
 
 | Option | Type | Default | Required | Since | Description |
 | --- | --- | --- | --- | --- | --- |
@@ -40,7 +39,7 @@ HIJ.UIWidgets.SearchResults.init("#hij-search-results", configurationOptions)
 | `templates` | object | \{\} | No | 3.0.0 | Overrides for any template on this page. |
 | `callbacks` | object | \{\} | No | 3.0.0 | Hooks for custom logic. See [Callbacks reference](#callbacks-reference). |
 
-</Accordion>
+</Expandable>
 
 ```html
 <div id="hij-search-results"></div>
@@ -74,19 +73,19 @@ HIJ.UIWidgets.SearchResults.init("#hij-search-results", configurationOptions)
 
 ## Templates
 
-<Note>
+<Callout kind="info">
 Templates use tagged template literals. Every `render` function receives `html` and an `args` object with `props` (the data for this template) and `templates` (every other template, so you can compose them). Return `null` to render nothing.
-</Note>
+</Callout>
 
 ### Structure
 
 The results page is made of nested templates. The outer `widget` template renders the `header`, the `filters` column and the product list. Each of those is built from smaller templates you can override one by one.
 
-![Wireframe of the search results widget: heading at the top, filter column on the left, product grid with pagination on the right](/assets/search-results-structure.png)
+<Image src="/assets/search-results-structure.png" alt="Wireframe of the search results widget: heading at the top, filter column on the left, product grid with pagination on the right" />
 
 While a request is in flight the `loader` template renders. When a query has no results, the `noResults` template renders instead of the product list, optionally followed by recommendation widgets.
 
-![Wireframe of the loader skeleton on the left and the no-results state with a recommendation strip on the right](/assets/search-results-states.png)
+<Image src="/assets/search-results-states.png" alt="Wireframe of the loader skeleton on the left and the no-results state with a recommendation strip on the right" />
 
 | Template | Parent | Key props | Renders |
 | --- | --- | --- | --- |
@@ -119,7 +118,7 @@ While a request is in flight the `loader` template renders. When a query has no 
 
 ### Reference
 
-<Accordion title="widget">
+<Expandable title="widget">
 
 The root template. Override it only when you need to change the overall layout, for example to move filters above the grid.
 
@@ -157,9 +156,9 @@ HIJ.UIWidgets.SearchResults.init(selector, {
 });
 ```
 
-</Accordion>
+</Expandable>
 
-<Accordion title="loader">
+<Expandable title="loader">
 
 Renders while the first request is in flight. Later requests (filter, sort and page changes) keep the current products on screen and add the `hij-results--loading` class instead.
 
@@ -178,9 +177,9 @@ templates: {
 }
 ```
 
-</Accordion>
+</Expandable>
 
-<Accordion title="noResults">
+<Expandable title="noResults">
 
 Renders when a query returns no products. `props.suggestedQueries` holds up to five spelling-corrected or popular queries.
 
@@ -203,9 +202,9 @@ templates: {
 }
 ```
 
-</Accordion>
+</Expandable>
 
-<Accordion title="noResultsWidgets">
+<Expandable title="noResultsWidgets">
 
 Show recommendation strips under the empty state so the shopper still sees products. Each entry needs a `recommendationId`, which you find in the HIJ dashboard under **Recommendations**.
 
@@ -227,13 +226,13 @@ HIJ.UIWidgets.SearchResults.init(selector, {
 | `title` | string | No | Heading shown above the strip. |
 | `limit` | number | No | Maximum products. Defaults to `8`. |
 
-<Note>
+<Callout kind="info">
 Recommendation strips send their own `recommendation_viewed` events. You don't need to track them separately.
-</Note>
+</Callout>
 
-</Accordion>
+</Expandable>
 
-<Accordion title="header">
+<Expandable title="header">
 
 Wraps the heading. Return `null` to hide the heading area entirely, for example when your theme already renders one.
 
@@ -247,9 +246,9 @@ templates: {
 }
 ```
 
-</Accordion>
+</Expandable>
 
-<Accordion title="heading">
+<Expandable title="heading">
 
 `props.correctedQuery` is set when HIJ searched for a corrected spelling instead of the shopper's query.
 
@@ -267,9 +266,9 @@ templates: {
 }
 ```
 
-</Accordion>
+</Expandable>
 
-<Accordion title="productListHeader">
+<Expandable title="productListHeader">
 
 The bar above the product grid. By default it renders `infoAndActions`.
 
@@ -283,9 +282,9 @@ templates: {
 }
 ```
 
-</Accordion>
+</Expandable>
 
-<Accordion title="infoAndActions">
+<Expandable title="infoAndActions">
 
 | Prop | Type | Description |
 | --- | --- | --- |
@@ -311,9 +310,9 @@ templates: {
 }
 ```
 
-</Accordion>
+</Expandable>
 
-<Accordion title="sortOptions">
+<Expandable title="sortOptions">
 
 Renders the sort control. Call `args.helpers.applySortOption(id)` when the shopper picks an option.
 
@@ -337,9 +336,9 @@ templates: {
 }
 ```
 
-</Accordion>
+</Expandable>
 
-<Accordion title="filters">
+<Expandable title="filters">
 
 The filter column. On mobile it renders inside a drawer that `infoAndActions` opens.
 
@@ -361,13 +360,13 @@ templates: {
 }
 ```
 
-<Warning>
+<Callout kind="alert">
 Don't filter the `filters` array in this template to hide a filter. Hidden filters still count towards applied filters. Hide filters in the dashboard instead.
-</Warning>
+</Callout>
 
-</Accordion>
+</Expandable>
 
-<Accordion title="filtersHeader">
+<Expandable title="filtersHeader">
 
 ```javascript
 templates: {
@@ -386,9 +385,9 @@ templates: {
 }
 ```
 
-</Accordion>
+</Expandable>
 
-<Accordion title="appliedFilters">
+<Expandable title="appliedFilters">
 
 Each applied filter has `filterId`, `filterItemId`, `label` and, for ranges, `min` and `max`.
 
@@ -413,9 +412,9 @@ templates: {
 }
 ```
 
-</Accordion>
+</Expandable>
 
-<Accordion title="filter">
+<Expandable title="filter">
 
 One filter group, such as Colour or Size.
 
@@ -427,9 +426,9 @@ One filter group, such as Colour or Size.
 | `filter.items` | array | Items for checkbox filters. Items can have their own `items` for nested values. |
 | `filter.min` / `filter.max` | number | Bounds for range filters. |
 
-</Accordion>
+</Expandable>
 
-<Accordion title="filterHeader">
+<Expandable title="filterHeader">
 
 Toggle a group open or closed with `args.helpers.toggleFilter(filterId)`. Open state is kept per page view.
 
@@ -448,9 +447,9 @@ templates: {
 }
 ```
 
-</Accordion>
+</Expandable>
 
-<Accordion title="filterItems">
+<Expandable title="filterItems">
 
 Chooses which template renders the items of a filter. Override it to render a colour filter as swatches, for example.
 
@@ -469,9 +468,9 @@ templates: {
 }
 ```
 
-</Accordion>
+</Expandable>
 
-<Accordion title="filterCheckBoxes">
+<Expandable title="filterCheckBoxes">
 
 Renders a list of checkbox items. It calls itself for nested items, so a selected parent such as "Shirts" shows its children ("Linen shirts", "Oxford shirts") indented underneath.
 
@@ -508,9 +507,9 @@ HIJ.UIWidgets.SearchResults.init(selector, {
 });
 ```
 
-</Accordion>
+</Expandable>
 
-<Accordion title="checkboxFilterItem">
+<Expandable title="checkboxFilterItem">
 
 | Prop | Type | Description |
 | --- | --- | --- |
@@ -544,9 +543,9 @@ templates: {
 }
 ```
 
-</Accordion>
+</Expandable>
 
-<Accordion title="rangeSliderFilterItem">
+<Expandable title="rangeSliderFilterItem">
 
 Renders a two-handle slider for price and other numeric filters. Changes are applied when the shopper releases a handle, not on every move.
 
@@ -569,13 +568,13 @@ templates: {
 }
 ```
 
-<Tip>
+<Callout kind="tip">
 Price filters are only offered to shoppers in the base market. See `baseMarketCode` in the [quick start](/ui-widgets/quick-start).
-</Tip>
+</Callout>
 
-</Accordion>
+</Expandable>
 
-<Accordion title="products">
+<Expandable title="products">
 
 ```javascript
 templates: {
@@ -593,13 +592,13 @@ templates: {
 }
 ```
 
-</Accordion>
+</Expandable>
 
-<Accordion title="product">
+<Expandable title="product">
 
 The product tile. Clicks on the tile are tracked automatically as long as the link has the `data-hij-product-link` attribute.
 
-<Accordion title="Liquid storefronts">
+<Expandable title="Liquid storefronts">
 
 In Liquid themes, product URLs come from the catalog and already include the market prefix.
 
@@ -625,7 +624,7 @@ templates: {
 }
 ```
 
-<Accordion title="Configuring productPageUrl">
+<Expandable title="Configuring productPageUrl">
 
 If your product pages live under a custom path, build the URL yourself:
 
@@ -639,11 +638,11 @@ templates: {
 }
 ```
 
-</Accordion>
+</Expandable>
 
-</Accordion>
+</Expandable>
 
-<Accordion title="Headless storefronts">
+<Expandable title="Headless storefronts">
 
 Headless storefronts usually route with their own router. Prevent the full page load and call your router instead, after the click has been tracked.
 
@@ -672,11 +671,11 @@ templates: {
 }
 ```
 
-</Accordion>
+</Expandable>
 
-</Accordion>
+</Expandable>
 
-<Accordion title="productListFooter">
+<Expandable title="productListFooter">
 
 ```javascript
 templates: {
@@ -688,9 +687,9 @@ templates: {
 }
 ```
 
-</Accordion>
+</Expandable>
 
-<Accordion title="pagination">
+<Expandable title="pagination">
 
 Renders `loadPrevious` and `loadNext` for `loadMore` and `infiniteScroll`, or `paginationLinks` for `links`.
 
@@ -700,9 +699,9 @@ Renders `loadPrevious` and `loadNext` for `loadMore` and `infiniteScroll`, or `p
 | `infiniteScroll` | `loadPrevious` (only when starting mid-list) | Yes, `hij_page` | Yes |
 | `links` | `paginationLinks` | Yes, `hij_page` | Yes, scrolls to top |
 
-</Accordion>
+</Expandable>
 
-<Accordion title="loadPrevious">
+<Expandable title="loadPrevious">
 
 Shown when the shopper lands on page 2 or later from a shared URL.
 
@@ -717,9 +716,9 @@ templates: {
 }
 ```
 
-</Accordion>
+</Expandable>
 
-<Accordion title="loadNext">
+<Expandable title="loadNext">
 
 ```javascript
 templates: {
@@ -736,9 +735,9 @@ templates: {
 }
 ```
 
-</Accordion>
+</Expandable>
 
-<Accordion title="paginationLinks">
+<Expandable title="paginationLinks">
 
 ```javascript
 templates: {
@@ -758,9 +757,9 @@ templates: {
 }
 ```
 
-</Accordion>
+</Expandable>
 
-<Accordion title="closeIcon">
+<Expandable title="closeIcon">
 
 A shared icon used by applied filter chips and the mobile filter drawer.
 
@@ -775,11 +774,11 @@ templates: {
 }
 ```
 
-</Accordion>
+</Expandable>
 
 ### Helpers
 
-<Accordion title="UI widget helpers">
+<Expandable title="UI widget helpers">
 
 Available as `args.helpers` inside every template, and as the second argument of every callback.
 
@@ -796,13 +795,13 @@ Available as `args.helpers` inside every template, and as the second argument of
 | `formatPrice(value)` | Format with the configured currency. |
 | `trackProductClick(product)` | Send a click event. Returns a promise. |
 
-</Accordion>
+</Expandable>
 
-<Accordion title="Core helpers">
+<Expandable title="Core helpers">
 
 The widget is built on the Connector, so every [Connector helper](/connector/collections#helpers) is also available, such as `getFilters()`, `getAppliedFilters()` and `getSortOptions()`.
 
-</Accordion>
+</Expandable>
 
 ## Callbacks reference
 
@@ -847,9 +846,9 @@ HIJ.UIWidgets.SearchResults.init("#hij-search-results", {
 });
 ```
 
-<Warning>
+<Callout kind="alert">
 `beforeRender` changes only what's shown. Totals, pagination and analytics still use the original response, so removing many products here can leave short pages.
-</Warning>
+</Callout>
 
 ---
 

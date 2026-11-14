@@ -1,12 +1,9 @@
 ---
 title: "Failover for UI widgets"
-sidebarTitle: "Failover (UI widgets)"
 description: "What the HIJ UI widgets do when HIJ Search can't be reached, and how to configure the fallback widgets."
 ---
 
-import Failover from "/snippets/failover.mdx";
-
-<Failover connector="SearchResults widget" fallback="CatalogSearchResults widget" />
+If the HIJ Search API can't be reached, the SearchResults widget switches to the CatalogSearchResults widget, which reads products straight from your store's own catalog feed. Keep the fallback configured even if you never expect an outage.
 
 ## Configure the fallback
 

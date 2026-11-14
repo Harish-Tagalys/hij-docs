@@ -1,12 +1,11 @@
 ---
 title: "Quick start (SDK 2.x, legacy)"
-sidebarTitle: "Quick start"
 description: "Legacy: set up the HIJ widgets SDK 2.x. New integrations should use SDK 3.x."
 ---
 
-<Warning>
+<Callout kind="alert">
 **Legacy documentation: SDK 2.x.** This version is frozen and receives security and critical fixes only. New integrations should use [SDK 3.x](/ui-widgets/quick-start). [View the 3.x version of this page](/ui-widgets/quick-start).
-</Warning>
+</Callout>
 
 ## Include the SDK
 
@@ -43,8 +42,8 @@ HIJSearch.configure({
 HIJSearch.Widgets.SearchResults.render("#results", { query: "linen shirt" });
 ```
 
-<Note>
+<Callout kind="info">
 SDK 2.x has no consent hook. Analytics run whenever `track: true` is set. Upgrading to 3.x adds `analyticsConsentProvided`.
-</Note>
+</Callout>
 
 Legacy reference: `HIJ-LEGACY-CANARY-7Q`

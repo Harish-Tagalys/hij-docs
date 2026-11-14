@@ -1,12 +1,11 @@
 ---
 title: "Search results widget (SDK 2.x, legacy)"
-sidebarTitle: "Search results"
 description: "Legacy: the SDK 2.x search results widget. New integrations should use SDK 3.x."
 ---
 
-<Warning>
+<Callout kind="alert">
 **Legacy documentation: SDK 2.x.** This version is frozen and receives security and critical fixes only. New integrations should use [SDK 3.x](/ui-widgets/search-results). [View the 3.x version of this page](/ui-widgets/search-results).
-</Warning>
+</Callout>
 
 ## Render
 
@@ -23,7 +22,7 @@ HIJSearch.Widgets.SearchResults.render(selector, {
 
 SDK 2.x templates return HTML strings, not tagged templates.
 
-<Accordion title="filterCheckBoxes">
+<Expandable title="filterCheckBoxes">
 
 ```javascript
 templates: {
@@ -36,9 +35,9 @@ templates: {
 }
 ```
 
-</Accordion>
+</Expandable>
 
-<Accordion title="product">
+<Expandable title="product">
 
 ```javascript
 templates: {
@@ -48,13 +47,13 @@ templates: {
 }
 ```
 
-</Accordion>
+</Expandable>
 
-<Accordion title="noResults">
+<Expandable title="noResults">
 
 SDK 2.x can't show recommendation strips on the empty state. That's available in 3.x only.
 
-</Accordion>
+</Expandable>
 
 | 2.x option | 3.x replacement |
 | --- | --- |

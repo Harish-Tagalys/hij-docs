@@ -1,14 +1,13 @@
 ---
 title: "Storefront API overview"
-sidebarTitle: "Overview"
 description: "Base URL, authentication, response codes, pagination, sorting and filtering for the HIJ Search Storefront API v2."
 ---
 
 The Storefront API returns the same search, suggestions and collection data as the JavaScript SDKs. Use it for server-side rendering, native apps and anywhere you can't run the SDKs. This reference covers **v2** only.
 
-<Note>
+<Callout kind="info">
 The SDKs call this API for you. You only need it if you're not using the [UI widgets](/ui-widgets/quick-start) or the [Connector](/connector/collections).
-</Note>
+</Callout>
 
 ## Base URL
 
@@ -27,9 +26,9 @@ curl "https://api.hij-search.example/v2/search?store_id=<YOUR-STORE-ID>&q=linen+
   -H "X-HIJ-Storefront-Key: <YOUR-STOREFRONT-KEY>"
 ```
 
-<Warning>
+<Callout kind="alert">
 The storefront key is public and read-only. Never send a secret key from a browser or app.
-</Warning>
+</Callout>
 
 ## Response codes
 
@@ -62,7 +61,7 @@ Filters use the `f` parameter, keyed by filter ID.
 
 ## Endpoints
 
-<CardGroup cols={3}>
+<Columns cols="3">
   <Card title="Search" icon="magnifying-glass" href="/api/endpoints/search">
     `GET /v2/search`
   </Card>
@@ -72,4 +71,4 @@ Filters use the `f` parameter, keyed by filter ID.
   <Card title="Collection" icon="layer-group" href="/api/endpoints/collection">
     `GET /v2/collections/{id}`
   </Card>
-</CardGroup>
+</Columns>
