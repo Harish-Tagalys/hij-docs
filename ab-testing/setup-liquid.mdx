@@ -1,12 +1,11 @@
 ---
 title: "A/B testing collections in a Liquid theme"
-sidebarTitle: "Set up (Liquid)"
 description: "Split traffic between a collection and its variant collections in a Liquid theme with the HIJ A/B testing library."
 ---
 
-<Info>
+<Callout kind="info">
 This guide is for stores that render collection pages with a Liquid theme. For headless storefronts, the Connector picks the variant for you; no theme changes are needed.
-</Info>
+</Callout>
 
 ## How it works
 
@@ -17,7 +16,7 @@ An A/B test compares a **primary collection** with one or more **variant collect
 3. If the shopper was assigned to a variant, the library loads that variant's products into the page. The URL in the address bar doesn't change.
 4. Every collection event is tagged with the test and variant, so the dashboard can compare conversion.
 
-<Accordion title="Variant collections in detail">
+<Expandable title="Variant collections in detail">
 
 Variant collections are normal collections in your store with two metafields:
 
@@ -29,13 +28,13 @@ Variant collections are normal collections in your store with two metafields:
 
 The HIJ dashboard creates and fills these metafields when you start a test. Don't edit them by hand while a test is running.
 
-</Accordion>
+</Expandable>
 
-<Accordion title="Collection handles with a suffix">
+<Expandable title="Collection handles with a suffix">
 
 Variants get the primary collection's handle plus a suffix, for example `summer-linen` and `summer-linen-hij-b`. Keep the suffix: Step 6 relies on it to hide variants from navigation and sitemaps.
 
-</Accordion>
+</Expandable>
 
 ## Integration steps
 
@@ -98,9 +97,9 @@ The title, description and banner should stay the same in every variant. Read th
 </header>
 ```
 
-<Info>
+<Callout kind="info">
 Only the product grid, sort options and filters come from the variant. Everything else on the page comes from the primary collection.
-</Info>
+</Callout>
 
 ### Step 5: Use `collection` for products, sort options and filters
 
@@ -121,9 +120,9 @@ Keep using the plain `collection` object for the product grid, sort options and 
 
 Variant collections must not be discoverable in menus, sitemaps or collection lists.
 
-<Info>
+<Callout kind="info">
 Shoppers who open a variant's URL directly are redirected to the primary collection, so a leaked link is harmless. Hiding variants keeps them out of your own menus and lists.
-</Info>
+</Callout>
 
 ```liquid
 {%- for c in collections -%}
@@ -133,15 +132,15 @@ Shoppers who open a variant's URL directly are redirected to the primary collect
 {%- endfor -%}
 ```
 
-<Tip>
+<Callout kind="tip">
 After deploying, open the primary collection in a private window a few times. You should land in different variants, and the canonical tag should always point at the primary collection.
-</Tip>
+</Callout>
 
 ## Customisation
 
 Set options on `window.HIJABTesting` before the library script loads.
 
-<Accordion title="Prevent initialisation for specific visitors">
+<Expandable title="Prevent initialisation for specific visitors">
 
 ```javascript
 window.HIJABTesting = window.HIJABTesting || {};
@@ -151,9 +150,9 @@ window.HIJABTesting.shouldInitialise = function (context) {
 };
 ```
 
-</Accordion>
+</Expandable>
 
-<Accordion title="Force-assign a visitor to a variant">
+<Expandable title="Force-assign a visitor to a variant">
 
 Useful for QA. The assignment lasts until the cookie expires.
 
@@ -165,9 +164,9 @@ window.HIJABTesting.forceVariant = function (configuration) {
 };
 ```
 
-</Accordion>
+</Expandable>
 
-<Accordion title="Customise collection URLs and redirection">
+<Expandable title="Customise collection URLs and redirection">
 
 ```javascript
 window.HIJABTesting = window.HIJABTesting || {};
@@ -182,9 +181,9 @@ window.HIJABTesting.onRedirect = function (redirect) {
 };
 ```
 
-</Accordion>
+</Expandable>
 
-<Accordion title="Check whether a collection is a test variant">
+<Expandable title="Check whether a collection is a test variant">
 
 ```javascript
 if (window.HIJABTesting.isVariant(collectionHandle)) {
@@ -192,11 +191,11 @@ if (window.HIJABTesting.isVariant(collectionHandle)) {
 }
 ```
 
-</Accordion>
+</Expandable>
 
 ### Data formats
 
-<Accordion title="configuration">
+<Expandable title="configuration">
 
 ```javascript
 {
@@ -211,9 +210,9 @@ if (window.HIJABTesting.isVariant(collectionHandle)) {
 }
 ```
 
-</Accordion>
+</Expandable>
 
-<Accordion title="redirect">
+<Expandable title="redirect">
 
 ```javascript
 {
@@ -223,4 +222,4 @@ if (window.HIJABTesting.isVariant(collectionHandle)) {
 }
 ```
 
-</Accordion>
+</Expandable>

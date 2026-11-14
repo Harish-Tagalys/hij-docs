@@ -1,0 +1,133 @@
+{
+  "name": "HIJ Search Docs",
+  "initialRoute": "index",
+  "icons": {
+    "library": "fontawesome"
+  },
+  "colors": {
+    "light": {
+      "brand": "#4F46E5"
+    },
+    "dark": {
+      "brand": "#818CF8"
+    }
+  },
+  "navigation": {
+    "versions": [
+      {
+        "version": "3.x",
+        "tabs": [
+          {
+            "tab": "Guides",
+            "groups": [
+              {
+                "group": "Get started",
+                "pages": [
+                  { "title": "Introduction", "path": "index" },
+                  { "title": "Quick start", "path": "ui-widgets/quick-start" }
+                ]
+              },
+              {
+                "group": "UI widgets",
+                "pages": [
+                  { "title": "Search results", "path": "ui-widgets/search-results" },
+                  { "title": "Search suggestions", "path": "ui-widgets/search-suggestions" }
+                ]
+              },
+              {
+                "group": "Connector",
+                "pages": [
+                  { "title": "Collections", "path": "connector/collections" }
+                ]
+              },
+              {
+                "group": "A/B testing",
+                "pages": [
+                  { "title": "Set up (Liquid)", "path": "ab-testing/setup-liquid" }
+                ]
+              },
+              {
+                "group": "Failover",
+                "pages": [
+                  { "title": "Failover (UI widgets)", "path": "reuse/page-a" },
+                  { "title": "Failover (Connector)", "path": "reuse/page-b" }
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "API reference",
+            "groups": [
+              {
+                "group": "Storefront API v2",
+                "pages": [
+                  { "title": "Overview", "path": "api/overview" },
+                  {
+                    "title": "Search",
+                    "path": "api/endpoints/search",
+                    "method": "GET",
+                    "openapi": "api-reference/openapi.yaml GET /v2/search"
+                  },
+                  {
+                    "title": "Suggestions",
+                    "path": "api/endpoints/suggestions",
+                    "method": "GET",
+                    "openapi": "api-reference/openapi.yaml GET /v2/suggestions"
+                  },
+                  {
+                    "title": "Collection",
+                    "path": "api/endpoints/collection",
+                    "method": "GET",
+                    "openapi": "api-reference/openapi.yaml GET /v2/collections/{id}"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "Changelog",
+            "groups": [
+              {
+                "group": "Release notes",
+                "pages": [
+                  { "title": "Connector", "path": "changelog/connector" }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "version": "2.x (legacy)",
+        "tabs": [
+          {
+            "tab": "Guides",
+            "groups": [
+              {
+                "group": "SDK 2.x (legacy)",
+                "pages": [
+                  { "title": "Quick start", "path": "v2/ui-widgets/quick-start" },
+                  { "title": "Search results", "path": "v2/ui-widgets/search-results" }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "redirects": [
+    {
+      "source": "/quick-start",
+      "destination": "/ui-widgets/quick-start"
+    },
+    {
+      "source": "/legacy/:section/:slug",
+      "destination": "/v2/:section/:slug"
+    },
+    {
+      "source": "/legacy/:slug",
+      "destination": "/v2/:slug"
+    }
+  ]
+}

@@ -1,12 +1,9 @@
 ---
 title: "Failover for the Connector"
-sidebarTitle: "Failover (Connector)"
 description: "What the headless HIJ Connector does when HIJ Search can't be reached, and how to handle the fallback in your own UI."
 ---
 
-import Failover from "/snippets/failover.mdx";
-
-<Failover connector="SearchResults connector" fallback="CatalogSearchResults connector" />
+If the HIJ Search API can't be reached, the SearchResults connector switches to the CatalogSearchResults connector, which reads products straight from your store's own catalog feed. Keep the fallback configured even if you never expect an outage.
 
 ## Handle the fallback in your UI
 
