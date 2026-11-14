@@ -1,0 +1,6 @@
+# GitBook space "Home / Home". Mapped by ../gitbook-docs.yaml (site-wide Git Sync), key space-home.
+root: ./
+
+structure:
+  readme: README.md
+  summary: SUMMARY.md

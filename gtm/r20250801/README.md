@@ -1,0 +1,54 @@
+---
+description: "Legacy: install and configure GTM template release r20250801. New setups should use the current template release."
+---
+
+# Set up the HIJ Google Tag Manager template (r20250801, legacy)
+
+{% hint style="warning" %}
+**Legacy documentation: GTM template r20250801.** This release still works but no longer receives new features. Upgrade to the current release for consent mode support. [View the current GTM template documentation](https://hij.gitbook.io/hij-docs/gtm).
+{% endhint %}
+
+The HIJ tag template sends shopper events to the HIJ analytics API from Google Tag Manager. This page covers template release **r20250801**.
+
+## Install the template
+
+1. In GTM, open **Templates → Tag templates** and select **HIJ Search Analytics**.
+2. Under **Template details**, check that the release is `r20250801`. The gallery always installs the current release, so stores on r20250801 keep it only by not updating the template.
+3. Create a new tag of type **HIJ Search Analytics**.
+
+## Configure the tag
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `hijStoreId` | Variable | Yes | Your store ID. Create a constant variable named `hijStoreId` and select it here. |
+| `storefrontKey` | Text | Yes | Your public storefront key from **Settings → Keys**. |
+| `apiVersion` | Locked | | Always `v2`. Events are sent to `https://api.hij-search.example/v2/events`. |
+| `marketCode` | Variable | No | The shopper's market, for stores that sell in several markets. |
+
+This release has no `consentMode` field.
+
+## Map data layer events
+
+Release r20250801 sends the same HIJ analytics API v2 events as the current release.
+
+| Data layer event | HIJ event (API v2) | Required data layer fields |
+| --- | --- | --- |
+| `view_item` | `product_viewed` | `ecommerce.items[0].item_id` |
+| `select_item` | `product_clicked` | `ecommerce.items[0].item_id`, `ecommerce.item_list_id` |
+| `add_to_cart` | `product_added_to_cart` | `ecommerce.items[]` with `item_id`, `quantity` |
+| `view_item_list` | `collection_viewed` | `ecommerce.item_list_id`, `ecommerce.items[]` |
+| `search` | `search_performed` | `search_term` |
+| `purchase` | `order_completed` | `ecommerce.transaction_id`, `ecommerce.value`, `ecommerce.items[]` |
+
+## Consent
+
+Without a `consentMode` field, the tag sends events whenever it fires. Block it until the shopper consents:
+
+1. Open the tag's **Advanced settings → Consent settings**.
+2. Select **Require additional consent for tag to fire** and add `analytics_storage`.
+
+Upgrading to the current release replaces this with the `consentMode` field.
+
+---
+
+Page reference: `HIJ-GTM-LEGACY-G25`

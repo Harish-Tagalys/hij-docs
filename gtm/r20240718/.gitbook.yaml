@@ -1,0 +1,9 @@
+# GitBook space "GTM / r20240718". Mapped by ../../gitbook-docs.yaml (site-wide Git Sync), key space-gtm-r20240718.
+root: ./
+
+structure:
+  readme: README.md
+  summary: SUMMARY.md
+
+redirects:
+  setup: README.md

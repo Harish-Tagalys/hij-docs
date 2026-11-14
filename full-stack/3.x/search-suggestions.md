@@ -1,0 +1,190 @@
+---
+description: "Attach the HIJ suggestions widget to your store's query input field to show query suggestions, matching products, recent and popular queries while the shopper types."
+---
+
+# Search suggestions widget
+
+The suggestions widget attaches to the query input field your theme already has. As the shopper types, it opens a panel under the field with:
+
+- **Query suggestions**: completions of what the shopper has typed so far, ranked by how often they lead to a purchase.
+- **Product suggestions**: up to six matching products with image and price.
+- **Recent queries**: the shopper's own last queries (only with analytics consent).
+- **Popular queries**: shown when the field is focused but still empty.
+
+![Wireframe of the suggestions panel open under the query input field, with query suggestions on the left and product suggestions on the right](.gitbook/assets/suggestions-wireframe.svg)
+
+{% hint style="info" %}
+The widget doesn't render its own input. It enhances an existing `<input>`, so the field keeps your theme's styling and still submits your normal results page when the shopper presses Enter.
+{% endhint %}
+
+## Initialization
+
+```javascript
+HIJ.UIWidgets.SearchSuggestions.init(inputSelector, configurationOptions)
+```
+
+```html
+<form action="/search" method="get" role="search">
+  <input id="hij-query-input" type="search" name="q" placeholder="What are you looking for?" />
+</form>
+
+<script>
+  onHIJReady(function () {
+    HIJ.UIWidgets.SearchSuggestions.init("#hij-query-input", {
+      minQueryLength: 2,
+      debounceMs: 120,
+      sections: ["querySuggestions", "productSuggestions", "recentQueries", "popularQueries"],
+      limits: { querySuggestions: 6, productSuggestions: 6, recentQueries: 4, popularQueries: 8 },
+      resultsPageUrl: function (query) {
+        return "/search?q=" + encodeURIComponent(query);
+      },
+    });
+  });
+</script>
+```
+
+{% hint style="warning" %}
+Turn off the browser's own saved-entries list for this input in your theme, or the two lists overlap. The widget doesn't change attributes on your input.
+{% endhint %}
+
+### Options
+
+| Option | Type | Default | Description |
+| --- | --- | --- | --- |
+| `minQueryLength` | number | `1` | Characters needed before suggestions are requested. Popular queries still show on focus. |
+| `debounceMs` | number | `150` | Wait this long after the last keystroke before requesting suggestions. |
+| `sections` | string[] | all four | Which sections to show, in this order. |
+| `limits` | object | see example | Maximum items per section. |
+| `resultsPageUrl` | function | `(q) => "/search?q=" + q` | Builds the URL opened when a query suggestion is chosen. |
+| `openOnFocus` | boolean | `true` | Open the panel with popular and recent queries when the empty field is focused. |
+| `panelContainer` | string | the input's parent | Selector of the element the panel is appended to. Use it when a parent has `overflow: hidden`. |
+| `highlightMatches` | boolean | `true` | Wrap the typed characters in `<mark>` in query suggestions. |
+| `templates` | object | {} | Template overrides. See below. |
+| `callbacks` | object | {} | See [Callbacks](#callbacks). |
+
+## Keyboard and accessibility
+
+The widget follows the combobox pattern: the input gets `role="combobox"`, `aria-expanded` and `aria-activedescendant`, and the panel is a `listbox`.
+
+| Key | Panel closed | Panel open |
+| --- | --- | --- |
+| Arrow Down | Opens the panel | Moves to the next item, across sections |
+| Arrow Up | Nothing | Moves to the previous item |
+| Enter | Submits the form | Opens the highlighted item, or submits the form if nothing is highlighted |
+| Escape | Clears the field | Closes the panel and keeps the typed text |
+| Tab | Moves focus | Closes the panel and moves focus |
+
+## Templates
+
+<details>
+<summary>panel</summary>
+
+The outer container. It receives every section already rendered as `props.sections`.
+
+```javascript
+templates: {
+  panel: {
+    render: function (html, args) {
+      return html`<div class="hij-suggest" role="listbox">${args.props.sections}</div>`;
+    },
+  },
+}
+```
+
+</details>
+
+<details>
+<summary>querySuggestions</summary>
+
+| Prop | Type | Description |
+| --- | --- | --- |
+| `items[].query` | string | The suggested query. |
+| `items[].highlighted` | string | The query with the typed characters wrapped in `<mark>`. |
+| `items[].inFilter` | object | Optional scoped suggestion, for example "linen shirts in Women". |
+
+```javascript
+templates: {
+  querySuggestions: {
+    render: function (html, args) {
+      return html`
+        <section class="hij-suggest__queries">
+          ${args.props.items.map((item) => html`
+            <a href=${args.helpers.getResultsPageUrl(item.query)} dangerouslySetInnerHTML=${{ __html: item.highlighted }} />
+          `)}
+        </section>
+      `;
+    },
+  },
+}
+```
+
+</details>
+
+<details>
+<summary>productSuggestions</summary>
+
+```javascript
+templates: {
+  productSuggestions: {
+    render: function (html, args) {
+      return html`
+        <section class="hij-suggest__products">
+          ${args.props.items.map((product) => html`
+            <a href=${product.url} data-hij-product-link>
+              <img src=${product.image.src} alt=${product.image.alt || product.title} />
+              <span>${product.title}</span>
+              <span>${args.helpers.formatPrice(product.price)}</span>
+            </a>
+          `)}
+        </section>
+      `;
+    },
+  },
+}
+```
+
+</details>
+
+<details>
+<summary>recentQueries</summary>
+
+Recent queries are stored in `localStorage` for 30 days and only when `analyticsConsentProvided()` returns `true`. Call `args.helpers.removeRecentQuery(query)` to let shoppers delete one.
+
+</details>
+
+<details>
+<summary>popularQueries</summary>
+
+Popular queries come from the last 7 days of search traffic in the shopper's market. Pin or hide queries in the HIJ dashboard.
+
+</details>
+
+<details>
+<summary>emptyState</summary>
+
+Shown when nothing matches the typed text. Return `null` to close the panel instead.
+
+```javascript
+templates: {
+  emptyState: {
+    render: function (html, args) {
+      return html`<p class="hij-suggest__empty">No suggestions for "${args.props.query}". Press Enter to search anyway.</p>`;
+    },
+  },
+}
+```
+
+</details>
+
+## Callbacks
+
+| Callback | Arguments | Description |
+| --- | --- | --- |
+| `beforeAPICall` | `(params)` | Change the suggestions request. Return the params. |
+| `onOpen` / `onClose` | `()` | The panel opened or closed. |
+| `onSelect` | `(item, type)` | An item was chosen. `type` is `query`, `product`, `recent` or `popular`. Return `false` to stop the default navigation. |
+| `onFailure` | `(error)` | The request failed. The panel stays closed. |
+
+{% hint style="success" %}
+To send the shopper to a collection instead of the results page for certain queries, set up a redirect in the dashboard. Query suggestions follow redirects the same way the [search results widget](search-results.md) does.
+{% endhint %}
