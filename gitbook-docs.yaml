@@ -1,0 +1,17 @@
+$schema: https://api.gitbook.com/gitbook-docs.yaml
+site:
+  title: HIJ Search Docs
+  structure:
+    - type: space
+      key: hij-sdk-3x
+      title: "SDK 3.x"
+      path: docs
+      default: true
+      content:
+        directory: ./v3
+    - type: space
+      key: hij-sdk-2x
+      title: "SDK 2.x (legacy)"
+      path: v2
+      content:
+        directory: ./v2
