@@ -2,6 +2,10 @@
 title: "Collections connector"
 sidebarTitle: "Collections"
 description: "Fetch a merchandised collection with the headless HIJ Connector and render your own product listing page with filters, sort options and pagination."
+product: "headless"
+version: "3.x"
+paths: ["liquid", "hydrogen", "custom-frontend"]
+requires: ["headless"]
 ---
 
 import { Since } from "/snippets/since.jsx";
@@ -43,6 +47,18 @@ HIJ.Connector.Collection.init({
   onFailure: function (error, helpers) {
     renderFallbackMessage(error);
   },
+});
+```
+
+### Hydrate from a server response
+
+If your server already rendered page 1 with the [Storefront API](/storefront-api/endpoints/collection), pass that response as `initialResponse`. The connector calls `onSuccess` with it right away and fetches only when the shopper changes a filter, the sort option or the page.
+
+```javascript
+HIJ.Connector.Collection.init({
+  params: { collectionId: "summer-linen", perPage: 24 },
+  initialResponse: window.__HIJ_COLLECTION__, // the JSON your loader returned
+  onSuccess: renderProductListingPage,
 });
 ```
 

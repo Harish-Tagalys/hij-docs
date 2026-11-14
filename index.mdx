@@ -1,34 +1,78 @@
 ---
-title: "HIJ Search developer docs"
-sidebarTitle: "Choose a product"
-description: "Developer documentation for HIJ Search: full stack UI widgets, the headless Connector SDK, the Storefront API, A/B testing and the Google Tag Manager template."
+title: "Integrate HIJ Search with Shopify"
+sidebarTitle: "Overview"
+description: "Add HIJ search, suggestions, merchandised collections and recommendations to a Shopify store: install the app, choose the Storefront API or a JS SDK, send analytics, then add A/B testing."
+product: "get-started"
+version: "none"
+paths: ["liquid", "hydrogen", "custom-frontend", "server-side"]
+requires: []
 ---
 
-HIJ Search adds product search, search suggestions and merchandised collections to an online store. Pick the product that matches how your store is built. Each product is versioned on its own, so the version menu inside a product only changes that product's pages.
+import { PathChooser } from "/snippets/path-chooser.jsx";
 
-| Product | Namespace or interface | Best for | Current version |
-| --- | --- | --- | --- |
-| [Full stack](/full-stack/quick-start) | `HIJ.UIWidgets.*` | Themes that want ready-made, templatable widgets | {{UI_WIDGETS_VERSION}} |
-| [Headless](/headless/quick-start) | `HIJ.Connector.*` | Custom front ends that render their own UI | {{CONNECTOR_VERSION}} |
-| [Storefront API](/storefront-api/overview) | `GET https://api.hij-search.example/v2/...` | Server-side rendering and native apps | v2 |
-| [A/B testing](/ab-testing/setup-liquid) | Liquid snippet and library | Testing collection merchandising in a Liquid theme | |
-| [Google Tag Manager](/gtm/setup) | GTM tag template | Sending analytics events from your data layer | |
+HIJ Search adds product search, search suggestions, merchandised collections and recommendations to a Shopify store. Every integration follows the same steps:
+
+<Steps>
+  <Step title="Install the HIJ Search app">
+    Install the app from the Shopify App Store and let the first catalog sync finish. See [install the app](/get-started/install-app).
+  </Step>
+  <Step title="Collect your credentials">
+    Copy your shop ID and storefront token. See [credentials](/get-started/credentials).
+  </Step>
+  <Step title="Choose your path">
+    Call the [Storefront API](/storefront-api/overview) directly, or load a [JS SDK](/sdks/overview): full stack (ready-made widgets) or headless (your own UI). Use the chooser below.
+  </Step>
+  <Step title="Send analytics">
+    Analytics drive ranking, personalisation and reports. Which events you send yourself depends on your store type. See the [analytics overview](/analytics/overview).
+  </Step>
+  <Step title="Verify, then extend">
+    Run the [verification checklist](/get-started/verify), then add [A/B testing](/ab-testing/overview), [checkout recommendations](/checkout-recommendations/overview) and [recipes](/recipes/index).
+  </Step>
+</Steps>
+
+## Choose your path
+
+Answer three questions about your store to get a recommended path and analytics method.
+
+<PathChooser />
+
+The same recommendations as a table:
+
+| Liquid theme? | Own UI? | Server-side rendering? | Path | Store-event analytics | Start here |
+| --- | --- | --- | --- | --- | --- |
+| Yes | No | No | Full stack (UI widgets SDK {{UI_WIDGETS_VERSION}}) | [Shopify Pixel](/analytics/shopify-pixel), automatic | [Full stack quick start](/full-stack/quick-start) |
+| Yes | Yes | No | Headless (Connector SDK {{CONNECTOR_VERSION}}) | [Shopify Pixel](/analytics/shopify-pixel), automatic | [Headless quick start](/headless/quick-start) |
+| Yes | Either | Yes | Storefront API v2 | [Shopify Pixel](/analytics/shopify-pixel) for store events, [Analytics API](/analytics/analytics-api) for search and click events | [Storefront API overview](/storefront-api/overview) |
+| No | No | No | Full stack (UI widgets SDK {{UI_WIDGETS_VERSION}}) | [SDK manual analytics](/analytics/sdk-manual) or the [GTM template](/analytics/gtm/setup) | [Full stack quick start](/full-stack/quick-start) |
+| No | Yes | No | Headless (Connector SDK {{CONNECTOR_VERSION}}) | [SDK manual analytics](/analytics/sdk-manual) or the [GTM template](/analytics/gtm/setup) | [Headless quick start](/headless/quick-start) |
+| No | Either | Yes | Storefront API v2 | [Analytics API](/analytics/analytics-api) for every event | [Storefront API overview](/storefront-api/overview) |
+
+On both SDK paths the SDK itself sends search, suggestion, collection and widget events. "Store-event analytics" covers the rest: product views, add to cart, checkout and orders. The [choose your path](/get-started/choose-your-path) page explains each row.
+
+<Note>
+Hydrogen storefronts render on the server, but that alone doesn't mean "server-side rendering" here. Answer **yes** only if HIJ results must be in the server-rendered HTML. Client-side search and collection UI inside a Hydrogen app uses the headless SDK.
+</Note>
+
+## Explore the docs
 
 <CardGroup cols={2}>
-  <Card title="Full stack" icon="table-cells" href="/full-stack/quick-start">
-    Load the UI widgets SDK and render search results, suggestions and collections.
-  </Card>
-  <Card title="Headless" icon="plug" href="/headless/quick-start">
-    Fetch search and collection data with the Connector and render your own UI.
-  </Card>
   <Card title="Storefront API" icon="code" href="/storefront-api/overview">
-    Call the v2 REST API directly from a server or app.
+    Call the v2 REST API from a server or app.
   </Card>
-  <Card title="A/B testing" icon="flask" href="/ab-testing/setup-liquid">
-    Split traffic between collection variants in a Liquid theme.
+  <Card title="JS SDKs" icon="js" href="/sdks/overview">
+    Full stack UI widgets or the headless Connector, in the browser.
   </Card>
-  <Card title="Google Tag Manager" icon="tags" href="/gtm/setup">
-    Send HIJ analytics events with the GTM tag template.
+  <Card title="Analytics" icon="chart-line" href="/analytics/overview">
+    Shopify Pixel, Analytics API, SDK manual analytics and the GTM template.
+  </Card>
+  <Card title="A/B testing" icon="flask" href="/ab-testing/overview">
+    Test collection merchandising on Liquid, Hydrogen/Oxygen and Remix.
+  </Card>
+  <Card title="Checkout recommendations" icon="cart-shopping" href="/checkout-recommendations/overview">
+    Recommendation blocks for checkout, with a style builder.
+  </Card>
+  <Card title="Recipes" icon="book-open" href="/recipes/index">
+    Colour swatches, similar products, lazy widgets and multi-market stores.
   </Card>
 </CardGroup>
 

@@ -1,0 +1,52 @@
+---
+title: "Storefront API changelog"
+sidebarTitle: "Storefront API"
+description: "Dated changes to the HIJ Storefront API v2, newest first."
+product: "storefront-api"
+version: "v2"
+paths: ["server-side", "hydrogen", "custom-frontend"]
+requires: []
+---
+
+The Storefront API has one version, v2. Changes are additive unless marked **Breaking**. Link to an entry with its date anchor, for example [2026-09-15](#2026-09-15).
+
+<Update label="2026-11-03" description="Nov 3, 2026">
+
+#### Features:
+
+- `GET /v2/search` accepts `match_all=true` to require every word of the query to match.
+
+</Update>
+
+<Update label="2026-09-15" description="Sep 15, 2026">
+
+#### Features:
+
+- The `X-HIJ-Visitor-Id`, `X-HIJ-Session-Id` and `X-HIJ-Forwarded-For` headers personalise server-side requests and apply rate limits per shopper. See [authentication](/storefront-api/authentication#calls-from-a-server).
+
+</Update>
+
+<Update label="2026-08-05" description="Aug 5, 2026">
+
+#### Features:
+
+- `GET /v2/collections/{id}` accepts `promo_tiles=true` and returns promotional tiles with their grid positions.
+
+</Update>
+
+<Update label="2026-06-10" description="Jun 10, 2026">
+
+#### Changes:
+
+- Range filters use `f[price][min]` and `f[price][max]`. The older `f[price]=20-80` form is still accepted.
+
+</Update>
+
+<Update label="2026-02-16" description="Feb 16, 2026">
+
+#### Breaking changes:
+
+- Authentication moved to the `X-HIJ-Storefront-Token` header and the `shop_id` query parameter.
+- v1 endpoints are frozen. v1 field names (`name`, `image_url`, `sort_choices`) are replaced by `title`, `image.src` and `sort_options`.
+
+</Update>

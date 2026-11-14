@@ -2,6 +2,11 @@
 title: "Full stack quick start (2.x, legacy)"
 sidebarTitle: "Quick start"
 description: "Legacy: set up the HIJ UI widgets SDK 2.x. New integrations should use full stack 3.x."
+product: "full-stack"
+version: "2.x"
+paths: ["liquid", "custom-frontend"]
+requires: ["credentials"]
+noindex: true
 ---
 
 <Warning>
@@ -24,8 +29,8 @@ The 2.x script must load without `defer`, before any code that calls `HIJWidgets
 HIJWidgets.configure({
   apiServer: "https://api.hij-search.example",
   apiVersion: "v1",
-  storeId: "<YOUR-STORE-ID>",
-  publicKey: "<YOUR-STOREFRONT-KEY>",
+  storeId: "<YOUR-SHOP-ID>",
+  publicKey: "<YOUR-STOREFRONT-TOKEN>",
   currency: { symbol: "$", position: "before" },
   track: true,
 });
@@ -35,8 +40,8 @@ HIJWidgets.configure({
 | --- | --- | --- |
 | `apiServer` | string | API server. |
 | `apiVersion` | string | Always `v1` in 2.x. |
-| `storeId` | string | Your store ID. |
-| `publicKey` | string | Public storefront key. |
+| `storeId` | string | Your shop ID. |
+| `publicKey` | string | Public storefront token. |
 | `currency.symbol` | string | Currency symbol. |
 | `currency.position` | string | `before` or `after` the amount. |
 | `track` | boolean | Send analytics events. Defaults to `false`. |

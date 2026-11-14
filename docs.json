@@ -2,7 +2,7 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
   "name": "HIJ Search Docs",
-  "description": "HIJ Search developer documentation. Each product (full stack, headless, Storefront API, A/B testing, GTM template) is versioned on its own.",
+  "description": "Integrate HIJ Search with a Shopify store: install the app, choose the Storefront API or a JS SDK (full stack or headless), send analytics, then add A/B testing and recipes. The SDKs and the GTM template are versioned on their own.",
   "colors": {
     "primary": "#4F46E5",
     "light": "#818CF8",
@@ -17,138 +17,232 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Home",
+        "tab": "Get started",
+        "icon": "rocket",
         "groups": [
           {
-            "group": "Get started",
-            "pages": ["index"]
-          }
-        ]
-      },
-      {
-        "tab": "Full stack",
-        "versions": [
-          {
-            "version": "Full stack 3.x",
-            "default": true,
-            "tag": "Latest",
-            "groups": [
-              {
-                "group": "Get started",
-                "pages": ["full-stack/quick-start"]
-              },
-              {
-                "group": "Widgets",
-                "pages": ["full-stack/search-results", "full-stack/search-suggestions", "full-stack/failover"]
-              },
-              {
-                "group": "Release notes",
-                "pages": ["full-stack/changelog"]
-              }
-            ]
-          },
-          {
-            "version": "Full stack 2.x",
-            "tag": "Legacy",
-            "groups": [
-              {
-                "group": "Full stack 2.x",
-                "pages": ["full-stack/v2/quick-start", "full-stack/v2/search-results"]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "Headless",
-        "versions": [
-          {
-            "version": "Headless 3.x",
-            "default": true,
-            "tag": "Latest",
-            "groups": [
-              {
-                "group": "Get started",
-                "pages": ["headless/quick-start"]
-              },
-              {
-                "group": "Connectors",
-                "pages": ["headless/collections", "headless/failover"]
-              },
-              {
-                "group": "Release notes",
-                "pages": ["headless/changelog"]
-              }
-            ]
-          },
-          {
-            "version": "Headless 2.x",
-            "tag": "Legacy",
-            "groups": [
-              {
-                "group": "Headless 2.x",
-                "pages": ["headless/v2/quick-start", "headless/v2/collections"]
-              }
+            "group": "Integrate HIJ with Shopify",
+            "pages": [
+              "index",
+              "get-started/install-app",
+              "get-started/credentials",
+              "get-started/choose-your-path",
+              "get-started/verify"
             ]
           }
         ]
       },
       {
         "tab": "Storefront API",
+        "icon": "code",
         "openapi": "api/openapi.yaml",
         "groups": [
           {
             "group": "Storefront API v2",
+            "pages": ["storefront-api/overview", "storefront-api/authentication"]
+          },
+          {
+            "group": "Endpoints",
             "pages": [
-              "storefront-api/overview",
               "storefront-api/endpoints/search",
               "storefront-api/endpoints/suggestions",
               "storefront-api/endpoints/collection"
+            ]
+          },
+          {
+            "group": "Next step",
+            "pages": ["storefront-api/analytics-required"]
+          }
+        ]
+      },
+      {
+        "tab": "JS SDKs",
+        "icon": "js",
+        "menu": [
+          {
+            "item": "Overview",
+            "icon": "compass",
+            "description": "Full stack or headless, and the browser-only rule",
+            "groups": [
+              {
+                "group": "JS SDKs",
+                "pages": ["sdks/overview", "sdks/server-side"]
+              }
+            ]
+          },
+          {
+            "item": "Full stack",
+            "icon": "table-cells",
+            "description": "UI widgets SDK, HIJ.UIWidgets.*",
+            "versions": [
+              {
+                "version": "Full stack 3.x",
+                "default": true,
+                "tag": "Latest",
+                "groups": [
+                  {
+                    "group": "Get started",
+                    "pages": ["full-stack/quick-start"]
+                  },
+                  {
+                    "group": "Widgets",
+                    "pages": ["full-stack/search-results", "full-stack/search-suggestions", "full-stack/failover"]
+                  }
+                ]
+              },
+              {
+                "version": "Full stack 2.x",
+                "tag": "Legacy",
+                "groups": [
+                  {
+                    "group": "Full stack 2.x",
+                    "pages": ["full-stack/v2/quick-start", "full-stack/v2/search-results"]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "item": "Headless",
+            "icon": "plug",
+            "description": "Connector SDK, HIJ.Connector.*",
+            "versions": [
+              {
+                "version": "Headless 3.x",
+                "default": true,
+                "tag": "Latest",
+                "groups": [
+                  {
+                    "group": "Get started",
+                    "pages": ["headless/quick-start"]
+                  },
+                  {
+                    "group": "Connectors",
+                    "pages": ["headless/collections", "headless/failover"]
+                  }
+                ]
+              },
+              {
+                "version": "Headless 2.x",
+                "tag": "Legacy",
+                "groups": [
+                  {
+                    "group": "Headless 2.x",
+                    "pages": ["headless/v2/quick-start", "headless/v2/collections"]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Analytics",
+        "icon": "chart-line",
+        "menu": [
+          {
+            "item": "Analytics",
+            "icon": "chart-line",
+            "description": "Which events, who sends them, and how",
+            "groups": [
+              {
+                "group": "Analytics",
+                "pages": [
+                  "analytics/overview",
+                  "analytics/shopify-pixel",
+                  "analytics/analytics-api",
+                  "analytics/sdk-manual"
+                ]
+              }
+            ]
+          },
+          {
+            "item": "GTM template",
+            "icon": "tags",
+            "description": "Google Tag Manager tag template releases",
+            "versions": [
+              {
+                "version": "GTM r20260217",
+                "default": true,
+                "tag": "Latest",
+                "groups": [
+                  {
+                    "group": "GTM template",
+                    "pages": ["analytics/gtm/setup"]
+                  }
+                ]
+              },
+              {
+                "version": "GTM r20250801",
+                "tag": "Legacy",
+                "groups": [
+                  {
+                    "group": "GTM template r20250801",
+                    "pages": ["analytics/gtm/r20250801/setup"]
+                  }
+                ]
+              },
+              {
+                "version": "GTM r20240718",
+                "tag": "Legacy",
+                "groups": [
+                  {
+                    "group": "GTM template r20240718",
+                    "pages": ["analytics/gtm/r20240718/setup"]
+                  }
+                ]
+              }
             ]
           }
         ]
       },
       {
         "tab": "A/B testing",
+        "icon": "flask",
         "groups": [
           {
             "group": "A/B testing",
-            "pages": ["ab-testing/setup-liquid"]
+            "pages": ["ab-testing/overview", "ab-testing/liquid", "ab-testing/hydrogen-oxygen", "ab-testing/remix"]
           }
         ]
       },
       {
-        "tab": "GTM",
-        "versions": [
+        "tab": "Checkout recommendations",
+        "icon": "cart-shopping",
+        "groups": [
           {
-            "version": "r20260217",
-            "default": true,
-            "tag": "Latest",
-            "groups": [
-              {
-                "group": "GTM template",
-                "pages": ["gtm/setup"]
-              }
+            "group": "Checkout recommendations",
+            "pages": ["checkout-recommendations/overview", "checkout-recommendations/style-builder"]
+          }
+        ]
+      },
+      {
+        "tab": "Recipes",
+        "icon": "book-open",
+        "groups": [
+          {
+            "group": "Recipes",
+            "pages": [
+              "recipes/index",
+              "recipes/colour-swatches",
+              "recipes/similar-products-pdp",
+              "recipes/lazy-widget-init",
+              "recipes/multi-market"
             ]
-          },
+          }
+        ]
+      },
+      {
+        "tab": "Changelogs",
+        "icon": "clock-rotate-left",
+        "groups": [
           {
-            "version": "r20250801",
-            "tag": "Legacy",
-            "groups": [
-              {
-                "group": "GTM template r20250801",
-                "pages": ["gtm/r20250801/setup"]
-              }
-            ]
-          },
-          {
-            "version": "r20240718",
-            "tag": "Legacy",
-            "groups": [
-              {
-                "group": "GTM template r20240718",
-                "pages": ["gtm/r20240718/setup"]
-              }
+            "group": "Changelogs",
+            "pages": [
+              "full-stack/changelog",
+              "headless/changelog",
+              "storefront-api/changelog",
+              "analytics/gtm/changelog"
             ]
           }
         ]
@@ -161,6 +255,11 @@
     }
   },
   "redirects": [
+    { "source": "/gtm/setup", "destination": "/analytics/gtm/setup" },
+    { "source": "/gtm/r20250801/setup", "destination": "/analytics/gtm/r20250801/setup" },
+    { "source": "/gtm/r20240718/setup", "destination": "/analytics/gtm/r20240718/setup" },
+    { "source": "/gtm/:slug*", "destination": "/analytics/gtm/:slug*" },
+    { "source": "/ab-testing/setup-liquid", "destination": "/ab-testing/liquid" },
     { "source": "/quick-start", "destination": "/full-stack/quick-start" },
     { "source": "/ui-widgets/:slug*", "destination": "/full-stack/:slug*" },
     { "source": "/v2/ui-widgets/:slug*", "destination": "/full-stack/v2/:slug*" },
