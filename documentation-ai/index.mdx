@@ -1,37 +1,34 @@
 ---
 title: "HIJ Search developer docs"
-description: "Developer documentation for HIJ Search: UI widgets, the headless Connector SDK and the v2 REST API."
+description: "Developer documentation for HIJ Search: full stack UI widgets, the headless Connector SDK, the Storefront API, A/B testing and the Google Tag Manager template."
 ---
 
-HIJ Search adds product search, search suggestions and merchandised collections to an online store. There are three ways to integrate it.
+HIJ Search adds product search, search suggestions and merchandised collections to an online store. Pick the product that matches how your store is built. Each product is versioned on its own, so the version menu inside a product only changes that product's pages.
 
-| Path | Namespace | Best for | Start here |
+| Product | Namespace or interface | Best for | Current version |
 | --- | --- | --- | --- |
-| Full stack (UI widgets) | `HIJ.UIWidgets.*` | Themes that want ready-made, templatable widgets | [Quick start](/ui-widgets/quick-start) |
-| Headless (Connector) | `HIJ.Connector.*` | Custom front ends that render their own UI | [Collections connector](/connector/collections) |
-| REST API | `GET https://api.hij-search.example/v2/...` | Server-side rendering and native apps | [API overview](/api/overview) |
-
-Current releases: UI widgets **3.0.20**, Connector **3.0.21**.
+| [Full stack](/full-stack/quick-start) | `HIJ.UIWidgets.*` | Themes that want ready-made, templatable widgets | 3.0.20 |
+| [Headless](/headless/quick-start) | `HIJ.Connector.*` | Custom front ends that render their own UI | 3.0.21 |
+| [Storefront API](/storefront-api/overview) | `GET https://api.hij-search.example/v2/...` | Server-side rendering and native apps | v2 |
+| [A/B testing](/ab-testing/setup-liquid) | Liquid snippet and library | Testing collection merchandising in a Liquid theme | |
+| [Google Tag Manager](/gtm/setup) | GTM tag template | Sending analytics events from your data layer | |
 
 <Columns cols="2">
-  <Card title="UI widgets quick start" icon="rocket" href="/ui-widgets/quick-start">
-    Load the SDK, configure it and render your first widget.
+  <Card title="Full stack" icon="table-cells" href="/full-stack/quick-start">
+    Load the UI widgets SDK and render search results, suggestions and collections.
   </Card>
-  <Card title="Search results widget" icon="list" href="/ui-widgets/search-results">
-    Full template, option and callback reference.
+  <Card title="Headless" icon="plug" href="/headless/quick-start">
+    Fetch search and collection data with the Connector and render your own UI.
   </Card>
-  <Card title="Search suggestions widget" icon="keyboard" href="/ui-widgets/search-suggestions">
-    Suggestions attached to the store's query input field.
+  <Card title="Storefront API" icon="code" href="/storefront-api/overview">
+    Call the v2 REST API directly from a server or app.
   </Card>
-  <Card title="Collections connector" icon="layer-group" href="/connector/collections">
-    Headless product listing pages with filters, sort and pagination.
-  </Card>
-  <Card title="A/B testing with Liquid" icon="flask" href="/ab-testing/setup-liquid">
+  <Card title="A/B testing" icon="flask" href="/ab-testing/setup-liquid">
     Split traffic between collection variants in a Liquid theme.
   </Card>
-  <Card title="Connector changelog" icon="clock-rotate-left" href="/changelog/connector">
-    Every connector release from 3.0.15 onwards.
+  <Card title="Google Tag Manager" icon="tags" href="/gtm/setup">
+    Send HIJ analytics events with the GTM tag template.
   </Card>
 </Columns>
 
-Still running SDK 2.x? The frozen [2.x documentation](/v2/ui-widgets/quick-start) is kept for existing stores. New integrations should use 3.x.
+Still running an older release? Full stack 2.x, headless 2.x and earlier GTM template releases stay documented for existing stores. Open the product, then pick the release in its version menu.
