@@ -1,0 +1,321 @@
+openapi: 3.1.0
+info:
+  title: HIJ Search Storefront API
+  version: "2"
+  description: |
+    Read-only storefront endpoints for search, search suggestions and collections.
+    Every request needs your public storefront key in the `X-HIJ-Storefront-Key` header.
+servers:
+  - url: https://api.hij-search.example
+    description: Production
+security:
+  - storefrontKey: []
+tags:
+  - name: Search
+    description: Search results and suggestions
+  - name: Collections
+    description: Merchandised collections
+paths:
+  /v2/search:
+    get:
+      operationId: search
+      tags: [Search]
+      summary: Search products
+      description: |
+        Returns products matching a query, with filters, sort options and pagination.
+        Use it to render a search results page. If the query matches a redirect and
+        `redirects` is `true`, the response contains only a `redirect` object.
+      parameters:
+        - $ref: "#/components/parameters/StoreId"
+        - name: q
+          in: query
+          required: true
+          description: The shopper's query.
+          schema: { type: string, minLength: 1, maxLength: 200 }
+          example: linen shirt
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/PerPage"
+        - $ref: "#/components/parameters/Sort"
+        - $ref: "#/components/parameters/Market"
+        - name: redirects
+          in: query
+          description: Follow redirects configured for the query.
+          schema: { type: boolean, default: true }
+        - name: match_all
+          in: query
+          description: Require every word of the query to match.
+          schema: { type: boolean, default: false }
+      responses:
+        "200":
+          description: Results, or a redirect.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "#/components/schemas/ProductListResponse"
+                  - $ref: "#/components/schemas/RedirectResponse"
+              examples:
+                results:
+                  summary: Results
+                  value:
+                    status: OK
+                    total: 2
+                    page: 1
+                    per_page: 24
+                    total_pages: 1
+                    sort_options: [{ id: relevance, label: Relevance, selected: true }]
+                    filters: []
+                    products:
+                      - { id: "1001", handle: relaxed-linen-shirt, title: Relaxed linen shirt, url: /products/relaxed-linen-shirt, price: 59.0 }
+                      - { id: "1002", handle: linen-camp-shirt, title: Linen camp shirt, url: /products/linen-camp-shirt, price: 65.0 }
+                redirect:
+                  summary: Redirect
+                  value:
+                    status: OK
+                    redirect: { url: /pages/gift-cards, query: gift card }
+        "400": { $ref: "#/components/responses/BadRequest" }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+        "429": { $ref: "#/components/responses/RateLimited" }
+  /v2/suggestions:
+    get:
+      operationId: suggestions
+      tags: [Search]
+      summary: Get search suggestions
+      description: |
+        Returns query suggestions, product suggestions and popular queries for the text
+        the shopper has typed so far into the query input field. With an empty `q`, only
+        popular queries are returned.
+      parameters:
+        - $ref: "#/components/parameters/StoreId"
+        - name: q
+          in: query
+          description: Text typed so far. May be empty.
+          schema: { type: string, maxLength: 200, default: "" }
+          example: lin
+        - name: query_limit
+          in: query
+          schema: { type: integer, minimum: 0, maximum: 10, default: 6 }
+        - name: product_limit
+          in: query
+          schema: { type: integer, minimum: 0, maximum: 10, default: 6 }
+        - $ref: "#/components/parameters/Market"
+      responses:
+        "200":
+          description: Suggestions.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/SuggestionsResponse" }
+              example:
+                status: OK
+                queries:
+                  - { query: linen shirt, highlighted: "<mark>lin</mark>en shirt" }
+                  - { query: linen trousers, highlighted: "<mark>lin</mark>en trousers" }
+                products:
+                  - { id: "1001", handle: relaxed-linen-shirt, title: Relaxed linen shirt, url: /products/relaxed-linen-shirt, price: 59.0 }
+                popular_queries: [linen, sandals, sun hat]
+        "401": { $ref: "#/components/responses/Unauthorized" }
+        "429": { $ref: "#/components/responses/RateLimited" }
+  /v2/collections/{id}:
+    get:
+      operationId: getCollection
+      tags: [Collections]
+      summary: Get a collection
+      description: Returns a merchandised collection's products, filters, sort options and pagination.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Collection ID.
+          schema: { type: string }
+          example: summer-linen
+        - $ref: "#/components/parameters/StoreId"
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/PerPage"
+        - $ref: "#/components/parameters/Sort"
+        - $ref: "#/components/parameters/Market"
+        - name: include_filters
+          in: query
+          schema: { type: boolean, default: true }
+        - name: promo_tiles
+          in: query
+          description: Include promotional tiles and their grid positions.
+          schema: { type: boolean, default: false }
+      responses:
+        "200":
+          description: The collection.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/ProductListResponse"
+                  - type: object
+                    properties:
+                      collection: { $ref: "#/components/schemas/Collection" }
+                      promo_tiles:
+                        type: array
+                        items: { $ref: "#/components/schemas/PromoTile" }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+        "404": { $ref: "#/components/responses/NotFound" }
+        "429": { $ref: "#/components/responses/RateLimited" }
+components:
+  securitySchemes:
+    storefrontKey:
+      type: apiKey
+      in: header
+      name: X-HIJ-Storefront-Key
+      description: Public storefront key from Settings → Keys in the HIJ dashboard.
+  parameters:
+    StoreId:
+      name: store_id
+      in: query
+      required: true
+      description: Your store ID.
+      schema: { type: string }
+      example: "<YOUR-STORE-ID>"
+    Page:
+      name: page
+      in: query
+      schema: { type: integer, minimum: 1, default: 1 }
+    PerPage:
+      name: per_page
+      in: query
+      schema: { type: integer, minimum: 1, maximum: 96, default: 24 }
+    Sort:
+      name: sort
+      in: query
+      description: Sort option ID, for example `price-asc`.
+      schema: { type: string }
+    Market:
+      name: market
+      in: query
+      description: Market code. Prices and availability are returned for this market.
+      schema: { type: string, example: DE }
+  responses:
+    BadRequest:
+      description: A parameter is missing or invalid.
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+          example: { status: error, error: { code: invalid_parameter, message: "q is required" } }
+    Unauthorized:
+      description: The storefront key is missing or wrong.
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+    NotFound:
+      description: No collection with this ID.
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+    RateLimited:
+      description: Too many requests. Retry after the number of seconds in `Retry-After`.
+      headers:
+        Retry-After:
+          schema: { type: integer }
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+  schemas:
+    Product:
+      type: object
+      required: [id, handle, title, url, price]
+      properties:
+        id: { type: string }
+        handle: { type: string }
+        title: { type: string }
+        url: { type: string }
+        price: { type: number }
+        compare_at_price: { type: [number, "null"] }
+        image:
+          type: object
+          properties:
+            src: { type: string, format: uri }
+            alt: { type: [string, "null"] }
+        available: { type: boolean }
+        tags: { type: array, items: { type: string } }
+    FilterItem:
+      type: object
+      properties:
+        id: { type: string }
+        label: { type: string }
+        count: { type: integer }
+        selected: { type: boolean }
+        items:
+          type: array
+          items: { $ref: "#/components/schemas/FilterItem" }
+    Filter:
+      type: object
+      properties:
+        id: { type: string }
+        label: { type: string }
+        type: { type: string, enum: [checkbox, range] }
+        items: { type: array, items: { $ref: "#/components/schemas/FilterItem" } }
+        min: { type: number }
+        max: { type: number }
+        selected_min: { type: number }
+        selected_max: { type: number }
+    SortOption:
+      type: object
+      properties:
+        id: { type: string }
+        label: { type: string }
+        selected: { type: boolean }
+    ProductListResponse:
+      type: object
+      properties:
+        status: { type: string, enum: [OK] }
+        total: { type: integer }
+        page: { type: integer }
+        per_page: { type: integer }
+        total_pages: { type: integer }
+        sort_options: { type: array, items: { $ref: "#/components/schemas/SortOption" } }
+        filters: { type: array, items: { $ref: "#/components/schemas/Filter" } }
+        products: { type: array, items: { $ref: "#/components/schemas/Product" } }
+    RedirectResponse:
+      type: object
+      properties:
+        status: { type: string, enum: [OK] }
+        redirect:
+          type: object
+          properties:
+            url: { type: string }
+            query: { type: string }
+    SuggestionsResponse:
+      type: object
+      properties:
+        status: { type: string, enum: [OK] }
+        queries:
+          type: array
+          items:
+            type: object
+            properties:
+              query: { type: string }
+              highlighted: { type: string }
+        products: { type: array, items: { $ref: "#/components/schemas/Product" } }
+        popular_queries: { type: array, items: { type: string } }
+    Collection:
+      type: object
+      properties:
+        id: { type: string }
+        title: { type: string }
+        description: { type: string }
+        image:
+          type: object
+          properties:
+            src: { type: string, format: uri }
+            alt: { type: string }
+    PromoTile:
+      type: object
+      properties:
+        id: { type: string }
+        position: { type: integer }
+        html: { type: string }
+    Error:
+      type: object
+      properties:
+        status: { type: string, enum: [error] }
+        error:
+          type: object
+          properties:
+            code: { type: string }
+            message: { type: string }

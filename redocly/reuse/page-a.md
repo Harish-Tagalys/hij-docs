@@ -1,0 +1,21 @@
+---
+title: "Failover for UI widgets"
+seo:
+  title: "Failover for UI widgets"
+  description: "What the HIJ UI widgets do when HIJ Search can't be reached, and how to configure the fallback widgets."
+---
+
+# Failover for UI widgets
+
+{% partial file="/_partials/failover.md" variables={connector: "SearchResults widget", fallback: "CatalogSearchResults widget"} /%}
+
+## Configure the fallback
+
+Set `catalogFeed` in the platform configuration (see the [quick start](/ui-widgets/quick-start)). No other change is needed: the widget switches automatically and switches back on the next page load.
+
+| Trigger | Falls back? |
+| --- | --- |
+| Network error or timeout (5 seconds) | Yes |
+| `5xx` response | Yes |
+| `429` rate limit | Yes |
+| Other `4xx` responses | No. `onFailure` is called instead. |

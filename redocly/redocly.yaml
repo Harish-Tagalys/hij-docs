@@ -1,0 +1,41 @@
+# HIJ Search Docs: Redocly (Realm) project. Local preview:
+#   REDOCLY_TELEMETRY=off npx @redocly/cli preview --plan=pro --port 3115 --project-dir redocly
+ignore:
+  - tools/**
+
+seo:
+  title: HIJ Search Docs
+  description: "HIJ Search developer documentation. SDK 3.x is current; SDK 2.x is legacy and documented separately under /v2."
+  llmstxt:
+    title: HIJ Search Docs
+    description: "HIJ Search developer documentation. SDK 3.x is current; SDK 2.x is legacy and documented separately under /v2."
+    sections:
+      - title: SDK 3.x (current)
+        includeFiles: ['**/*']
+        excludeFiles: ['**/@2.x/**']
+      - title: SDK 2.x (legacy)
+        includeFiles: ['**/@2.x/**']
+
+# V4: legacy banner on every 2.x page. `target` matches the URL path, not the @2.x folder path.
+banner:
+  - content: "**Legacy documentation: SDK 2.x.** This version is frozen. New integrations should use [SDK 3.x](/ui-widgets/quick-start)."
+    dismissible: false
+    color: warning
+    target: 'ui-widgets/2.x/**'
+
+redirects:
+  '/quick-start':
+    to: '/ui-widgets/quick-start'
+  '/legacy/ui-widgets/*':
+    to: '/ui-widgets/2.x/*'
+  '/v2/ui-widgets/*':
+    to: '/ui-widgets/2.x/*'
+  # V5: search suggestions has no 2.x counterpart; the version picker would otherwise land on a 404.
+  '/ui-widgets/2.x/search-suggestions':
+    to: '/ui-widgets/2.x/quick-start'
+  '/api/endpoints/search':
+    to: '/api/openapi/search/search'
+  '/api/endpoints/suggestions':
+    to: '/api/openapi/search/suggestions'
+  '/api/endpoints/collection':
+    to: '/api/openapi/collections/getcollection'

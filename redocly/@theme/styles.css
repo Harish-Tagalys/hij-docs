@@ -1,0 +1,2 @@
+/* "Added in" badge (V10). Custom Markdoc tags need the Scale plan, so the badge is an inline span. */
+.since-badge { display: inline-block; font-size: 0.75em; font-weight: 600; padding: 0 6px; margin-left: 4px; border-radius: 9999px; border: 1px solid currentColor; white-space: nowrap; vertical-align: middle; }
