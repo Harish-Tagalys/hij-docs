@@ -8,9 +8,9 @@ description: "Load the HIJ UI widgets SDK, configure it, handle analytics consen
 
 The HIJ UI widgets are ready-made, templatable front-end components for search results, search suggestions and collections. Each widget fetches its own data, keeps its own state (applied filters, sort option, page) and re-renders when that state changes. You customise the markup with templates and hook in your own logic with callbacks.
 
-All widgets live in the `HIJ.UIWidgets` namespace. If you'd rather render everything yourself, use the headless SDK in the `HIJ.Connector` namespace instead. See the [Collections connector](/connector/collections).
+All widgets live in the `HIJ.UIWidgets` namespace. If you'd rather render everything yourself, use the headless SDK in the `HIJ.Connector` namespace instead. See the [headless quick start](/headless/quick-start).
 
-Looking for the legacy SDK? [View the 2.x version of this page](/v2/ui-widgets/quick-start).
+This page covers full stack **3.x**. Still on the 2.x widgets SDK? [View the 2.x version of this page](/full-stack/v2/quick-start).
 
 ## Quick start
 
@@ -163,27 +163,27 @@ HIJ.setPlatformConfiguration({
 Initialise a widget by calling its `init` method with a CSS selector and options. Call `init` only after the widget's container is visible and has a width.
 
 - Search
-  - [Search results](/ui-widgets/search-results)
-  - [Search suggestions](/ui-widgets/search-suggestions) (attached to the store's query input field)
+  - [Search results](/full-stack/search-results)
+  - [Search suggestions](/full-stack/search-suggestions) (attached to the store's query input field)
 - Collections
-  - HIJ-powered: render with the [Collections connector](/connector/collections)
-  - Fallback: reads your catalog feed when the API can't be reached (see [failover](/reuse/page-a))
+  - HIJ-powered: render with the headless [Collections connector](/headless/collections)
+  - Fallback: reads your catalog feed when the API can't be reached (see [failover](/full-stack/failover))
 - Experiments
   - [A/B testing in a Liquid theme](/ab-testing/setup-liquid)
 
 ## Headless alternative
 
-The headless SDK has its own script and version number. The two SDKs are released separately, so their versions differ.
+The headless SDK has its own script and version number. The two SDKs are released separately, so their versions differ. See the [headless quick start](/headless/quick-start).
 
 ```html
 <script src="https://cdn.hij-search.example/hij-connector-{{CONNECTOR_VERSION}}.min.js" defer></script>
 ```
 
 <CardGroup cols={2}>
-  <Card title="Search results widget" icon="list" href="/ui-widgets/search-results">
+  <Card title="Search results widget" icon="list" href="/full-stack/search-results">
     Templates, options and callbacks for the results page.
   </Card>
-  <Card title="REST API overview" icon="code" href="/api/overview">
-    Call the v2 API directly from a server or app.
+  <Card title="Full stack changelog" icon="clock-rotate-left" href="/full-stack/changelog">
+    Every UI widgets release, newest first.
   </Card>
 </CardGroup>

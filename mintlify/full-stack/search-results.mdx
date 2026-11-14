@@ -4,6 +4,8 @@ sidebarTitle: "Search results"
 description: "Initialise and customise the HIJ search results widget: options, templates for every part of the page, helpers and callbacks."
 ---
 
+This page covers full stack **3.x**. Still on 2.x? [View the 2.x version of this page](/full-stack/v2/search-results).
+
 <Info>
 **Search redirects:** if a query matches a redirect set up in the HIJ dashboard, the widget sends the shopper to the redirect URL before rendering any results. Turn this off with `params.followRedirects: false`.
 </Info>
@@ -49,7 +51,7 @@ HIJ.UIWidgets.SearchResults.init("#hij-search-results", configurationOptions)
     HIJ.UIWidgets.SearchResults.init("#hij-search-results", {
       params: {
         query: new URLSearchParams(window.location.search).get("q") || "",
-        perPage: 24,
+        limit: 24,
       },
       paginationType: "loadMore",
       templates: {},
@@ -64,7 +66,7 @@ HIJ.UIWidgets.SearchResults.init("#hij-search-results", configurationOptions)
 | Param | Type | Default | Required | Description | Maps to REST |
 | --- | --- | --- | --- | --- | --- |
 | `query` | string | | Yes | The shopper's query. | `q` |
-| `perPage` | number | `24` | No | Products per page. Maximum `96`. | `per_page` |
+| `limit` | number | `24` | No | Products per page. Maximum `96`. Called `perPage` in 2.x. | `per_page` |
 | `page` | number | `1` | No | Page to load first. Usually restored from the URL. | `page` |
 | `sort` | string | dashboard default | No | Sort option ID, for example `price-asc`. | `sort` |
 | `filters` | object | \{\} | No | Pre-applied filters, keyed by filter ID. For example `{ colour: ["blue"] }`. | `f[...]` |
@@ -91,7 +93,7 @@ While a request is in flight the `loader` template renders. When a query has no 
 | Template | Parent | Key props | Renders |
 | --- | --- | --- | --- |
 | `widget` | (root) | `state`, `isLoading`, `hasResults` | The whole page. |
-| `loader` | `widget` | `perPage` | Skeleton tiles while loading. |
+| `loader` | `widget` | `limit` | Skeleton tiles while loading. |
 | `noResults` | `widget` | `query`, `suggestedQueries` | The empty state. |
 | `noResultsWidgets` | `noResults` | `widgets` | Recommendation strips under the empty state. |
 | `header` | `widget` | `query`, `total` | The heading area. |
@@ -131,7 +133,7 @@ HIJ.UIWidgets.SearchResults.init(selector, {
         var props = args.props;
         var t = args.templates;
         if (props.isLoading && !props.hasResults) {
-          return html`<${t.loader} perPage=${props.state.params.perPage} />`;
+          return html`<${t.loader} limit=${props.state.params.limit} />`;
         }
         if (!props.hasResults) {
           return html`<${t.noResults} query=${props.state.params.query} />`;
@@ -167,7 +169,7 @@ Renders while the first request is in flight. Later requests (filter, sort and p
 templates: {
   loader: {
     render: function (html, args) {
-      var tiles = Array.from({ length: args.props.perPage || 12 });
+      var tiles = Array.from({ length: args.props.limit || 12 });
       return html`
         <div class="hij-loader" aria-busy="true">
           ${tiles.map(() => html`<div class="hij-loader__tile"></div>`)}
@@ -570,7 +572,7 @@ templates: {
 ```
 
 <Tip>
-Price filters are only offered to shoppers in the base market. See `baseMarketCode` in the [quick start](/ui-widgets/quick-start).
+Price filters are only offered to shoppers in the base market. See `baseMarketCode` in the [quick start](/full-stack/quick-start).
 </Tip>
 
 </Accordion>
@@ -800,7 +802,7 @@ Available as `args.helpers` inside every template, and as the second argument of
 
 <Accordion title="Core helpers">
 
-The widget is built on the Connector, so every [Connector helper](/connector/collections#helpers) is also available, such as `getFilters()`, `getAppliedFilters()` and `getSortOptions()`.
+The widget is built on the headless Connector, so every [Connector helper](/headless/collections#helpers) is also available, such as `getFilters()`, `getAppliedFilters()` and `getSortOptions()`.
 
 </Accordion>
 
@@ -853,4 +855,4 @@ HIJ.UIWidgets.SearchResults.init("#hij-search-results", {
 
 ---
 
-Page reference: `HIJ-CURRENT-CANARY-3K`
+Page reference: `HIJ-FS-CURRENT-K3`

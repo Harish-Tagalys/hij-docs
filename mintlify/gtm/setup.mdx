@@ -1,0 +1,79 @@
+---
+title: "Set up the HIJ Google Tag Manager template"
+sidebarTitle: "Set up"
+description: "Send HIJ Search analytics events from Google Tag Manager with the HIJ tag template: install, configure, map data layer events and connect consent mode."
+---
+
+The HIJ tag template sends shopper events to the HIJ analytics API from Google Tag Manager (GTM). Use it when your store already pushes ecommerce events to the data layer and you'd rather not call `HIJ.Analytics` from your own code.
+
+This page covers template release **r20260217**, the current release. Older releases are listed in the version menu.
+
+<Info>
+Stores that use the full stack UI widgets with `track: true` already send search and collection events. Use the template only for the events your widgets don't send, or set `track: false` and send everything through GTM.
+</Info>
+
+## Install the template
+
+1. In GTM, open **Templates → Tag templates → Search gallery** and search for **HIJ Search Analytics**.
+2. Select **Add to workspace**. Check that the template details show release `r20260217`.
+3. Create a new tag of type **HIJ Search Analytics**.
+
+## Configure the tag
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `hijStoreId` | Variable | Yes | Your store ID. Create a constant variable named `hijStoreId` and select it here. |
+| `storefrontKey` | Text | Yes | Your public storefront key from **Settings → Keys**. |
+| `apiVersion` | Locked | | Always `v2`. Events are sent to `https://api.hij-search.example/v2/events`. |
+| `consentMode` | Dropdown | Yes | How the tag reacts to Google consent mode. See [Consent mode](#consent-mode). |
+| `marketCode` | Variable | No | The shopper's market, for stores that sell in several markets. |
+
+## Map data layer events
+
+The template reads standard ecommerce events from the data layer and sends the matching HIJ analytics API v2 event.
+
+| Data layer event | HIJ event (API v2) | Required data layer fields |
+| --- | --- | --- |
+| `view_item` | `product_viewed` | `ecommerce.items[0].item_id` |
+| `select_item` | `product_clicked` | `ecommerce.items[0].item_id`, `ecommerce.item_list_id` |
+| `add_to_cart` | `product_added_to_cart` | `ecommerce.items[]` with `item_id`, `quantity` |
+| `view_item_list` | `collection_viewed` | `ecommerce.item_list_id`, `ecommerce.items[]` |
+| `search` | `search_performed` | `search_term` |
+| `purchase` | `order_completed` | `ecommerce.transaction_id`, `ecommerce.value`, `ecommerce.items[]` |
+
+Add one trigger per data layer event, or a single custom event trigger matching `view_item|select_item|add_to_cart|view_item_list|search|purchase`.
+
+```javascript
+window.dataLayer = window.dataLayer || [];
+window.dataLayer.push({
+  event: "add_to_cart",
+  ecommerce: {
+    currency: "USD",
+    items: [{ item_id: "1001", item_name: "Relaxed linen shirt", price: 59.0, quantity: 1 }],
+  },
+});
+```
+
+## Consent mode
+
+The `consentMode` field connects the tag to Google consent mode.
+
+| `consentMode` | Before consent | After `analytics_storage` is granted |
+| --- | --- | --- |
+| `required` (default) | Events are dropped, no cookies are set. | Events are sent and the `hij_vid` and `hij_sid` cookies are set. |
+| `cookieless` | Events are sent without visitor or session IDs, so results aren't personalised. | Events are sent with visitor and session IDs. |
+| `off` | Events are always sent. Use only when your consent platform blocks the tag itself. | Events are sent. |
+
+<Warning>
+Keep `consentMode` on `required` unless your legal team has approved another setting. The tag doesn't queue events: anything sent before consent with `required` is lost.
+</Warning>
+
+## Check the setup
+
+1. Open GTM **Preview** and load a product page.
+2. Accept analytics cookies in your consent banner.
+3. In the Tag Assistant, the **HIJ Search Analytics** tag should fire on `view_item` with status **Succeeded**, and the request to `/v2/events` should return `202`.
+
+---
+
+Page reference: `HIJ-GTM-CURRENT-G26`
