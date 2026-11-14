@@ -1,0 +1,25 @@
+---
+title: "Analytics is required"
+description: "The Storefront API doesn't send analytics events. Liquid stores get store events from the Shopify Pixel; every other store sends events with the Analytics API."
+product: "storefront-api"
+version: "v2"
+paths: ["server-side", "hydrogen", "custom-frontend", "liquid"]
+requires: ["credentials", "analytics"]
+keywords: ["storefront api analytics", "send events", "headless analytics"]
+---
+
+The Storefront API returns data and nothing else. It doesn't know what the shopper did with the results, so it can't send analytics events. Without events, ranking and personalisation stop learning and the dashboard reports stay empty.
+
+| Your store | Store events (product view, collection view, add to cart, checkout) | Search and click events |
+| --- | --- | --- |
+| Liquid theme | [Shopify Pixel](/analytics/shopify-pixel), automatic | [Analytics API](/analytics/analytics-api) |
+| Anything else | [Analytics API](/analytics/analytics-api) | [Analytics API](/analytics/analytics-api) |
+
+<Columns cols="2">
+  <Card title="Analytics overview" icon="chart-line" href="/analytics/overview">
+    Every event, who sends it and how.
+  </Card>
+  <Card title="Analytics API" icon="paper-plane" href="/analytics/analytics-api">
+    Send events with `POST /v2/events`.
+  </Card>
+</Columns>

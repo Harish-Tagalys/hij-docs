@@ -1,0 +1,49 @@
+---
+title: "JS SDKs overview"
+description: "Choose between the full stack UI widgets SDK and the headless Connector SDK. Both run in the browser, are versioned separately and send search and widget analytics for you."
+product: "sdks"
+version: "3.x"
+paths: ["liquid", "hydrogen", "custom-frontend"]
+requires: ["credentials"]
+---
+
+HIJ has two JavaScript SDKs. Both load from the HIJ CDN, read the same [credentials](/get-started/credentials) and call the [Storefront API](/storefront-api/overview) for you.
+
+| | Full stack | Headless |
+| --- | --- | --- |
+| SDK | UI widgets, `HIJ.UIWidgets.*` | Connector, `HIJ.Connector.*` |
+| Current release | 3.0.20 | 3.0.21 |
+| Script | `hij-ui-widgets-3.0.20.min.js` | `hij-connector-3.0.21.min.js` |
+| Renders UI | Yes. Templatable widgets for search results, suggestions and collections. | No. Returns data and state helpers; your code renders. |
+| Best for | Liquid themes and stores that want ready-made widgets | Hydrogen, Remix and other front ends with their own components |
+| Keeps request state | Yes, and writes it to the URL | Yes, through helpers |
+| Analytics sent for you | Search, suggestions, product clicks, recommendation strips | Search, suggestions, collection views. Product clicks with `helpers.trackProductClick()`. |
+| Legacy release | 2.x (`HIJWidgets.*`, 2.1.8) | 2.x (`HIJConnector.*`, 2.4.3) |
+
+Each SDK has its own version menu. Changing the full stack version doesn't change the headless pages, and the reverse.
+
+<Callout kind="alert">
+**Browser only.** The SDKs need `window`, `document` and cookies. They don't run in Node.js, Oxygen workers or other server runtimes. To render HIJ results on a server, call the [Storefront API](/storefront-api/overview). A [server-side SDK](/sdks/server-side) is planned.
+</Callout>
+
+<Columns cols="2">
+  <Card title="Full stack quick start" icon="table-cells" href="/full-stack/quick-start">
+    Load the UI widgets and render your first widget.
+  </Card>
+  <Card title="Headless quick start" icon="plug" href="/headless/quick-start">
+    Load the Connector and fetch your first data.
+  </Card>
+</Columns>
+
+## Analytics on the SDK path
+
+The SDKs send the events they know about: searches, suggestions, collection views and clicks inside their widgets. They can't see your product pages, cart or checkout. Those **store events** come from somewhere else:
+
+| Store | Store events from |
+| --- | --- |
+| Liquid theme | The [Shopify Pixel](/analytics/shopify-pixel), automatically |
+| Hydrogen or another custom front end | Your code, with [SDK manual analytics](/analytics/sdk-manual) or the [GTM template](/analytics/gtm/setup) |
+
+<Card title="Analytics overview" icon="chart-line" href="/analytics/overview" horizontal="true">
+  Every event, who sends it, and how to avoid sending one twice.
+</Card>

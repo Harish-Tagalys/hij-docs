@@ -4,12 +4,12 @@ info:
   version: "2"
   description: |
     Read-only storefront endpoints for search, search suggestions and collections.
-    Every request needs your public storefront key in the `X-HIJ-Storefront-Key` header.
+    Every request needs your public storefront token in the `X-HIJ-Storefront-Token` header.
 servers:
   - url: https://api.hij-search.example
     description: Production
 security:
-  - storefrontKey: []
+  - storefrontToken: []
 tags:
   - name: Search
     description: Search results and suggestions
@@ -26,7 +26,8 @@ paths:
         Use it to render a search results page. If the query matches a redirect and
         `redirects` is `true`, the response contains only a `redirect` object.
       parameters:
-        - $ref: "#/components/parameters/StoreId"
+        - $ref: "#/components/parameters/ShopId"
+        - $ref: "#/components/parameters/VisitorId"
         - name: q
           in: query
           required: true
@@ -86,7 +87,8 @@ paths:
         the shopper has typed so far into the query input field. With an empty `q`, only
         popular queries are returned.
       parameters:
-        - $ref: "#/components/parameters/StoreId"
+        - $ref: "#/components/parameters/ShopId"
+        - $ref: "#/components/parameters/VisitorId"
         - name: q
           in: query
           description: Text typed so far. May be empty.
@@ -128,7 +130,8 @@ paths:
           description: Collection ID.
           schema: { type: string }
           example: summer-linen
-        - $ref: "#/components/parameters/StoreId"
+        - $ref: "#/components/parameters/ShopId"
+        - $ref: "#/components/parameters/VisitorId"
         - $ref: "#/components/parameters/Page"
         - $ref: "#/components/parameters/PerPage"
         - $ref: "#/components/parameters/Sort"
@@ -140,6 +143,14 @@ paths:
           in: query
           description: Include promotional tiles and their grid positions.
           schema: { type: boolean, default: false }
+        - name: ab
+          in: query
+          description: Check for a running A/B test on this collection and return the assigned variant's products, filters and sort options.
+          schema: { type: integer, enum: [0, 1], default: 0 }
+        - name: X-HIJ-AB
+          in: header
+          description: The shopper's `hij_ab` cookie, so an existing A/B test assignment is kept.
+          schema: { type: string }
       responses:
         "200":
           description: The collection.
@@ -154,24 +165,41 @@ paths:
                       promo_tiles:
                         type: array
                         items: { $ref: "#/components/schemas/PromoTile" }
+                      ab_test:
+                        description: The A/B test and variant served, or null when no test runs on this collection.
+                        type: [object, "null"]
+                        properties:
+                          test_id: { type: string }
+                          variant_id: { type: string }
+                          primary_collection_id: { type: string }
+                          redirect_to: { type: [string, "null"] }
+          headers:
+            X-HIJ-Set-AB:
+              description: A `Set-Cookie` value for the `hij_ab` cookie. Forward it to the shopper when present.
+              schema: { type: string }
         "401": { $ref: "#/components/responses/Unauthorized" }
         "404": { $ref: "#/components/responses/NotFound" }
         "429": { $ref: "#/components/responses/RateLimited" }
 components:
   securitySchemes:
-    storefrontKey:
+    storefrontToken:
       type: apiKey
       in: header
-      name: X-HIJ-Storefront-Key
-      description: Public storefront key from Settings → Keys in the HIJ dashboard.
+      name: X-HIJ-Storefront-Token
+      description: Public storefront token from Settings → Credentials in the HIJ dashboard.
   parameters:
-    StoreId:
-      name: store_id
+    ShopId:
+      name: shop_id
       in: query
       required: true
-      description: Your store ID.
+      description: Your shop ID.
       schema: { type: string }
-      example: "<YOUR-STORE-ID>"
+      example: "<YOUR-SHOP-ID>"
+    VisitorId:
+      name: X-HIJ-Visitor-Id
+      in: header
+      description: The shopper's `hij_vid` cookie or your own stable anonymous ID. Send it on server-side calls so results stay personalised.
+      schema: { type: string }
     Page:
       name: page
       in: query
@@ -198,7 +226,7 @@ components:
           schema: { $ref: "#/components/schemas/Error" }
           example: { status: error, error: { code: invalid_parameter, message: "q is required" } }
     Unauthorized:
-      description: The storefront key is missing or wrong.
+      description: The storefront token is missing or wrong.
       content:
         application/json:
           schema: { $ref: "#/components/schemas/Error" }

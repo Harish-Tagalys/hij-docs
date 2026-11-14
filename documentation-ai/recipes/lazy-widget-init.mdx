@@ -1,0 +1,49 @@
+---
+title: "Recipe: lazy widget initialisation"
+description: "Initialise HIJ UI widgets only when their container scrolls into view, to save requests and keep pages fast."
+product: "recipes"
+sdks: ["full-stack"]
+version: "3.x"
+paths: ["liquid", "custom-frontend"]
+requires: ["full-stack"]
+---
+
+Widgets lower on the page, such as a "New arrivals" strip on the home page or "Recently viewed" above the footer, don't need to load until the shopper gets there. Written for the [full stack UI widgets](/full-stack/quick-start) 3.0.20.
+
+Widgets must be initialised when their container is visible and has a width, which also makes them a good fit for an `IntersectionObserver`.
+
+```html
+<div id="hij-new-arrivals" data-hij-lazy="recommendations" data-recommendation-id="<RECOMMENDATION-ID>" style="min-height: 420px"></div>
+
+<script>
+  onHIJReady(function () {
+    var widgets = {
+      recommendations: function (el) {
+        HIJ.UIWidgets.Recommendations.init("#" + el.id, {
+          params: { recommendationId: el.dataset.recommendationId, limit: 8 },
+        });
+      },
+    };
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        observer.unobserve(entry.target);
+        widgets[entry.target.dataset.hijLazy](entry.target);
+      });
+    }, { rootMargin: "300px 0px" });
+
+    document.querySelectorAll("[data-hij-lazy]").forEach(function (el) {
+      observer.observe(el);
+    });
+  });
+</script>
+```
+
+- `rootMargin: "300px 0px"` starts loading a little before the container is visible, so the shopper rarely sees the loader.
+- Reserve the widget's height with `min-height` to avoid layout shift.
+- Don't lazy-load the search results widget on the results page. It's the main content.
+
+<Callout kind="info">
+Hidden containers, such as inactive tabs or closed drawers, have no width. Initialise those widgets when the tab or drawer opens instead of when they intersect.
+</Callout>
