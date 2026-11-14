@@ -1,0 +1,41 @@
+- group: Get started
+  expanded: true
+  items:
+    - page: index.md
+      label: Introduction
+    - page: ui-widgets/@3.x/quick-start.md
+      label: Quick start
+    - page: ui-widgets/@2.x/quick-start.md
+      label: Quick start
+- group: UI widgets
+  items:
+    - page: ui-widgets/@3.x/search-results.md
+      label: Search results
+    - page: ui-widgets/@2.x/search-results.md
+      label: Search results
+    - page: ui-widgets/@3.x/search-suggestions.md
+      label: Search suggestions
+- group: Connector
+  items:
+    - page: connector/collections.md
+      label: Collections
+- group: A/B testing
+  items:
+    - page: ab-testing/setup-liquid.md
+      label: Set up (Liquid)
+- group: Failover
+  items:
+    - page: reuse/page-a.md
+      label: Failover (UI widgets)
+    - page: reuse/page-b.md
+      label: Failover (Connector)
+- group: API reference
+  items:
+    - page: api/overview.md
+      label: Overview
+    - page: api/openapi.yaml
+      label: Storefront API v2
+- group: Changelog
+  items:
+    - page: changelog/connector.md
+      label: Connector

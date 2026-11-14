@@ -1,0 +1,7 @@
+# "Latest" is set here by hand and never computed from folder names (V13): a stray @3.1.0 folder stays out of the picker.
+default: 3.x
+versions:
+  - version: 3.x
+    name: "3.x (Latest)"
+  - version: 2.x
+    name: "2.x (Legacy)"
