@@ -2,16 +2,106 @@ $schema: https://api.gitbook.com/gitbook-docs.yaml
 site:
   title: HIJ Search Docs
   structure:
-    - type: space
-      key: hij-sdk-3x
-      title: "SDK 3.x"
-      path: docs
+    - type: section
+      key: section-home
+      title: Home
+      path: home
+      icon: house
       default: true
-      content:
-        directory: ./v3
-    - type: space
-      key: hij-sdk-2x
-      title: "SDK 2.x (legacy)"
-      path: v2
-      content:
-        directory: ./v2
+      children:
+        - type: space
+          key: space-home
+          title: Home
+          path: home
+          default: true
+          content:
+            directory: ./home
+    - type: section
+      key: section-full-stack
+      title: Full stack
+      path: full-stack
+      icon: table-cells
+      children:
+        - type: space
+          key: space-full-stack-3x
+          title: "3.x"
+          path: v3
+          default: true
+          content:
+            directory: ./full-stack/3.x
+        - type: space
+          key: space-full-stack-2x
+          title: "2.x (legacy)"
+          path: v2
+          content:
+            directory: ./full-stack/2.x
+    - type: section
+      key: section-headless
+      title: Headless
+      path: headless
+      icon: plug
+      children:
+        - type: space
+          key: space-headless-3x
+          title: "3.x"
+          path: v3
+          default: true
+          content:
+            directory: ./headless/3.x
+        - type: space
+          key: space-headless-2x
+          title: "2.x (legacy)"
+          path: v2
+          content:
+            directory: ./headless/2.x
+    - type: section
+      key: section-storefront-api
+      title: Storefront API
+      path: storefront-api
+      icon: code
+      children:
+        - type: space
+          key: space-storefront-api-v2
+          title: Storefront API v2
+          path: v2
+          default: true
+          content:
+            directory: ./storefront-api
+    - type: section
+      key: section-ab-testing
+      title: "A/B testing"
+      path: ab-testing
+      icon: flask
+      children:
+        - type: space
+          key: space-ab-testing
+          title: "A/B testing"
+          path: current
+          default: true
+          content:
+            directory: ./ab-testing
+    - type: section
+      key: section-gtm
+      title: GTM
+      path: gtm
+      icon: tags
+      children:
+        - type: space
+          key: space-gtm-r20260217
+          title: r20260217
+          path: r20260217
+          default: true
+          content:
+            directory: ./gtm/r20260217
+        - type: space
+          key: space-gtm-r20250801
+          title: r20250801
+          path: r20250801
+          content:
+            directory: ./gtm/r20250801
+        - type: space
+          key: space-gtm-r20240718
+          title: r20240718
+          path: r20240718
+          content:
+            directory: ./gtm/r20240718

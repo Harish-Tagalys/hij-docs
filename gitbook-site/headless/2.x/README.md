@@ -1,0 +1,63 @@
+---
+description: "Legacy: set up the HIJ Connector SDK 2.x. New integrations should use headless 3.x."
+---
+
+# Headless quick start (2.x, legacy)
+
+{% hint style="warning" %}
+**Legacy documentation: Headless 2.x.** This version is frozen and receives security and critical fixes only. New integrations should use the [current Headless 3.x documentation](https://hij.gitbook.io/hij-docs/headless). [View the 3.x version of this page](https://hij.gitbook.io/hij-docs/headless).
+{% endhint %}
+
+## Include the SDK
+
+Headless 2.x uses the `HIJConnector` namespace. The latest 2.x release is **2.4.3**.
+
+```html
+<script src="https://cdn.hij-search.example/hij-connector-2.4.3.min.js"></script>
+```
+
+## Configure
+
+```javascript
+HIJConnector.configure({
+  apiServer: "https://api.hij-search.example",
+  apiVersion: "v1",
+  storeId: "<YOUR-STORE-ID>",
+  publicKey: "<YOUR-STOREFRONT-KEY>",
+  track: true,
+});
+```
+
+| Option | Type | Description |
+| --- | --- | --- |
+| `apiServer` | string | API server. |
+| `apiVersion` | string | Always `v1` in 2.x. |
+| `storeId` | string | Your store ID. |
+| `publicKey` | string | Public storefront key. |
+| `track` | boolean | Send analytics events. Defaults to `false`. There is no consent hook in 2.x. |
+
+## Fetch data
+
+Every 2.x connector has a `fetch` method that returns a promise. 2.x doesn't keep request state for you: to apply a filter or change page, call `fetch` again with new parameters.
+
+```javascript
+HIJConnector.Search.fetch({ query: "linen shirt", perPage: 24 }).then(function (response) {
+  renderSearchResults(response);
+});
+```
+
+See the [2.x Collections connector](collections.md) for a full example.
+
+## Upgrading to 3.x
+
+| 2.x | 3.x |
+| --- | --- |
+| `HIJConnector.configure({ ... })` | `HIJ.setConfiguration({ ... })` and `HIJ.setPlatformConfiguration({ ... })` |
+| `HIJConnector.Search.fetch(params)` | `HIJ.Connector.SearchResults.init({ params, onSuccess })` |
+| `HIJConnector.Collection.fetch(params)` | `HIJ.Connector.Collection.init({ params, onSuccess })` |
+| Promise `.then(response)` | `onSuccess(response, helpers)` |
+| Re-fetch to change state | State helpers such as `helpers.applyFilter()` |
+
+---
+
+Legacy reference: `HIJ-HL-LEGACY-H2`

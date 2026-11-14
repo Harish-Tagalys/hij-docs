@@ -1,0 +1,9 @@
+# GitBook space "A/B testing / A/B testing". Mapped by ../gitbook-docs.yaml (site-wide Git Sync), key space-ab-testing.
+root: ./
+
+structure:
+  readme: README.md
+  summary: SUMMARY.md
+
+redirects:
+  setup-liquid: README.md

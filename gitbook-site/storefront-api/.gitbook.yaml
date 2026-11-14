@@ -1,0 +1,9 @@
+# GitBook space "Storefront API / Storefront API v2". Mapped by ../gitbook-docs.yaml (site-wide Git Sync), key space-storefront-api-v2.
+root: ./
+
+structure:
+  readme: README.md
+  summary: SUMMARY.md
+
+redirects:
+  overview: README.md

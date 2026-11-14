@@ -1,0 +1,9 @@
+# GitBook space "Headless / 3.x". Mapped by ../../gitbook-docs.yaml (site-wide Git Sync), key space-headless-3x.
+root: ./
+
+structure:
+  readme: README.md
+  summary: SUMMARY.md
+
+redirects:
+  quick-start: README.md
