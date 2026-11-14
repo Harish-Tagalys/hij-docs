@@ -1,0 +1,35 @@
+---
+title: "Recipes"
+description: "Short, complete solutions for common HIJ integration tasks: colour swatches, similar products on the product page, lazy widget initialisation and multi-market stores."
+product: "recipes"
+version: "3.x"
+paths: ["liquid", "hydrogen", "custom-frontend"]
+requires: []
+---
+
+import RecipeFilter from "/snippets/recipe-filter.jsx"
+
+Each recipe solves one task end to end and names the SDK and version it was written for.
+
+<Columns cols="2">
+  <Card title="Colour swatches" icon="palette" href="/recipes/colour-swatches">
+    Render the colour filter and product tiles with swatches.
+    SDK: full stack 3.x · Stores: Liquid, Hydrogen, custom front end
+  </Card>
+  <Card title="Similar products on the product page" icon="clone" href="/recipes/similar-products-pdp">
+    Fetch a similar-products strip with the Connector and render it yourself.
+    SDK: headless 3.x · Stores: Hydrogen, custom front end, Liquid
+  </Card>
+  <Card title="Lazy widget initialisation" icon="hourglass-half" href="/recipes/lazy-widget-init">
+    Initialise widgets only when their container scrolls into view.
+    SDK: full stack 3.x · Stores: Liquid, custom front end
+  </Card>
+  <Card title="Multi-market stores" icon="globe" href="/recipes/multi-market">
+    Set the market, currency and product URLs for Shopify Markets.
+    SDK: full stack 3.x and headless 3.x · Stores: Liquid, Hydrogen, custom front end
+  </Card>
+</Columns>
+
+## Filter by SDK and store
+
+<RecipeFilter />

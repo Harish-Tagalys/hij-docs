@@ -1,6 +1,10 @@
 ---
 title: "Headless quick start (2.x, legacy)"
 description: "Legacy: set up the HIJ Connector SDK 2.x. New integrations should use headless 3.x."
+product: "headless"
+version: "2.x"
+paths: ["hydrogen", "custom-frontend"]
+requires: ["credentials"]
 ---
 
 <Callout kind="alert">
@@ -21,8 +25,8 @@ Headless 2.x uses the `HIJConnector` namespace. The latest 2.x release is **2.4.
 HIJConnector.configure({
   apiServer: "https://api.hij-search.example",
   apiVersion: "v1",
-  storeId: "<YOUR-STORE-ID>",
-  publicKey: "<YOUR-STOREFRONT-KEY>",
+  storeId: "<YOUR-SHOP-ID>",
+  publicKey: "<YOUR-STOREFRONT-TOKEN>",
   track: true,
 });
 ```
@@ -31,8 +35,8 @@ HIJConnector.configure({
 | --- | --- | --- |
 | `apiServer` | string | API server. |
 | `apiVersion` | string | Always `v1` in 2.x. |
-| `storeId` | string | Your store ID. |
-| `publicKey` | string | Public storefront key. |
+| `storeId` | string | Your shop ID. |
+| `publicKey` | string | Public storefront token. |
 | `track` | boolean | Send analytics events. Defaults to `false`. There is no consent hook in 2.x. |
 
 ## Fetch data

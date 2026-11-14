@@ -1,0 +1,108 @@
+---
+title: "A/B testing overview"
+description: "Test collection merchandising with HIJ A/B tests: how traffic is split, what each storefront platform has to do, and the install snippet for Liquid, Hydrogen/Oxygen and Remix."
+product: "ab-testing"
+version: "none"
+paths: ["liquid", "hydrogen", "custom-frontend"]
+requires: ["analytics"]
+---
+
+An A/B test compares a **primary collection** with one or more **variant collections**. Each variant has the same products with different merchandising: other pinned products, boosted brands or another default sort. HIJ splits traffic between them, keeps each shopper in one variant for 30 days and reports conversion per variant.
+
+There is one A/B testing release for all platforms. What your storefront does depends on how it renders collection pages.
+
+## How it works
+
+1. You create a test in the HIJ Search app under **Merchandising → A/B tests**. The app creates the variant collections and their metafields.
+2. A shopper opens the primary collection's URL.
+3. The shopper is assigned to a variant, weighted by traffic share, and the assignment is stored in the `hij_ab` cookie.
+4. The page shows the assigned variant's products, sort options and filters. The URL, title, description and canonical tag stay those of the primary collection.
+5. `collection_viewed` events carry the test and variant IDs, so conversion can be compared.
+
+<Callout kind="alert">
+A/B test results depend on analytics. Make sure `collection_viewed`, `product_clicked`, `product_added_to_cart` and `order_completed` arrive for your store before you start a test. See the [analytics overview](/analytics/overview).
+</Callout>
+
+## Install
+
+<Tabs>
+  <Tab title="Liquid">
+    Save [hij-ab-testing.liquid](/assets/hij-ab-testing.liquid) in your theme's `snippets` folder, then render it and load the library in the `<head>` of `layout/theme.liquid`, before the HIJ UI widgets script:
+
+    ```liquid
+    {% if template.name == 'collection' %}
+      {% render 'hij-ab-testing' %}
+      <script src="https://cdn.hij-search.example/hij-ab-testing-1.0.2.min.js"></script>
+    {% endif %}
+    ```
+
+    The library swaps `collection` to the assigned variant before the page renders. Continue with the [Liquid guide](/ab-testing/liquid) for the canonical URL, collection details and navigation.
+  </Tab>
+  <Tab title="Hydrogen">
+    Resolve the variant in the collection route's `loader` on Oxygen. Pass the shopper's `hij_ab` cookie to the Storefront API and forward the cookie it returns:
+
+    ```ts
+    // app/routes/collections.$handle.tsx
+    export async function loader({ params, request, context }) {
+      const res = await fetch(
+        `https://api.hij-search.example/v2/collections/${params.handle}?shop_id=${context.env.HIJ_SHOP_ID}&ab=1`,
+        {
+          headers: {
+            "X-HIJ-Storefront-Token": context.env.HIJ_STOREFRONT_TOKEN,
+            "X-HIJ-AB": readCookie(request, "hij_ab") ?? "",
+          },
+        },
+      );
+      const collection = await res.json(); // collection.ab_test = { test_id, variant_id } | null
+      return data({ collection }, {
+        headers: {
+          "Set-Cookie": res.headers.get("X-HIJ-Set-AB") ?? "",
+          "Cache-Control": collection.ab_test ? "private, max-age=0" : "public, max-age=60",
+        },
+      });
+    }
+    ```
+
+    Continue with the [Hydrogen/Oxygen guide](/ab-testing/hydrogen-oxygen) for caching and analytics.
+  </Tab>
+  <Tab title="Remix">
+    Resolve the variant in the collection route's `loader`, the same way on any host:
+
+    ```ts
+    // app/routes/collections.$handle.tsx
+    import { json } from "@remix-run/node";
+
+    export async function loader({ params, request }) {
+      const res = await fetch(
+        `https://api.hij-search.example/v2/collections/${params.handle}?shop_id=${process.env.HIJ_SHOP_ID}&ab=1`,
+        {
+          headers: {
+            "X-HIJ-Storefront-Token": process.env.HIJ_STOREFRONT_TOKEN,
+            "X-HIJ-AB": readCookie(request, "hij_ab") ?? "",
+          },
+        },
+      );
+      const collection = await res.json();
+      return json({ collection }, {
+        headers: { "Set-Cookie": res.headers.get("X-HIJ-Set-AB") ?? "", "Vary": "Cookie" },
+      });
+    }
+    ```
+
+    Continue with the [Remix guide](/ab-testing/remix) for client-side navigation and analytics.
+  </Tab>
+</Tabs>
+
+## Platform guides
+
+<Columns cols="3">
+  <Card title="Liquid" icon="shopify" href="/ab-testing/liquid">
+    Snippet, library and theme changes.
+  </Card>
+  <Card title="Hydrogen/Oxygen" icon="bolt" href="/ab-testing/hydrogen-oxygen">
+    Loader, Oxygen caching and analytics.
+  </Card>
+  <Card title="Remix" icon="code" href="/ab-testing/remix">
+    Loader, cookies and client navigation.
+  </Card>
+</Columns>
