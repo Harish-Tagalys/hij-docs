@@ -1,0 +1,10 @@
+# GitBook Git Sync: HIJ Search docs, SDK 3.x (default site variant).
+# Set this space's Git Sync "Project directory" to: gitbook
+root: ./
+
+structure:
+  readme: README.md
+  summary: SUMMARY.md
+
+redirects:
+  quick-start: ui-widgets/quick-start.md
