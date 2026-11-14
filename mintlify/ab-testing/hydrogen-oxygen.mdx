@@ -1,0 +1,90 @@
+---
+title: "A/B testing on Hydrogen and Oxygen"
+sidebarTitle: "Hydrogen/Oxygen"
+description: "Run HIJ collection A/B tests on a Hydrogen storefront deployed to Oxygen: resolve the variant in the loader, keep caching correct and tag analytics events."
+product: "ab-testing"
+version: "none"
+paths: ["hydrogen"]
+requires: ["storefront-api", "analytics"]
+---
+
+On Hydrogen, the variant is chosen on the server, in the collection route's `loader`. HIJ does the assignment: you pass the shopper's assignment cookie to the Storefront API and forward the updated cookie in your response. The A/B testing library used by Liquid themes isn't needed.
+
+## Step 1: Read the assignment cookie
+
+```ts
+// app/lib/hij.server.ts
+export function readCookie(request: Request, name: string) {
+  const match = new RegExp(`(?:^|; )${name}=([^;]+)`).exec(request.headers.get("Cookie") ?? "");
+  return match ? decodeURIComponent(match[1]) : null;
+}
+```
+
+## Step 2: Request the collection with `ab=1`
+
+With `ab=1`, `GET /v2/collections/{id}` checks for a running test on the collection. If there is one, it assigns the shopper (or keeps the existing assignment from `X-HIJ-AB`) and returns the variant's products, filters and sort options. `collection.ab_test` tells you which variant was served.
+
+```ts
+// app/routes/collections.$handle.tsx
+import { data } from "react-router";
+import { readCookie } from "~/lib/hij.server";
+
+export async function loader({ params, request, context }) {
+  const url = new URL(`https://api.hij-search.example/v2/collections/${params.handle}`);
+  url.searchParams.set("shop_id", context.env.HIJ_SHOP_ID);
+  url.searchParams.set("ab", "1");
+  url.searchParams.set("market", context.storefront.i18n.country);
+
+  const res = await fetch(url, {
+    headers: {
+      "X-HIJ-Storefront-Token": context.env.HIJ_STOREFRONT_TOKEN,
+      "X-HIJ-AB": readCookie(request, "hij_ab") ?? "",
+      "X-HIJ-Visitor-Id": readCookie(request, "hij_vid") ?? "",
+    },
+  });
+  if (res.status === 404) throw new Response("Not found", { status: 404 });
+  const collection = await res.json();
+
+  const headers = new Headers();
+  const setAb = res.headers.get("X-HIJ-Set-AB");
+  if (setAb) headers.append("Set-Cookie", setAb);
+  headers.set("Cache-Control", collection.ab_test ? "private, max-age=0" : "public, max-age=60, stale-while-revalidate=300");
+
+  return data({ collection }, { headers });
+}
+```
+
+| Response field | Meaning |
+| --- | --- |
+| `ab_test` | `null` when no test runs on this collection. Otherwise `{ test_id, variant_id, primary_collection_id }`. |
+| `collection` | Always the **primary** collection's title, description and image. |
+| `products`, `filters`, `sort_options` | From the assigned variant. |
+
+## Step 3: Keep Oxygen caching correct
+
+Oxygen caches full-page responses when your route sends a public `Cache-Control`. A cached variant would be served to every shopper and break the split.
+
+- While a test runs (`ab_test` is not `null`), send `Cache-Control: private, max-age=0`.
+- Cache the HIJ subrequest only with a key that includes the `hij_ab` cookie value, or not at all.
+- Don't put the variant in the URL. Canonical URLs must stay the primary collection's.
+
+## Step 4: Tag analytics events
+
+Collection events must carry the test and variant, or the test shows no results.
+
+- **Headless SDK in the browser:** pass the server response as `initialResponse` to `HIJ.Connector.Collection.init()`. The connector reads `ab_test` and tags `collection_viewed` and `product_clicked` for you.
+- **No SDK:** add `ab_test: { test_id, variant_id }` to the `collection_viewed` event you send with the [Analytics API](/analytics/analytics-api#event-types).
+
+## Step 5: Hide variants from navigation
+
+Variant collections get the primary collection's handle plus a suffix, for example `summer-linen-hij-b`. Filter them out of menus and collection lists:
+
+```ts
+const visible = collections.nodes.filter((c) => !c.handle.includes("-hij-"));
+```
+
+Direct visits to a variant handle return `ab_test.redirect_to` with the primary collection's path. Redirect with `302`.
+
+<Tip>
+To check the split, open the primary collection in a private window a few times. You should see different variants, and the canonical tag should always point at the primary collection. Add `?hij_variant=<variant-handle>` to force a variant while you check the setup; it works only with a storefront token from a development store.
+</Tip>
