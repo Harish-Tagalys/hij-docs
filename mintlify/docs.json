@@ -1,0 +1,103 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "HIJ Search Docs",
+  "description": "HIJ Search developer documentation. SDK 3.x is current; SDK 2.x is legacy and documented separately under /v2.",
+  "colors": {
+    "primary": "#4F46E5",
+    "light": "#818CF8",
+    "dark": "#3730A3"
+  },
+  "variables": {
+    "UI_WIDGETS_VERSION": "3.0.20",
+    "CONNECTOR_VERSION": "3.0.21"
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Guides",
+        "versions": [
+          {
+            "version": "3.x",
+            "default": true,
+            "tag": "Latest",
+            "groups": [
+              {
+                "group": "Get started",
+                "pages": ["index", "ui-widgets/quick-start"]
+              },
+              {
+                "group": "UI widgets",
+                "pages": ["ui-widgets/search-results", "ui-widgets/search-suggestions"]
+              },
+              {
+                "group": "Connector",
+                "pages": ["connector/collections"]
+              },
+              {
+                "group": "A/B testing",
+                "pages": ["ab-testing/setup-liquid"]
+              },
+              {
+                "group": "Failover",
+                "pages": ["reuse/page-a", "reuse/page-b"]
+              }
+            ]
+          },
+          {
+            "version": "2.x (legacy)",
+            "tag": "Legacy",
+            "groups": [
+              {
+                "group": "SDK 2.x (legacy)",
+                "pages": ["v2/ui-widgets/quick-start", "v2/ui-widgets/search-results"]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API reference",
+        "openapi": "api/openapi.yaml",
+        "groups": [
+          {
+            "group": "Storefront API v2",
+            "pages": [
+              "api/overview",
+              "api/endpoints/search",
+              "api/endpoints/suggestions",
+              "api/endpoints/collection"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Changelog",
+        "groups": [
+          {
+            "group": "Release notes",
+            "pages": ["changelog/connector"]
+          }
+        ]
+      }
+    ]
+  },
+  "api": {
+    "playground": {
+      "display": "interactive"
+    }
+  },
+  "redirects": [
+    {
+      "source": "/quick-start",
+      "destination": "/ui-widgets/quick-start"
+    },
+    {
+      "source": "/legacy/:slug*",
+      "destination": "/v2/:slug*"
+    }
+  ],
+  "footer": {
+    "socials": {}
+  }
+}

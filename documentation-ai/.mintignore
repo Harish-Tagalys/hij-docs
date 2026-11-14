@@ -1,0 +1,8 @@
+# Files in this folder that are not published as pages or assets.
+README.md
+HOSTED-CHECKS.md
+search-tests.json
+versions.env
+scripts/
+changelog/connector-changelog.md
+.mintignore

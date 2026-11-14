@@ -1,0 +1,45 @@
+{% comment %}
+  hij-ab-testing.liquid: renders the A/B test configuration for the current collection so the
+  HIJ A/B testing library can pick a variant before the product grid is rendered.
+  Save this file in the snippets folder of your theme and render it from the theme layout.
+{% endcomment %}
+
+{%- liquid
+  assign hij_primary = collection.metafields.hij.primary_collection.value
+  if hij_primary == blank
+    assign hij_primary = collection
+  endif
+  assign hij_variants = hij_primary.metafields.hij.variant_collections.value
+-%}
+
+<script type="application/json" id="hij-ab-testing-config">
+  {
+    "enabled": {% if hij_variants != blank %}true{% else %}false{% endif %},
+    "primaryCollection": {
+      "id": {{ hij_primary.id | json }},
+      "handle": {{ hij_primary.handle | json }},
+      "url": {{ hij_primary.url | json }}
+    },
+    "currentCollection": {
+      "id": {{ collection.id | json }},
+      "handle": {{ collection.handle | json }}
+    },
+    "variants": [
+      {%- for variant in hij_variants -%}
+        {
+          "id": {{ variant.id | json }},
+          "handle": {{ variant.handle | json }},
+          "url": {{ variant.url | json }},
+          "weight": {{ variant.metafields.hij.traffic_weight.value | default: 50 | json }}
+        }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ],
+    "canonicalUrl": {{ canonical_url | json }},
+    "locale": {{ request.locale.iso_code | json }}
+  }
+</script>
+
+<script>
+  window.HIJABTesting = window.HIJABTesting || { queue: [] };
+  window.HIJABTesting.configElementId = "hij-ab-testing-config";
+</script>
