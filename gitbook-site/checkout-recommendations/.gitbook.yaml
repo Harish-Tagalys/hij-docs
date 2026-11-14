@@ -1,0 +1,9 @@
+# GitBook space "Checkout recommendations / Checkout recommendations". Mapped by ../gitbook-docs.yaml (site-wide Git Sync), key space-checkout-recommendations.
+root: ./
+
+structure:
+  readme: README.md
+  summary: SUMMARY.md
+
+redirects:
+  overview: README.md

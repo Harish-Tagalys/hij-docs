@@ -4,6 +4,8 @@ description: "Load the headless HIJ Connector SDK, configure it, handle analytic
 
 # Headless quick start: HIJ Connector
 
+**Applies to:** product `headless` · version `3.x` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `install-app`, `credentials`
+
 ## Overview
 
 The HIJ Connector is the headless SDK. It fetches search results, search suggestions and merchandised collections, keeps the request state (applied filters, sort option, page) and sends analytics events. It doesn't render anything: your code builds the page from the data and helpers it returns.
@@ -31,14 +33,15 @@ The current release is **3.0.21**. Pin the exact version: the CDN never serves a
 {% step %}
 ### Set the HIJ configuration
 
-The configuration is the same one the UI widgets use. Your storefront key is in the HIJ dashboard under **Settings → Keys**. It is a public, read-only key.
+The configuration is the same one the UI widgets use. Your storefront token is in the HIJ dashboard under **Settings → Credentials**. It is public and read-only. See [credentials](https://hij.gitbook.io/hij-docs/get-started/credentials) for where to find your shop ID and token.
 
 ```javascript
 function setHIJConfiguration() {
   HIJ.setConfiguration({
     api: {
       serverUrl: "https://api.hij-search.example",
-      storefrontKey: "<YOUR-STOREFRONT-KEY>",
+      shopId: "<YOUR-SHOP-ID>",
+      storefrontToken: "<YOUR-STOREFRONT-TOKEN>",
     },
     locale: "en-US",
     currency: {
@@ -52,7 +55,8 @@ function setHIJConfiguration() {
 | Option | Type | Required | Description |
 | --- | --- | --- | --- |
 | `api.serverUrl` | string | Yes | The HIJ API server the SDK calls. Always `https://api.hij-search.example` unless support gives you a regional host. |
-| `api.storefrontKey` | string | Yes | Public storefront key. Safe to expose in the browser. Never put a secret key here. |
+| `api.shopId` | string | Yes | Your HIJ shop ID, for example `shp_4k7q2m9x1c`. |
+| `api.storefrontToken` | string | Yes | Public storefront token. Safe to expose in the browser. Never put the Shopify Admin API token or any other secret here. |
 | `locale` | string | Yes | BCP 47 locale used for translated product fields. |
 | `currency.label` | string | No | Currency label used by `helpers.formatPrice()`. |
 | `currency.fractionDigits` | number | No | Number of decimal places. Defaults to `2`. |
@@ -68,7 +72,7 @@ function setHIJPlatformConfiguration() {
     marketCode: "<SHOPPER-MARKET-CODE>",
     baseMarketCode: "<STORE-BASE-MARKET-CODE>",
     catalogFeed: {
-      feedUrl: "https://feeds.hij-search.example/<YOUR-STORE-ID>/catalog.json",
+      feedUrl: "https://feeds.hij-search.example/<YOUR-SHOP-ID>/catalog.json",
     },
   });
 }
@@ -139,6 +143,15 @@ HIJ.setConfiguration({
 
 `analyticsConsentProvided` is called before every event, so consent given after page load is picked up without re-initialising. While it returns `false`, events are dropped and the HIJ analytics cookies are removed. Product clicks must be tracked by your code with `helpers.trackProductClick(product)`, because the Connector doesn't own your markup.
 
+### Store events
+
+The Connector sends search, suggestion and collection events. Product views, add to cart and orders happen in your own code, so you send them:
+
+- **Liquid theme:** the [Shopify Pixel](https://hij.gitbook.io/hij-docs/analytics/shopify-pixel) sends them automatically.
+- **Hydrogen or another custom front end:** use [SDK manual analytics](https://hij.gitbook.io/hij-docs/analytics/sdk-manual) (`HIJ.Analytics.track()`) or the [GTM template](https://hij.gitbook.io/hij-docs/gtm).
+
+See the [analytics overview](https://hij.gitbook.io/hij-docs/analytics) for the full event list.
+
 ## Connectors
 
 | Connector | Method | Use it for |
@@ -146,6 +159,7 @@ HIJ.setConfiguration({
 | Search results | `HIJ.Connector.SearchResults.init()` | The results page for a query. |
 | Search suggestions | `HIJ.Connector.SearchSuggestions.init()` | Suggestions while the shopper types. |
 | Collections | `HIJ.Connector.Collection.init()` | [Merchandised product listing pages](collections.md). |
+| Recommendations | `HIJ.Connector.Recommendations.init()` | Strips such as similar products. See the [similar products recipe](https://hij.gitbook.io/hij-docs/recipes/similar-products-pdp). |
 
 <table data-view="cards">
   <thead>
@@ -167,7 +181,7 @@ HIJ.setConfiguration({
       <td><i class="fa-clock-rotate-left"></i></td>
       <td><strong>Headless changelog</strong></td>
       <td>Every Connector release, newest first.</td>
-      <td><a href="changelog.md">changelog.md</a></td>
+      <td><a href="https://hij.gitbook.io/hij-docs/changelogs/headless">headless</a></td>
     </tr>
   </tbody>
 </table>

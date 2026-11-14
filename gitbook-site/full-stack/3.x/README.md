@@ -4,6 +4,8 @@ description: "Load the HIJ UI widgets SDK, configure it, handle analytics consen
 
 # Full stack quick start: HIJ UI widgets
 
+**Applies to:** product `full-stack` · version `3.x` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `install-app`, `credentials`
+
 ## Overview
 
 The HIJ UI widgets are ready-made, templatable front-end components for search results, search suggestions and collections. Each widget fetches its own data, keeps its own state (applied filters, sort option, page) and re-renders when that state changes. You customise the markup with templates and hook in your own logic with callbacks.
@@ -31,14 +33,15 @@ The current release is **3.0.20**. Pin the exact version: the CDN never serves a
 {% step %}
 ### Set the HIJ configuration
 
-Set your server URL, storefront key, locale and currency. Your storefront key is in the HIJ dashboard under **Settings → Keys**. It is a public, read-only key.
+Set your server URL, storefront token, locale and currency. Your storefront token is in the HIJ dashboard under **Settings → Credentials**. It is public and read-only. See [credentials](https://hij.gitbook.io/hij-docs/get-started/credentials) for where to find your shop ID and token.
 
 ```javascript
 function setHIJConfiguration() {
   HIJ.setConfiguration({
     api: {
       serverUrl: "https://api.hij-search.example",
-      storefrontKey: "<YOUR-STOREFRONT-KEY>",
+      shopId: "<YOUR-SHOP-ID>",
+      storefrontToken: "<YOUR-STOREFRONT-TOKEN>",
     },
     locale: "en-US",
     currency: {
@@ -56,7 +59,8 @@ function setHIJConfiguration() {
 | Option | Type | Required | Description |
 | --- | --- | --- | --- |
 | `api.serverUrl` | string | Yes | The HIJ API server the SDK calls. Always `https://api.hij-search.example` unless support gives you a regional host. |
-| `api.storefrontKey` | string | Yes | Public storefront key. Safe to expose in the browser. Never put a secret key here. |
+| `api.shopId` | string | Yes | Your HIJ shop ID, for example `shp_4k7q2m9x1c`. |
+| `api.storefrontToken` | string | Yes | Public storefront token. Safe to expose in the browser. Never put the Shopify Admin API token or any other secret here. |
 | `locale` | string | Yes | BCP 47 locale used for formatting and for translated product fields. It should match the store's locale. |
 | `currency.displayFormatter` | string | No | Template for prices. The SDK replaces `{{currencyLabel}}` and `{{value}}` when rendering. |
 | `currency.label` | string | No | Currency label shown to shoppers, for example `$` or `EUR`. |
@@ -77,7 +81,7 @@ function setHIJPlatformConfiguration() {
     marketCode: "<SHOPPER-MARKET-CODE>", // the market the shopper picked, for example "DE"
     baseMarketCode: "<STORE-BASE-MARKET-CODE>",
     catalogFeed: {
-      feedUrl: "https://feeds.hij-search.example/<YOUR-STORE-ID>/catalog.json",
+      feedUrl: "https://feeds.hij-search.example/<YOUR-SHOP-ID>/catalog.json",
       refreshMinutes: 15,
     },
     productFields: ["material", "care_instructions", "badge_text"],
@@ -160,9 +164,18 @@ How the consent result maps to SDK behaviour:
 | `false` | Dropped | Removed | No, results are not personalised |
 | Throws an error | Dropped, error logged once | Left as they are | No |
 
+### Store events
+
+The widgets send search, suggestion, product click and recommendation events. They can't see your product pages, cart or checkout:
+
+- **Liquid theme:** the [Shopify Pixel](https://hij.gitbook.io/hij-docs/analytics/shopify-pixel) sends product views, collection views, add to cart and checkout automatically. Don't send them again with `HIJ.Analytics.track()`.
+- **Any other storefront:** send them with [SDK manual analytics](https://hij.gitbook.io/hij-docs/analytics/sdk-manual) or the [GTM template](https://hij.gitbook.io/hij-docs/gtm).
+
+See the [analytics overview](https://hij.gitbook.io/hij-docs/analytics) for the full event list.
+
 ## Markets
 
-When the store sells in several markets, set `marketCode` to the shopper's chosen market. HIJ then responds with:
+When the store sells in several markets, set `marketCode` to the shopper's chosen market (see the [multi-market recipe](https://hij.gitbook.io/hij-docs/recipes/multi-market)). HIJ then responds with:
 
 1. Prices in that market's currency
 2. Only the products published in that market
@@ -183,8 +196,10 @@ Initialise a widget by calling its `init` method with a CSS selector and options
 - Collections
   - HIJ-powered: render with the headless [Collections connector](https://hij.gitbook.io/hij-docs/headless/collections)
   - Fallback: reads your catalog feed when the API can't be reached (see [failover](failover.md))
+- Recommendations
+  - `HIJ.UIWidgets.Recommendations.init(selector, { params: { recommendationId } })` renders a strip. See [lazy widget initialisation](https://hij.gitbook.io/hij-docs/recipes/lazy-widget-init) for strips lower on the page.
 - Experiments
-  - [A/B testing in a Liquid theme](https://hij.gitbook.io/hij-docs/ab-testing)
+  - [A/B testing](https://hij.gitbook.io/hij-docs/ab-testing) for Liquid, Hydrogen/Oxygen and Remix
 
 ## Headless alternative
 
@@ -214,7 +229,7 @@ The headless SDK has its own script and version number. The two SDKs are release
       <td><i class="fa-clock-rotate-left"></i></td>
       <td><strong>Full stack changelog</strong></td>
       <td>Every UI widgets release, newest first.</td>
-      <td><a href="changelog.md">changelog.md</a></td>
+      <td><a href="https://hij.gitbook.io/hij-docs/changelogs/full-stack">full-stack</a></td>
     </tr>
   </tbody>
 </table>

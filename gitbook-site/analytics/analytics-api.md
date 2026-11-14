@@ -1,0 +1,125 @@
+---
+description: "Send HIJ analytics events directly with POST /v2/events from a browser, app or server. Required on the Storefront API path and for headless stores without the SDK."
+---
+
+# Analytics API
+
+**Applies to:** product `analytics` · version `v2` · store types `hydrogen`, `custom-frontend`, `server-side`, `liquid` · requires `credentials`
+
+The Analytics API takes the same events the SDKs and the Shopify Pixel send. Use it when nothing else sends an event for you: on the [Storefront API path](https://hij.gitbook.io/hij-docs/storefront-api/next-step/analytics-required), in native apps, and for server-side events such as orders.
+
+## Send events
+
+```bash
+curl -X POST "https://api.hij-search.example/v2/events" \
+  -H "Content-Type: application/json" \
+  -H "X-HIJ-Storefront-Token: <YOUR-STOREFRONT-TOKEN>" \
+  -d '{
+    "shop_id": "<YOUR-SHOP-ID>",
+    "events": [
+      {
+        "type": "search_performed",
+        "occurred_at": "2026-11-14T10:22:31Z",
+        "visitor_id": "6f1c2a9e-4b7d-4e0a-9a51-0c3d2f8e7b14",
+        "session_id": "a83d0b52-91c4-4f1e-bf3a-2e6c7d9a0f55",
+        "market": "US",
+        "query": "linen shirt",
+        "product_ids": ["1001", "1002", "1007"],
+        "page": 1
+      }
+    ]
+  }'
+```
+
+The API returns `202 Accepted` with a count of accepted events and the index and reason for any rejected ones:
+
+```json
+{ "accepted": 1, "rejected": [] }
+```
+
+| Limit | Value |
+| --- | --- |
+| Events per request | 50 |
+| Request body | 256 KB |
+| `occurred_at` | No more than 72 hours in the past |
+
+## Visitor and session IDs
+
+Every event needs a `visitor_id` and a `session_id`. They connect a search to the click, view and order that followed.
+
+- **In a browser with the SDK loaded:** read the `hij_vid` and `hij_sid` cookies.
+- **Without the SDK:** generate a UUID v4 per visitor (keep it for a year) and per session (expire it after 30 minutes without activity).
+- **On a server:** use the IDs the browser sent. Send the same IDs in the [Storefront API headers](https://hij.gitbook.io/hij-docs/storefront-api/authentication#calls-from-a-server).
+
+{% hint style="warning" %}
+Only send events, and only create visitor and session IDs, after the shopper has consented to analytics.
+{% endhint %}
+
+## Event types
+
+Fields every event takes: `type`, `occurred_at` (ISO 8601), `visitor_id`, `session_id`, and optional `market`.
+
+| `type` | Extra fields |
+| --- | --- |
+| `search_performed` | `query`, `product_ids` (as shown), `page` |
+| `suggestion_selected` | `query` (typed), `suggestion` (chosen query) or `product_id` |
+| `product_clicked` | `product_id`, `position`, `list` (`search`, `collection` or `recommendation`), `list_id` (query, collection ID or recommendation ID) |
+| `recommendation_viewed` | `recommendation_id`, `product_ids` |
+| `collection_viewed` | `collection_id`, `product_ids`, `applied_filters`, `sort`, optional `ab_test` (`{ test_id, variant_id }`) |
+| `product_viewed` | `product_id`, optional `variant_id` |
+| `product_added_to_cart` | `product_id`, `variant_id`, `quantity`, `price` |
+| `checkout_started` | `cart_token`, `line_items` (`product_id`, `variant_id`, `quantity`, `price`) |
+| `order_completed` | `order_id`, `currency`, `total`, `line_items` |
+
+## Send orders from your server
+
+Orders are most reliable from the server. Store the shopper's IDs on the cart while they browse, then read them from your `orders/paid` webhook:
+
+```ts
+// 1. In the browser, when the cart is created
+await cart.updateAttributes([
+  { key: "_hij_vid", value: visitorId },
+  { key: "_hij_sid", value: sessionId },
+]);
+
+// 2. In your orders/paid webhook handler
+const attrs = Object.fromEntries(order.note_attributes.map((a) => [a.name, a.value]));
+if (attrs._hij_vid) {
+  await fetch("https://api.hij-search.example/v2/events", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-HIJ-Storefront-Token": process.env.HIJ_STOREFRONT_TOKEN,
+    },
+    body: JSON.stringify({
+      shop_id: process.env.HIJ_SHOP_ID,
+      events: [{
+        type: "order_completed",
+        occurred_at: order.processed_at,
+        visitor_id: attrs._hij_vid,
+        session_id: attrs._hij_sid,
+        order_id: String(order.id),
+        currency: order.currency,
+        total: Number(order.total_price),
+        line_items: order.line_items.map((li) => ({
+          product_id: String(li.product_id),
+          variant_id: String(li.variant_id),
+          quantity: li.quantity,
+          price: Number(li.price),
+        })),
+      }],
+    }),
+  });
+}
+```
+
+Carts without `_hij_vid` belong to shoppers who didn't consent. Skip them.
+
+## Errors
+
+| Code | Meaning |
+| --- | --- |
+| `202` | Accepted. Check `rejected` for events that failed validation. |
+| `400` | The body isn't valid JSON or has more than 50 events. |
+| `401` | Missing or wrong storefront token. |
+| `429` | Rate limited. Retry after `Retry-After` seconds. Events are idempotent per `type`, `visitor_id` and `occurred_at`, so retrying is safe. |

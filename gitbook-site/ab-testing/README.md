@@ -1,72 +1,35 @@
 ---
-description: "Split traffic between a collection and its variant collections in a Liquid theme with the HIJ A/B testing library."
+description: "Test collection merchandising with HIJ A/B tests: how traffic is split, what each storefront platform has to do, and the install snippet for Liquid, Hydrogen/Oxygen and Remix."
 ---
 
-# A/B testing collections in a Liquid theme
+# A/B testing overview
 
-{% hint style="info" %}
-This guide is for stores that render collection pages with a Liquid theme. For headless storefronts, the Connector picks the variant for you; no theme changes are needed.
-{% endhint %}
+**Applies to:** product `ab-testing` · version `none` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `analytics`
+
+An A/B test compares a **primary collection** with one or more **variant collections**. Each variant has the same products with different merchandising: other pinned products, boosted brands or another default sort. HIJ splits traffic between them, keeps each shopper in one variant for 30 days and reports conversion per variant.
+
+There is one A/B testing release for all platforms. What your storefront does depends on how it renders collection pages.
 
 ## How it works
 
-An A/B test compares a **primary collection** with one or more **variant collections**. Each variant has the same products but different merchandising, such as other pinned products or another default sort.
+1. You create a test in the HIJ Search app under **Merchandising → A/B tests**. The app creates the variant collections and their metafields.
+2. A shopper opens the primary collection's URL.
+3. The shopper is assigned to a variant, weighted by traffic share, and the assignment is stored in the `hij_ab` cookie.
+4. The page shows the assigned variant's products, sort options and filters. The URL, title, description and canonical tag stay those of the primary collection.
+5. `collection_viewed` events carry the test and variant IDs, so conversion can be compared.
 
-1. A shopper opens the primary collection's URL.
-2. The A/B testing library assigns the shopper to a variant, weighted by each variant's traffic share, and remembers the choice for 30 days.
-3. If the shopper was assigned to a variant, the library loads that variant's products into the page. The URL in the address bar doesn't change.
-4. Every collection event is tagged with the test and variant, so the dashboard can compare conversion.
+{% hint style="warning" %}
+A/B test results depend on analytics. Make sure `collection_viewed`, `product_clicked`, `product_added_to_cart` and `order_completed` arrive for your store before you start a test. See the [analytics overview](https://hij.gitbook.io/hij-docs/analytics).
+{% endhint %}
 
-<details>
-<summary>Variant collections in detail</summary>
+## Install
 
-Variant collections are normal collections in your store with two metafields:
-
-| Metafield | On | Type | Value |
-| --- | --- | --- | --- |
-| `hij.variant_collections` | Primary collection | List of collection references | The variants in this test. |
-| `hij.primary_collection` | Each variant | Collection reference | The primary collection. |
-| `hij.traffic_weight` | Each variant | Integer | Share of traffic, from 0 to 100. The primary gets what's left. |
-
-The HIJ dashboard creates and fills these metafields when you start a test. Don't edit them by hand while a test is running.
-
-</details>
-
-<details>
-<summary>Collection handles with a suffix</summary>
-
-Variants get the primary collection's handle plus a suffix, for example `summer-linen` and `summer-linen-hij-b`. Keep the suffix: Step 6 relies on it to hide variants from navigation and sitemaps.
-
-</details>
-
-## Integration steps
-
-### Step 1: Save the snippet in your theme
-
-Download [hij-ab-testing.liquid](.gitbook/assets/hij-ab-testing.liquid) and save it in the `snippets` folder of your theme as `hij-ab-testing.liquid`.
+{% tabs %}
+{% tab title="Liquid" %}
+Save [hij-ab-testing.liquid](.gitbook/assets/hij-ab-testing.liquid) in your theme's `snippets` folder, then render it and load the library in the `<head>` of `layout/theme.liquid`, before the HIJ UI widgets script:
 
 {% file src=".gitbook/assets/hij-ab-testing.liquid" %}
 {% endfile %}
-
-The snippet writes the test configuration for the current collection into a JSON script tag:
-
-```liquid
-{%- liquid
-  assign hij_primary = collection.metafields.hij.primary_collection.value
-  if hij_primary == blank
-    assign hij_primary = collection
-  endif
-  assign hij_variants = hij_primary.metafields.hij.variant_collections.value
--%}
-
-<script type="application/json" id="hij-ab-testing-config">
-  { "enabled": {% if hij_variants != blank %}true{% else %}false{% endif %} }
-</script>
-```
-
-### Step 2: Load the A/B testing library
-
-Render the snippet and load the library in the `<head>` of `layout/theme.liquid`, before the HIJ UI widgets script:
 
 ```liquid
 {% if template.name == 'collection' %}
@@ -75,163 +38,92 @@ Render the snippet and load the library in the `<head>` of `layout/theme.liquid`
 {% endif %}
 ```
 
-### Step 3: Point the canonical URL at the primary collection
+The library swaps `collection` to the assigned variant before the page renders. Continue with the [Liquid guide](liquid.md) for the canonical URL, collection details and navigation.
+{% endtab %}
+{% tab title="Hydrogen" %}
+Resolve the variant in the collection route's `loader` on Oxygen. Pass the shopper's `hij_ab` cookie to the Storefront API and forward the cookie it returns:
 
-Search engines should only index the primary collection. Replace the canonical tag in `layout/theme.liquid`:
-
-```liquid
-{%- if collection.metafields.hij.primary_collection.value != blank -%}
-  <link rel="canonical" href="{{ shop.url }}{{ collection.metafields.hij.primary_collection.value.url }}">
-{%- else -%}
-  <link rel="canonical" href="{{ canonical_url }}">
-{%- endif -%}
-```
-
-### Step 4: Render collection details from the primary collection
-
-The title, description and banner should stay the same in every variant. Read them from the primary collection:
-
-```liquid
-{%- assign hij_display_collection = collection.metafields.hij.primary_collection.value | default: collection -%}
-
-<header class="collection-hero">
-  <h1>{{ hij_display_collection.title | escape }}</h1>
-  {%- if hij_display_collection.image -%}
-    {{ hij_display_collection.image | image_url: width: 1600 | image_tag: loading: 'eager', alt: hij_display_collection.title }}
-  {%- endif -%}
-  <div class="rte">{{ hij_display_collection.description }}</div>
-</header>
-```
-
-{% hint style="info" %}
-Only the product grid, sort options and filters come from the variant. Everything else on the page comes from the primary collection.
-{% endhint %}
-
-### Step 5: Use `collection` for products, sort options and filters
-
-Keep using the plain `collection` object for the product grid, sort options and filters. The library swaps `collection` to the assigned variant before the page renders, so these follow the variant automatically.
-
-```liquid
-{%- paginate collection.products by 24 -%}
-  <ul class="product-grid">
-    {%- for product in collection.products -%}
-      <li>{% render 'product-card', product: product %}</li>
-    {%- endfor -%}
-  </ul>
-  {{ paginate | default_pagination }}
-{%- endpaginate -%}
-```
-
-### Step 6: Hide variant collections from navigation
-
-Variant collections must not be discoverable in menus, sitemaps or collection lists.
-
-{% hint style="info" %}
-Shoppers who open a variant's URL directly are redirected to the primary collection, so a leaked link is harmless. Hiding variants keeps them out of your own menus and lists.
-{% endhint %}
-
-```liquid
-{%- for c in collections -%}
-  {%- unless c.handle contains '-hij-' -%}
-    <a href="{{ c.url }}">{{ c.title | escape }}</a>
-  {%- endunless -%}
-{%- endfor -%}
-```
-
-{% hint style="success" %}
-After deploying, open the primary collection in a private window a few times. You should land in different variants, and the canonical tag should always point at the primary collection.
-{% endhint %}
-
-## Customisation
-
-Set options on `window.HIJABTesting` before the library script loads.
-
-<details>
-<summary>Prevent initialisation for specific visitors</summary>
-
-```javascript
-window.HIJABTesting = window.HIJABTesting || {};
-window.HIJABTesting.shouldInitialise = function (context) {
-  // Never put staff previews into a test.
-  return !document.cookie.includes("staff_preview=1");
-};
-```
-
-</details>
-
-<details>
-<summary>Force-assign a visitor to a variant</summary>
-
-Useful for QA. The assignment lasts until the cookie expires.
-
-```javascript
-window.HIJABTesting = window.HIJABTesting || {};
-window.HIJABTesting.forceVariant = function (configuration) {
-  var forced = new URLSearchParams(window.location.search).get("hij_variant");
-  return forced || null; // a variant handle, or null for normal assignment
-};
-```
-
-</details>
-
-<details>
-<summary>Customise collection URLs and redirection</summary>
-
-```javascript
-window.HIJABTesting = window.HIJABTesting || {};
-window.HIJABTesting.getCollectionUrl = function (collection, context) {
-  // Keep market prefixes such as /de-de/ in the URL.
-  return context.routesRoot.replace(/\/$/, "") + "/collections/" + collection.handle;
-};
-window.HIJABTesting.onRedirect = function (redirect) {
-  // redirect = { from: "/collections/summer-linen-hij-b", to: "/collections/summer-linen", reason: "direct-variant-visit" }
-  window.location.replace(redirect.to + window.location.search);
-  return false; // tell the library you handled it
-};
-```
-
-</details>
-
-<details>
-<summary>Check whether a collection is a test variant</summary>
-
-```javascript
-if (window.HIJABTesting.isVariant(collectionHandle)) {
-  // e.g. skip a third-party badge that shouldn't appear on variants
+```ts
+// app/routes/collections.$handle.tsx
+export async function loader({ params, request, context }) {
+  const res = await fetch(
+    `https://api.hij-search.example/v2/collections/${params.handle}?shop_id=${context.env.HIJ_SHOP_ID}&ab=1`,
+    {
+      headers: {
+        "X-HIJ-Storefront-Token": context.env.HIJ_STOREFRONT_TOKEN,
+        "X-HIJ-AB": readCookie(request, "hij_ab") ?? "",
+      },
+    },
+  );
+  const collection = await res.json(); // collection.ab_test = { test_id, variant_id } | null
+  return data({ collection }, {
+    headers: {
+      "Set-Cookie": res.headers.get("X-HIJ-Set-AB") ?? "",
+      "Cache-Control": collection.ab_test ? "private, max-age=0" : "public, max-age=60",
+    },
+  });
 }
 ```
 
-</details>
+Continue with the [Hydrogen/Oxygen guide](hydrogen-oxygen.md) for caching and analytics.
+{% endtab %}
+{% tab title="Remix" %}
+Resolve the variant in the collection route's `loader`, the same way on any host:
 
-### Data formats
+```ts
+// app/routes/collections.$handle.tsx
+import { json } from "@remix-run/node";
 
-<details>
-<summary>configuration</summary>
-
-```javascript
-{
-  enabled: true,
-  primaryCollection: { id: 4011, handle: "summer-linen", url: "/collections/summer-linen" },
-  currentCollection: { id: 4011, handle: "summer-linen" },
-  variants: [
-    { id: 4012, handle: "summer-linen-hij-b", url: "/collections/summer-linen-hij-b", weight: 50 }
-  ],
-  canonicalUrl: "https://shop.example/collections/summer-linen",
-  locale: "en"
+export async function loader({ params, request }) {
+  const res = await fetch(
+    `https://api.hij-search.example/v2/collections/${params.handle}?shop_id=${process.env.HIJ_SHOP_ID}&ab=1`,
+    {
+      headers: {
+        "X-HIJ-Storefront-Token": process.env.HIJ_STOREFRONT_TOKEN,
+        "X-HIJ-AB": readCookie(request, "hij_ab") ?? "",
+      },
+    },
+  );
+  const collection = await res.json();
+  return json({ collection }, {
+    headers: { "Set-Cookie": res.headers.get("X-HIJ-Set-AB") ?? "", "Vary": "Cookie" },
+  });
 }
 ```
 
-</details>
+Continue with the [Remix guide](remix.md) for client-side navigation and analytics.
+{% endtab %}
+{% endtabs %}
 
-<details>
-<summary>redirect</summary>
+## Platform guides
 
-```javascript
-{
-  from: "/collections/summer-linen-hij-b",
-  to: "/collections/summer-linen",
-  reason: "direct-variant-visit" // or "test-ended"
-}
-```
-
-</details>
+<table data-view="cards">
+  <thead>
+    <tr>
+      <th width="48"></th>
+      <th></th>
+      <th></th>
+      <th data-hidden data-card-target data-type="content-ref"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><i class="fa-shopify"></i></td>
+      <td><strong>Liquid</strong></td>
+      <td>Snippet, library and theme changes.</td>
+      <td><a href="liquid.md">liquid.md</a></td>
+    </tr>
+    <tr>
+      <td><i class="fa-bolt"></i></td>
+      <td><strong>Hydrogen/Oxygen</strong></td>
+      <td>Loader, Oxygen caching and analytics.</td>
+      <td><a href="hydrogen-oxygen.md">hydrogen-oxygen.md</a></td>
+    </tr>
+    <tr>
+      <td><i class="fa-code"></i></td>
+      <td><strong>Remix</strong></td>
+      <td>Loader, cookies and client navigation.</td>
+      <td><a href="remix.md">remix.md</a></td>
+    </tr>
+  </tbody>
+</table>

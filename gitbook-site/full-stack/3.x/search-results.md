@@ -4,6 +4,8 @@ description: "Initialise and customise the HIJ search results widget: options, t
 
 # Search results widget
 
+**Applies to:** product `full-stack` · version `3.x` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `full-stack`
+
 This page covers full stack **3.x**. Still on 2.x? [View the 2.x version of this page](https://hij.gitbook.io/hij-docs/full-stack/v2/search-results).
 
 {% hint style="info" %}

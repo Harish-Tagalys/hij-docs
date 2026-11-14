@@ -4,6 +4,8 @@ description: "Fetch a merchandised collection with the headless HIJ Connector an
 
 # Collections connector
 
+**Applies to:** product `headless` · version `3.x` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `headless`
+
 This page covers headless **3.x**. Still on 2.x? [View the 2.x version of this page](https://hij.gitbook.io/hij-docs/headless/v2/collections).
 
 {% hint style="info" %}
@@ -58,6 +60,18 @@ HIJ.Connector.Collection.init({
   onFailure: function (error, helpers) {
     renderFallbackMessage(error);
   },
+});
+```
+
+### Hydrate from a server response
+
+If your server already rendered page 1 with the [Storefront API](https://hij.gitbook.io/hij-docs/storefront-api/endpoints/collection), pass that response as `initialResponse`. The connector calls `onSuccess` with it right away and fetches only when the shopper changes a filter, the sort option or the page.
+
+```javascript
+HIJ.Connector.Collection.init({
+  params: { collectionId: "summer-linen", perPage: 24 },
+  initialResponse: window.__HIJ_COLLECTION__, // the JSON your loader returned
+  onSuccess: renderProductListingPage,
 });
 ```
 
@@ -262,7 +276,7 @@ Returns `true` if any value of the filter is applied.
 Returns the sort options with the applied one marked `selected: true`.
 
 {% hint style="warning" %}
-**Changed in connector 3.0.19:** this helper was called `getSortChoices()` before 3.0.19. The old name was removed, not deprecated. See the [3.0.19 changelog entry](changelog.md#id-3.0.19).
+**Changed in connector 3.0.19:** this helper was called `getSortChoices()` before 3.0.19. The old name was removed, not deprecated. See the [3.0.19 changelog entry](https://hij.gitbook.io/hij-docs/changelogs/headless#id-3.0.19).
 {% endhint %}
 
 ```javascript

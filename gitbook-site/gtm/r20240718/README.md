@@ -8,6 +8,8 @@ description: "Legacy: install and configure GTM template release r20240718, whic
 **Legacy documentation: GTM template r20240718.** This release sends events to the v1 analytics API, which is frozen. Upgrade to the current release to use the v2 event set. [View the current GTM template documentation](https://hij.gitbook.io/hij-docs/gtm).
 {% endhint %}
 
+**Applies to:** product `analytics` · version `r20240718` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `credentials`
+
 The HIJ tag template sends shopper events to the HIJ analytics API from Google Tag Manager. This page covers template release **r20240718**.
 
 ## Install the template
@@ -20,8 +22,8 @@ The HIJ tag template sends shopper events to the HIJ analytics API from Google T
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `hijShopId` | Variable | Yes | Your store ID. Create a constant variable named `hijShopId` and select it here. Later releases rename it to `hijStoreId`. |
-| `publicKey` | Text | Yes | Your public storefront key from **Settings → Keys**. |
+| `hijShopId` | Variable | Yes | Your shop ID. Create a constant variable named `hijShopId` and select it here. Later releases rename it to `hijStoreId`. |
+| `publicKey` | Text | Yes | Your public storefront token from **Settings → Credentials**. |
 | `apiVersion` | Locked | | Always `v1`. Events are sent to `https://api.hij-search.example/v1/track`. |
 
 This release has no `consentMode` or `marketCode` field.
@@ -48,7 +50,7 @@ Block the tag until the shopper consents: open **Advanced settings → Consent s
 | r20240718 | Current release |
 | --- | --- |
 | `hijShopId` variable | `hijStoreId` variable |
-| `publicKey` | `storefrontKey` |
+| `publicKey` | `storefrontToken` |
 | v1 events (`view_product`, `search`, ...) | v2 events (`product_viewed`, `search_performed`, ...) |
 | Consent settings on the tag | `consentMode` field |
 

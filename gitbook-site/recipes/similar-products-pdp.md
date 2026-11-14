@@ -1,0 +1,83 @@
+---
+description: "Fetch a similar-products recommendation for the current product with the headless HIJ Connector and render the strip in your own components."
+---
+
+# Recipe: similar products on the product page
+
+**Applies to:** product `recipes` · SDKs `headless` · version `3.x` · store types `hydrogen`, `custom-frontend`, `liquid` · requires `headless`
+
+Show "Similar products" under the product details. Written for the [headless Connector](https://hij.gitbook.io/hij-docs/headless) 3.0.21.
+
+## 1. Create the recommendation
+
+In the HIJ Search app, open **Recommendations → New → Similar products**. Choose the attributes that define "similar" (for example product type, colour and price band) and save. Copy the recommendation ID, for example `rec_similar_8f2a`.
+
+## 2. Fetch it for the current product
+
+```javascript
+HIJ.Connector.Recommendations.init({
+  params: {
+    recommendationId: "rec_similar_8f2a",
+    productId: currentProduct.id,
+    limit: 8,
+  },
+  onSuccess: function (response, helpers) {
+    renderSimilarProducts(response.products, helpers);
+  },
+  onFailure: function () {
+    document.querySelector("#similar-products").hidden = true;
+  },
+});
+```
+
+| Param | Type | Required | Description |
+| --- | --- | --- | --- |
+| `recommendationId` | string | Yes | From **Recommendations** in the app. |
+| `productId` | string | Yes | The product shown on the page. It's never returned in its own strip. |
+| `limit` | number | No | Maximum products. Defaults to `8`, maximum `24`. |
+| `fields` | string[] | No | Product fields to return. |
+
+## 3. Render it
+
+```tsx
+// Hydrogen or any React front end
+function SimilarProducts({ productId }) {
+  const [items, setItems] = useState([]);
+  const helpersRef = useRef(null);
+
+  useEffect(() => {
+    window.onHIJReady?.(() => {
+      HIJ.Connector.Recommendations.init({
+        params: { recommendationId: "rec_similar_8f2a", productId, limit: 8 },
+        onSuccess: (response, helpers) => {
+          helpersRef.current = helpers;
+          setItems(response.products);
+        },
+      });
+    });
+  }, [productId]);
+
+  if (items.length === 0) return null;
+  return (
+    <section aria-labelledby="similar-heading">
+      <h2 id="similar-heading">Similar products</h2>
+      <ul className="product-strip">
+        {items.map((p, i) => (
+          <li key={p.id}>
+            <a href={p.url} onClick={() => helpersRef.current?.trackProductClick(p, { position: i + 1 })}>
+              <img src={p.image.src} alt={p.image.alt ?? p.title} loading="lazy" />
+              <span>{p.title}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+```
+
+The connector sends `recommendation_viewed` when `onSuccess` runs. Clicks are tracked by `helpers.trackProductClick()`.
+
+{% hint style="info" %}
+On a Liquid theme with the full stack SDK, you don't need this recipe: the recommendations widget renders the strip for you.
+{% endhint %}

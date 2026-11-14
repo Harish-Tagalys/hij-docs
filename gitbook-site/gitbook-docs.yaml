@@ -4,61 +4,25 @@ site:
   structure:
     - type: section
       key: section-home
-      title: Home
+      title: Get started
       path: home
-      icon: house
+      icon: rocket
+      description: "Install the app, collect credentials, choose your path and verify the integration."
       default: true
       children:
         - type: space
           key: space-home
-          title: Home
+          title: Get started
           path: home
           default: true
           content:
-            directory: ./home
-    - type: section
-      key: section-full-stack
-      title: Full stack
-      path: full-stack
-      icon: table-cells
-      children:
-        - type: space
-          key: space-full-stack-3x
-          title: "3.x"
-          path: v3
-          default: true
-          content:
-            directory: ./full-stack/3.x
-        - type: space
-          key: space-full-stack-2x
-          title: "2.x (legacy)"
-          path: v2
-          content:
-            directory: ./full-stack/2.x
-    - type: section
-      key: section-headless
-      title: Headless
-      path: headless
-      icon: plug
-      children:
-        - type: space
-          key: space-headless-3x
-          title: "3.x"
-          path: v3
-          default: true
-          content:
-            directory: ./headless/3.x
-        - type: space
-          key: space-headless-2x
-          title: "2.x (legacy)"
-          path: v2
-          content:
-            directory: ./headless/2.x
+            directory: ./get-started
     - type: section
       key: section-storefront-api
       title: Storefront API
       path: storefront-api
       icon: code
+      description: "Path A: call the v2 REST API directly, from a server or an app."
       children:
         - type: space
           key: space-storefront-api-v2
@@ -67,11 +31,116 @@ site:
           default: true
           content:
             directory: ./storefront-api
+    - type: section-group
+      key: group-js-sdks
+      title: JS SDKs
+      icon: js
+      children:
+        - type: section
+          key: section-sdks
+          title: SDK overview
+          path: sdks
+          icon: compass
+          description: "Full stack or headless, and the browser-only rule."
+          children:
+            - type: space
+              key: space-sdks
+              title: SDK overview
+              path: current
+              default: true
+              content:
+                directory: ./sdks
+        - type: section
+          key: section-full-stack
+          title: Full stack
+          path: full-stack
+          icon: table-cells
+          description: "UI widgets SDK, HIJ.UIWidgets.*"
+          children:
+            - type: space
+              key: space-full-stack-3x
+              title: "3.x"
+              path: v3
+              default: true
+              content:
+                directory: ./full-stack/3.x
+            - type: space
+              key: space-full-stack-2x
+              title: "2.x (legacy)"
+              path: v2
+              content:
+                directory: ./full-stack/2.x
+        - type: section
+          key: section-headless
+          title: Headless
+          path: headless
+          icon: plug
+          description: "Connector SDK, HIJ.Connector.*"
+          children:
+            - type: space
+              key: space-headless-3x
+              title: "3.x"
+              path: v3
+              default: true
+              content:
+                directory: ./headless/3.x
+            - type: space
+              key: space-headless-2x
+              title: "2.x (legacy)"
+              path: v2
+              content:
+                directory: ./headless/2.x
+    - type: section-group
+      key: group-analytics
+      title: Analytics
+      icon: chart-line
+      children:
+        - type: section
+          key: section-analytics
+          title: Analytics
+          path: analytics
+          icon: chart-column
+          description: "Which events, who sends them, and how."
+          children:
+            - type: space
+              key: space-analytics
+              title: Analytics
+              path: current
+              default: true
+              content:
+                directory: ./analytics
+        - type: section
+          key: section-gtm
+          title: GTM template
+          path: gtm
+          icon: tags
+          description: Google Tag Manager tag template releases.
+          children:
+            - type: space
+              key: space-gtm-r20260217
+              title: r20260217
+              path: r20260217
+              default: true
+              content:
+                directory: ./gtm/r20260217
+            - type: space
+              key: space-gtm-r20250801
+              title: r20250801
+              path: r20250801
+              content:
+                directory: ./gtm/r20250801
+            - type: space
+              key: space-gtm-r20240718
+              title: r20240718
+              path: r20240718
+              content:
+                directory: ./gtm/r20240718
     - type: section
       key: section-ab-testing
       title: "A/B testing"
       path: ab-testing
       icon: flask
+      description: "Test collection merchandising on Liquid, Hydrogen/Oxygen and Remix."
       children:
         - type: space
           key: space-ab-testing
@@ -81,27 +150,44 @@ site:
           content:
             directory: ./ab-testing
     - type: section
-      key: section-gtm
-      title: GTM
-      path: gtm
-      icon: tags
+      key: section-checkout-recommendations
+      title: Checkout recommendations
+      path: checkout-recommendations
+      icon: cart-shopping
+      description: "Recommendation blocks for checkout, with a style token reference."
       children:
         - type: space
-          key: space-gtm-r20260217
-          title: r20260217
-          path: r20260217
+          key: space-checkout-recommendations
+          title: Checkout recommendations
+          path: current
           default: true
           content:
-            directory: ./gtm/r20260217
+            directory: ./checkout-recommendations
+    - type: section
+      key: section-recipes
+      title: Recipes
+      path: recipes
+      icon: book-open
+      description: "Colour swatches, similar products, lazy widgets and multi-market stores."
+      children:
         - type: space
-          key: space-gtm-r20250801
-          title: r20250801
-          path: r20250801
+          key: space-recipes
+          title: Recipes
+          path: current
+          default: true
           content:
-            directory: ./gtm/r20250801
+            directory: ./recipes
+    - type: section
+      key: section-changelogs
+      title: Changelogs
+      path: changelogs
+      icon: clock-rotate-left
+      description: "Full stack, headless, Storefront API and GTM template releases."
+      children:
         - type: space
-          key: space-gtm-r20240718
-          title: r20240718
-          path: r20240718
+          key: space-changelogs
+          title: Changelogs
+          path: current
+          default: true
           content:
-            directory: ./gtm/r20240718
+            directory: ./changelogs

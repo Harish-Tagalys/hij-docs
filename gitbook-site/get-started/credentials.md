@@ -1,0 +1,48 @@
+---
+description: "Find your HIJ shop ID and storefront token, and the collection, recommendation and market IDs you need while integrating."
+---
+
+# Credentials and IDs
+
+**Applies to:** product `get-started` · version `none` · store types `liquid`, `hydrogen`, `custom-frontend`, `server-side` · requires none
+
+Every request to HIJ identifies your store with two values: the **shop ID** and the **storefront token**. Both are created when you [install the app](install-app.md).
+
+## Shop ID and storefront token
+
+| Credential | Looks like | Secret? | Where to find it |
+| --- | --- | --- | --- |
+| Shop ID | `shp_4k7q2m9x1c` | No | Shopify admin → **Apps → HIJ Search → Settings → Credentials** |
+| Storefront token | `sft_` followed by 32 characters | No. Public and read-only. | Same screen. Select **Reveal** to copy it. |
+
+Where each one goes:
+
+| Path | Shop ID | Storefront token |
+| --- | --- | --- |
+| Full stack and headless SDK 3.x | `api.shopId` in `HIJ.setConfiguration()` | `api.storefrontToken` |
+| Storefront API v2 | `shop_id` query parameter | `X-HIJ-Storefront-Token` header. See [authentication](https://hij.gitbook.io/hij-docs/storefront-api/authentication). |
+| Analytics API | `shop_id` in the request body | `X-HIJ-Storefront-Token` header |
+| GTM template r20260217 | `hijStoreId` variable | `storefrontToken` field |
+| SDK 2.x (legacy) | `storeId` | `publicKey` |
+
+{% hint style="info" %}
+The storefront token can only read published catalog data and send analytics events, so it's safe in browser code and mobile apps. HIJ never asks for your Shopify Admin API token. If someone does, don't share it.
+{% endhint %}
+
+### Rotate the storefront token
+
+Select **Rotate token** on the credentials screen. The old token keeps working for 24 hours so you can deploy the new one. Rotate right away if the token was used from a domain you don't recognise.
+
+## Other IDs you'll need
+
+| ID | Example | Used for | Where to find it |
+| --- | --- | --- | --- |
+| Collection ID | `summer-linen` | Collections connector, `GET /v2/collections/{id}` | **Collections** in the app. It matches the Shopify collection handle. |
+| Recommendation ID | `rec_similar_8f2a` | Recommendation strips, [similar products recipe](https://hij.gitbook.io/hij-docs/recipes/similar-products-pdp) | **Recommendations** in the app, on each recommendation's detail page. |
+| Market code | `DE`, `US` | `marketCode` in the SDKs, `market` in the API | Shopify admin → **Settings → Markets**. HIJ uses the market's country code. |
+| Sort option ID | `price-asc` | `sort` in the SDKs and the API | **Settings → Sorting** in the app, or `sort_options` in any list response. |
+| Filter ID | `colour` | `filters` in the SDKs, `f[...]` in the API | **Settings → Filters** in the app, or `filters` in any list response. |
+
+## Next step
+
+[Choose your path](choose-your-path.md).

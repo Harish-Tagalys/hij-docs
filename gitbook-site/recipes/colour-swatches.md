@@ -1,0 +1,94 @@
+---
+description: "Render the HIJ colour filter as swatches and show colour swatches on product tiles with the full stack search results widget."
+---
+
+# Recipe: colour swatches
+
+**Applies to:** product `recipes` · SDKs `full-stack` · version `3.x` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `full-stack`
+
+Show the colour filter as round swatches instead of checkboxes, and show each product's colours on its tile. Written for the [full stack search results widget](https://hij.gitbook.io/hij-docs/full-stack/search-results) 3.0.20.
+
+## 1. Expose swatch data
+
+In the HIJ Search app, open **Settings → Filters → Colour** and turn on **Swatch colours**. Each colour value gets a hex code, read from the `shopify.color-pattern` metaobject when your products use Shopify's category colours.
+
+Then ask the SDK for the `swatches` product field:
+
+```javascript
+HIJ.setPlatformConfiguration({
+  // ...your other platform options
+  productFields: ["swatches"],
+});
+```
+
+## 2. Render the colour filter as swatches
+
+Override `filterItems` for the `colour` filter only, and keep the default rendering for every other filter:
+
+```javascript
+HIJ.UIWidgets.SearchResults.init("#hij-search-results", {
+  params: { query: new URLSearchParams(location.search).get("q") || "" },
+  templates: {
+    filterItems: {
+      render: function (html, args) {
+        var f = args.props.filter;
+        var t = args.templates;
+        if (f.id !== "colour") {
+          return f.type === "range"
+            ? html`<${t.rangeSliderFilterItem} filter=${f} />`
+            : html`<${t.filterCheckBoxes} filterId=${f.id} filterItems=${f.items} />`;
+        }
+        return html`
+          <ul class="hij-swatches" role="group" aria-label=${f.label}>
+            ${f.items.map((item) => html`
+              <li>
+                <button
+                  class="hij-swatch ${item.selected ? "is-selected" : ""}"
+                  style=${"--swatch:" + (item.swatch || "#ccc")}
+                  aria-pressed=${item.selected}
+                  aria-label="${item.label} (${item.count})"
+                  onClick=${() => item.selected ? args.helpers.clearFilter(f.id, item.id) : args.helpers.applyFilter(f.id, item.id)}
+                ></button>
+              </li>
+            `)}
+          </ul>
+        `;
+      },
+    },
+  },
+});
+```
+
+```css
+.hij-swatches { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; }
+.hij-swatch { width: 28px; height: 28px; border-radius: 50%; background: var(--swatch); border: 2px solid #fff; box-shadow: 0 0 0 1px #d1d5db; }
+.hij-swatch.is-selected { box-shadow: 0 0 0 2px #111827; }
+```
+
+## 3. Show swatches on product tiles
+
+```javascript
+templates: {
+  product: {
+    render: function (html, args) {
+      var p = args.props.product;
+      return html`
+        <li class="hij-tile">
+          <a href=${p.url} data-hij-product-link>
+            <img src=${p.image.src} alt=${p.image.alt || p.title} loading="lazy" />
+            <h3>${p.title}</h3>
+            <p>${args.helpers.formatPrice(p.price)}</p>
+          </a>
+          <ul class="hij-tile__swatches" aria-label="Colours">
+            ${(p.swatches || []).slice(0, 5).map((s) => html`<li style=${"background:" + s.hex} title=${s.label}></li>`)}
+          </ul>
+        </li>
+      `;
+    },
+  },
+}
+```
+
+{% hint style="success" %}
+Keep each swatch's accessible name (`aria-label` or `title`). Colour alone doesn't tell every shopper which value it is.
+{% endhint %}

@@ -4,12 +4,18 @@ description: "Send HIJ Search analytics events from Google Tag Manager with the 
 
 # Set up the HIJ Google Tag Manager template
 
-The HIJ tag template sends shopper events to the HIJ analytics API from Google Tag Manager (GTM). Use it when your store already pushes ecommerce events to the data layer and you'd rather not call `HIJ.Analytics` from your own code.
+**Applies to:** product `analytics` · version `r20260217` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `credentials`
 
-This page covers template release **r20260217**, the current release. Older releases are listed in the version menu.
+The HIJ tag template sends shopper events to the HIJ analytics API from Google Tag Manager (GTM). Use it when your store already pushes ecommerce events to the data layer and you'd rather not call `HIJ.Analytics` from your own code ([SDK manual analytics](https://hij.gitbook.io/hij-docs/analytics/sdk-manual)). See the [analytics overview](https://hij.gitbook.io/hij-docs/analytics) for how the template fits with the other methods.
+
+This page covers template release **r20260217**, the current release. Older releases are listed in the version menu, and every release is described in the [GTM template releases](https://hij.gitbook.io/hij-docs/changelogs/gtm).
 
 {% hint style="info" %}
 Stores that use the full stack UI widgets with `track: true` already send search and collection events. Use the template only for the events your widgets don't send, or set `track: false` and send everything through GTM.
+{% endhint %}
+
+{% hint style="warning" %}
+On Liquid stores the [Shopify Pixel](https://hij.gitbook.io/hij-docs/analytics/shopify-pixel) already sends product views, collection views, add to cart and checkout. Don't add GTM triggers for `view_item`, `view_item_list`, `add_to_cart` or `purchase` there, or those events are counted twice.
 {% endhint %}
 
 ## Install the template
@@ -22,8 +28,8 @@ Stores that use the full stack UI widgets with `track: true` already send search
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `hijStoreId` | Variable | Yes | Your store ID. Create a constant variable named `hijStoreId` and select it here. |
-| `storefrontKey` | Text | Yes | Your public storefront key from **Settings → Keys**. |
+| `hijStoreId` | Variable | Yes | Your shop ID. Create a constant variable named `hijStoreId` and select it here. |
+| `storefrontToken` | Text | Yes | Your public storefront token from **Settings → Credentials**. |
 | `apiVersion` | Locked | | Always `v2`. Events are sent to `https://api.hij-search.example/v2/events`. |
 | `consentMode` | Dropdown | Yes | How the tag reacts to Google consent mode. See [Consent mode](#consent-mode). |
 | `marketCode` | Variable | No | The shopper's market, for stores that sell in several markets. |

@@ -1,0 +1,9 @@
+# GitBook space "JS SDKs / SDK overview / SDK overview". Mapped by ../gitbook-docs.yaml (site-wide Git Sync), key space-sdks.
+root: ./
+
+structure:
+  readme: README.md
+  summary: SUMMARY.md
+
+redirects:
+  overview: README.md
