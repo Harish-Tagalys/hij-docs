@@ -10,7 +10,7 @@ If the HIJ Search API can't be reached, the SearchResults connector switches to 
 The fallback connector returns the same response shape, with `response.source` set to `"catalog"` instead of `"hij"`. Filters from the catalog feed are limited to the fields in the feed, so hide controls you can't support.
 
 ```javascript
-HIJ.Connector.SearchResults.call({
+HIJ.Connector.SearchResults.init({
   params: { query: "linen shirt" },
   onSuccess: function (response, helpers) {
     document.body.classList.toggle("is-fallback", response.source === "catalog");

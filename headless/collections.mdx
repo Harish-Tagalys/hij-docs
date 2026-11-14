@@ -3,19 +3,21 @@ title: "Collections connector"
 description: "Fetch a merchandised collection with the headless HIJ Connector and render your own product listing page with filters, sort options and pagination."
 ---
 
+This page covers headless **3.x**. Still on 2.x? [View the 2.x version of this page](/headless/v2/collections).
+
 <Callout kind="info">
-The Collections connector returns data only. Your code renders the page. If you'd rather use ready-made widgets, see the [UI widgets quick start](/ui-widgets/quick-start).
+The Collections connector returns data only. Your code renders the page. If you'd rather use ready-made widgets, see the [UI widgets quick start](/full-stack/quick-start).
 </Callout>
 
 <Callout kind="info">
 Collections are merchandised in the HIJ dashboard: pinned products, boosted brands and hidden products all apply to the response automatically.
 </Callout>
 
-<Card title="Configuring failover for the Collections connector" icon="life-ring" href="/reuse/page-b" />
+<Card title="Configuring failover for the Collections connector" icon="life-ring" href="/headless/failover" />
 
 ## Configuration
 
-Load the Connector and set the configuration once per page, exactly as in the [quick start](/ui-widgets/quick-start), but with the Connector script:
+Load the Connector and set the configuration once per page, as described in the [headless quick start](/headless/quick-start):
 
 ```html
 <script src="https://cdn.hij-search.example/hij-connector-3.0.21.min.js" defer></script>
@@ -24,7 +26,7 @@ Load the Connector and set the configuration once per page, exactly as in the [q
 ## Initialization
 
 ```javascript
-HIJ.Connector.Collection.call({
+HIJ.Connector.Collection.init({
   params: {
     collectionId: "<COLLECTION-ID>",
     perPage: 24,
@@ -233,7 +235,7 @@ Returns `true` if any value of the filter is applied.
 Returns the sort options with the applied one marked `selected: true`.
 
 <Callout kind="alert">
-**Changed in connector 3.0.19:** this helper was called `getSortChoices()` before 3.0.19. The old name was removed, not deprecated. See the [3.0.19 changelog entry](/changelog/connector#3-0-19).
+**Changed in connector 3.0.19:** this helper was called `getSortChoices()` before 3.0.19. The old name was removed, not deprecated. See the [3.0.19 changelog entry](/headless/changelog#3-0-19).
 </Callout>
 
 ```javascript
@@ -306,7 +308,7 @@ Total products matching the applied filters.
 
 <Expandable title="getRequestParams()">
 
-Returns the params for the current state, ready to pass to `call()` again, for example after a back navigation.
+Returns the params for the current state, ready to pass to `init()` again, for example after a back navigation.
 
 </Expandable>
 
@@ -331,3 +333,7 @@ The connector sends `collection_viewed` when `onSuccess` runs for page 1, and `p
 | `collection_viewed` | Automatically | `collection_id`, `product_ids`, `applied_filters`, `sort` |
 | `product_clicked` | `helpers.trackProductClick(product)` | `collection_id`, `product_id`, `position` |
 | `collection_page_changed` | Automatically, page 2+ | `collection_id`, `page`, `product_ids` |
+
+---
+
+Page reference: `HIJ-HL-CURRENT-H3`

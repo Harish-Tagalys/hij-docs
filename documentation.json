@@ -13,84 +13,56 @@
     }
   },
   "navigation": {
-    "versions": [
+    "products": [
       {
-        "version": "3.x",
-        "tabs": [
+        "product": "Home",
+        "icon": "house",
+        "groups": [
           {
-            "tab": "Guides",
+            "group": "Get started",
+            "pages": [
+              { "title": "Choose a product", "path": "index" }
+            ]
+          }
+        ]
+      },
+      {
+        "product": "Full stack",
+        "icon": "table-cells",
+        "versions": [
+          {
+            "version": "3.x",
             "groups": [
               {
                 "group": "Get started",
                 "pages": [
-                  { "title": "Introduction", "path": "index" },
-                  { "title": "Quick start", "path": "ui-widgets/quick-start" }
+                  { "title": "Quick start", "path": "full-stack/quick-start" }
                 ]
               },
               {
-                "group": "UI widgets",
+                "group": "Widgets",
                 "pages": [
-                  { "title": "Search results", "path": "ui-widgets/search-results" },
-                  { "title": "Search suggestions", "path": "ui-widgets/search-suggestions" }
+                  { "title": "Search results", "path": "full-stack/search-results" },
+                  { "title": "Search suggestions", "path": "full-stack/search-suggestions" },
+                  { "title": "Failover", "path": "full-stack/failover" }
                 ]
               },
-              {
-                "group": "Connector",
-                "pages": [
-                  { "title": "Collections", "path": "connector/collections" }
-                ]
-              },
-              {
-                "group": "A/B testing",
-                "pages": [
-                  { "title": "Set up (Liquid)", "path": "ab-testing/setup-liquid" }
-                ]
-              },
-              {
-                "group": "Failover",
-                "pages": [
-                  { "title": "Failover (UI widgets)", "path": "reuse/page-a" },
-                  { "title": "Failover (Connector)", "path": "reuse/page-b" }
-                ]
-              }
-            ]
-          },
-          {
-            "tab": "API reference",
-            "groups": [
-              {
-                "group": "Storefront API v2",
-                "pages": [
-                  { "title": "Overview", "path": "api/overview" },
-                  {
-                    "title": "Search",
-                    "path": "api/endpoints/search",
-                    "method": "GET",
-                    "openapi": "api-reference/openapi.yaml GET /v2/search"
-                  },
-                  {
-                    "title": "Suggestions",
-                    "path": "api/endpoints/suggestions",
-                    "method": "GET",
-                    "openapi": "api-reference/openapi.yaml GET /v2/suggestions"
-                  },
-                  {
-                    "title": "Collection",
-                    "path": "api/endpoints/collection",
-                    "method": "GET",
-                    "openapi": "api-reference/openapi.yaml GET /v2/collections/{id}"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "tab": "Changelog",
-            "groups": [
               {
                 "group": "Release notes",
                 "pages": [
-                  { "title": "Connector", "path": "changelog/connector" }
+                  { "title": "Changelog", "path": "full-stack/changelog" }
+                ]
+              }
+            ]
+          },
+          {
+            "version": "2.x (legacy)",
+            "groups": [
+              {
+                "group": "Full stack 2.x",
+                "pages": [
+                  { "title": "Quick start", "path": "full-stack/v2/quick-start" },
+                  { "title": "Search results", "path": "full-stack/v2/search-results" }
                 ]
               }
             ]
@@ -98,16 +70,122 @@
         ]
       },
       {
-        "version": "2.x (legacy)",
-        "tabs": [
+        "product": "Headless",
+        "icon": "plug",
+        "versions": [
           {
-            "tab": "Guides",
+            "version": "3.x",
             "groups": [
               {
-                "group": "SDK 2.x (legacy)",
+                "group": "Get started",
                 "pages": [
-                  { "title": "Quick start", "path": "v2/ui-widgets/quick-start" },
-                  { "title": "Search results", "path": "v2/ui-widgets/search-results" }
+                  { "title": "Quick start", "path": "headless/quick-start" }
+                ]
+              },
+              {
+                "group": "Connectors",
+                "pages": [
+                  { "title": "Collections", "path": "headless/collections" },
+                  { "title": "Failover", "path": "headless/failover" }
+                ]
+              },
+              {
+                "group": "Release notes",
+                "pages": [
+                  { "title": "Changelog", "path": "headless/changelog" }
+                ]
+              }
+            ]
+          },
+          {
+            "version": "2.x (legacy)",
+            "groups": [
+              {
+                "group": "Headless 2.x",
+                "pages": [
+                  { "title": "Quick start", "path": "headless/v2/quick-start" },
+                  { "title": "Collections", "path": "headless/v2/collections" }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "product": "Storefront API",
+        "icon": "code",
+        "groups": [
+          {
+            "group": "Storefront API v2",
+            "pages": [
+              { "title": "Overview", "path": "storefront-api/overview" },
+              {
+                "title": "Search",
+                "path": "storefront-api/endpoints/search",
+                "method": "GET",
+                "openapi": "api-reference/openapi.yaml GET /v2/search"
+              },
+              {
+                "title": "Suggestions",
+                "path": "storefront-api/endpoints/suggestions",
+                "method": "GET",
+                "openapi": "api-reference/openapi.yaml GET /v2/suggestions"
+              },
+              {
+                "title": "Collection",
+                "path": "storefront-api/endpoints/collection",
+                "method": "GET",
+                "openapi": "api-reference/openapi.yaml GET /v2/collections/{id}"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "product": "A/B testing",
+        "icon": "flask",
+        "groups": [
+          {
+            "group": "A/B testing",
+            "pages": [
+              { "title": "Set up (Liquid)", "path": "ab-testing/setup-liquid" }
+            ]
+          }
+        ]
+      },
+      {
+        "product": "GTM",
+        "icon": "tags",
+        "versions": [
+          {
+            "version": "r20260217",
+            "groups": [
+              {
+                "group": "GTM template",
+                "pages": [
+                  { "title": "Set up", "path": "gtm/setup" }
+                ]
+              }
+            ]
+          },
+          {
+            "version": "r20250801 (legacy)",
+            "groups": [
+              {
+                "group": "GTM template r20250801",
+                "pages": [
+                  { "title": "Set up", "path": "gtm/r20250801/setup" }
+                ]
+              }
+            ]
+          },
+          {
+            "version": "r20240718 (legacy)",
+            "groups": [
+              {
+                "group": "GTM template r20240718",
+                "pages": [
+                  { "title": "Set up", "path": "gtm/r20240718/setup" }
                 ]
               }
             ]
@@ -117,17 +195,16 @@
     ]
   },
   "redirects": [
-    {
-      "source": "/quick-start",
-      "destination": "/ui-widgets/quick-start"
-    },
-    {
-      "source": "/legacy/:section/:slug",
-      "destination": "/v2/:section/:slug"
-    },
-    {
-      "source": "/legacy/:slug",
-      "destination": "/v2/:slug"
-    }
+    { "source": "/quick-start", "destination": "/full-stack/quick-start" },
+    { "source": "/ui-widgets/:slug", "destination": "/full-stack/:slug" },
+    { "source": "/v2/ui-widgets/:slug", "destination": "/full-stack/v2/:slug" },
+    { "source": "/legacy/ui-widgets/:slug", "destination": "/full-stack/v2/:slug" },
+    { "source": "/legacy/:slug", "destination": "/full-stack/v2/:slug" },
+    { "source": "/connector/collections", "destination": "/headless/collections" },
+    { "source": "/changelog/connector", "destination": "/headless/changelog" },
+    { "source": "/reuse/page-a", "destination": "/full-stack/failover" },
+    { "source": "/reuse/page-b", "destination": "/headless/failover" },
+    { "source": "/api/overview", "destination": "/storefront-api/overview" },
+    { "source": "/api/endpoints/:slug", "destination": "/storefront-api/endpoints/:slug" }
   ]
 }

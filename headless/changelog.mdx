@@ -1,9 +1,9 @@
 ---
-title: "Connector changelog"
-description: "Release notes for every HIJ Connector SDK release, newest first."
+title: "Headless changelog"
+description: "Release notes for every HIJ Connector SDK (headless) release, newest first."
 ---
 
-Release notes for the headless Connector SDK (`HIJ.Connector.*`). The current release is **3.0.21**.
+Release notes for the headless Connector SDK (`HIJ.Connector.*`). The current release is **3.0.21**. The last 2.x release is **2.4.3**.
 Link to a release with its version anchor, for example [3.0.19](#3-0-19).
 
 <Update label="3.0.21" description="Nov 13, 2026">
@@ -81,5 +81,17 @@ Link to a release with its version anchor, for example [3.0.19](#3-0-19).
 #### Features:
 
 - Added the `promoTiles` request parameter to the Collections connector. Promotional tiles are returned in `response.promo_tiles` with their grid positions.
+
+</Update>
+
+## 2.x (legacy)
+
+<Update label="2.4.3" description="Jun 2, 2026">
+
+#### Fixes:
+
+- Security fix: `HIJConnector.Collection.fetch()` now escapes filter IDs before building the request URL.
+
+This is the last planned 2.x release. 2.x receives security and critical fixes only. See [upgrading to 3.x](/headless/v2/quick-start).
 
 </Update>
