@@ -8,6 +8,8 @@ description: "Legacy: install and configure GTM template release r20250801. New 
 **Legacy documentation: GTM template r20250801.** This release still works but no longer receives new features. Upgrade to the current release for consent mode support. [View the current GTM template documentation](https://hij.gitbook.io/hij-docs/gtm).
 {% endhint %}
 
+**Applies to:** product `analytics` · version `r20250801` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `credentials`
+
 The HIJ tag template sends shopper events to the HIJ analytics API from Google Tag Manager. This page covers template release **r20250801**.
 
 ## Install the template
@@ -20,8 +22,8 @@ The HIJ tag template sends shopper events to the HIJ analytics API from Google T
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `hijStoreId` | Variable | Yes | Your store ID. Create a constant variable named `hijStoreId` and select it here. |
-| `storefrontKey` | Text | Yes | Your public storefront key from **Settings → Keys**. |
+| `hijStoreId` | Variable | Yes | Your shop ID. Create a constant variable named `hijStoreId` and select it here. |
+| `storefrontKey` | Text | Yes | Your public storefront token from **Settings → Credentials**. |
 | `apiVersion` | Locked | | Always `v2`. Events are sent to `https://api.hij-search.example/v2/events`. |
 | `marketCode` | Variable | No | The shopper's market, for stores that sell in several markets. |
 

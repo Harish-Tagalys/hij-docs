@@ -4,4 +4,3 @@
 * [Search results widget](search-results.md "Search results")
 * [Search suggestions widget](search-suggestions.md "Search suggestions")
 * [Failover for UI widgets](failover.md "Failover")
-* [Full stack changelog](changelog.md "Changelog")

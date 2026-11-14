@@ -6,4 +6,5 @@ structure:
   summary: SUMMARY.md
 
 redirects:
-  setup-liquid: README.md
+  overview: README.md
+  setup-liquid: liquid.md

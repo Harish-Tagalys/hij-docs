@@ -8,6 +8,8 @@ description: "Legacy: fetch a merchandised collection with the HIJ Connector 2.x
 **Legacy documentation: Headless 2.x.** This version is frozen and receives security and critical fixes only. New integrations should use the [current Headless 3.x documentation](https://hij.gitbook.io/hij-docs/headless). [View the 3.x version of this page](https://hij.gitbook.io/hij-docs/headless/collections).
 {% endhint %}
 
+**Applies to:** product `headless` · version `2.x` · store types `hydrogen`, `custom-frontend` · requires `headless`
+
 ## Fetch a collection
 
 ```javascript

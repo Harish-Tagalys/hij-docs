@@ -1,0 +1,9 @@
+# GitBook space "Recipes / Recipes". Mapped by ../gitbook-docs.yaml (site-wide Git Sync), key space-recipes.
+root: ./
+
+structure:
+  readme: README.md
+  summary: SUMMARY.md
+
+redirects:
+  index: README.md

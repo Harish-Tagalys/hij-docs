@@ -4,10 +4,16 @@ description: "Base URL, authentication, response codes, pagination, sorting and 
 
 # Storefront API overview
 
-The Storefront API returns the same search, suggestions and collection data as the JavaScript SDKs. Use it for server-side rendering, native apps and anywhere you can't run the SDKs. This reference covers **v2** only.
+**Applies to:** product `storefront-api` · version `v2` · store types `server-side`, `hydrogen`, `custom-frontend` · requires `credentials`, `analytics`
+
+The Storefront API returns the same search, suggestions and collection data as the JavaScript SDKs. Use it for server-side rendering, native apps and anywhere you can't run the SDKs, which work in the browser only. This reference covers **v2**, the only version.
 
 {% hint style="info" %}
 The SDKs call this API for you. You only need it if you're not using the [UI widgets](https://hij.gitbook.io/hij-docs/full-stack) or the [Connector](https://hij.gitbook.io/hij-docs/headless).
+{% endhint %}
+
+{% hint style="warning" %}
+The Storefront API doesn't send analytics events. Unless your store is a Liquid theme with the Shopify Pixel, you send every event yourself. See [analytics is required](analytics-required.md).
 {% endhint %}
 
 ## Base URL
@@ -20,16 +26,14 @@ All endpoints are `GET` and return JSON.
 
 ## Authentication
 
-Send your public storefront key in the `X-HIJ-Storefront-Key` header and your store ID in the `store_id` query parameter.
+Send your public storefront token in the `X-HIJ-Storefront-Token` header and your shop ID in the `shop_id` query parameter.
 
 ```bash
-curl "https://api.hij-search.example/v2/search?store_id=<YOUR-STORE-ID>&q=linen+shirt" \
-  -H "X-HIJ-Storefront-Key: <YOUR-STOREFRONT-KEY>"
+curl "https://api.hij-search.example/v2/search?shop_id=<YOUR-SHOP-ID>&q=linen+shirt" \
+  -H "X-HIJ-Storefront-Token: <YOUR-STOREFRONT-TOKEN>"
 ```
 
-{% hint style="warning" %}
-The storefront key is public and read-only. Never send a secret key from a browser or app.
-{% endhint %}
+See [authentication](authentication.md) for server-side headers, visitor IDs and rate limits.
 
 ## Response codes
 
@@ -37,7 +41,7 @@ The storefront key is public and read-only. Never send a secret key from a brows
 | --- | --- | --- |
 | `200` | Success. | Render the response. |
 | `400` | A parameter is missing or invalid. `error.code` is `invalid_parameter`. | Fix the request. Don't retry. |
-| `401` | The storefront key is missing or wrong. | Check the header name and key. |
+| `401` | The storefront token is missing or wrong. | Check the header name and token. |
 | `404` | The collection doesn't exist or isn't published in this market. | Show your own not-found page. |
 | `429` | Rate limited. | Wait for the seconds in `Retry-After`, then retry once. |
 | `5xx` | HIJ Search is unavailable. | Switch to your fallback. The SDKs do this automatically. |
@@ -89,6 +93,33 @@ Filters use the `f` parameter, keyed by filter ID.
       <td><strong>Collection</strong></td>
       <td><code>GET /v2/collections/{id}</code></td>
       <td><a href="endpoints/collection.md">collection.md</a></td>
+    </tr>
+  </tbody>
+</table>
+
+## Next steps
+
+<table data-view="cards">
+  <thead>
+    <tr>
+      <th width="48"></th>
+      <th></th>
+      <th></th>
+      <th data-hidden data-card-target data-type="content-ref"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><i class="fa-chart-line"></i></td>
+      <td><strong>Send analytics</strong></td>
+      <td>The API doesn't track anything. Pick the analytics method for your store.</td>
+      <td><a href="https://hij.gitbook.io/hij-docs/analytics">analytics</a></td>
+    </tr>
+    <tr>
+      <td><i class="fa-clock-rotate-left"></i></td>
+      <td><strong>Storefront API changelog</strong></td>
+      <td>Dated changes to the v2 endpoints.</td>
+      <td><a href="https://hij.gitbook.io/hij-docs/changelogs/storefront-api">storefront-api</a></td>
     </tr>
   </tbody>
 </table>

@@ -4,6 +4,8 @@ description: "What the headless HIJ Connector does when HIJ Search can't be reac
 
 # Failover for the Connector
 
+**Applies to:** product `headless` · version `3.x` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `headless`
+
 If the HIJ Search API can't be reached, the SearchResults connector switches to the CatalogSearchResults connector, which reads products straight from your store's own catalog feed. Keep the fallback configured even if you never expect an outage.
 
 ## Handle the fallback in your UI

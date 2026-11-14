@@ -1,0 +1,9 @@
+# GitBook space "Analytics / Analytics / Analytics". Mapped by ../gitbook-docs.yaml (site-wide Git Sync), key space-analytics.
+root: ./
+
+structure:
+  readme: README.md
+  summary: SUMMARY.md
+
+redirects:
+  overview: README.md

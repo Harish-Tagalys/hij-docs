@@ -7,3 +7,4 @@ structure:
 
 redirects:
   overview: README.md
+  analytics-required: analytics-required.md

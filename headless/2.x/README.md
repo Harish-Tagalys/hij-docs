@@ -8,6 +8,8 @@ description: "Legacy: set up the HIJ Connector SDK 2.x. New integrations should 
 **Legacy documentation: Headless 2.x.** This version is frozen and receives security and critical fixes only. New integrations should use the [current Headless 3.x documentation](https://hij.gitbook.io/hij-docs/headless). [View the 3.x version of this page](https://hij.gitbook.io/hij-docs/headless).
 {% endhint %}
 
+**Applies to:** product `headless` · version `2.x` · store types `hydrogen`, `custom-frontend` · requires `credentials`
+
 ## Include the SDK
 
 Headless 2.x uses the `HIJConnector` namespace. The latest 2.x release is **2.4.3**.
@@ -22,8 +24,8 @@ Headless 2.x uses the `HIJConnector` namespace. The latest 2.x release is **2.4.
 HIJConnector.configure({
   apiServer: "https://api.hij-search.example",
   apiVersion: "v1",
-  storeId: "<YOUR-STORE-ID>",
-  publicKey: "<YOUR-STOREFRONT-KEY>",
+  storeId: "<YOUR-SHOP-ID>",
+  publicKey: "<YOUR-STOREFRONT-TOKEN>",
   track: true,
 });
 ```
@@ -32,8 +34,8 @@ HIJConnector.configure({
 | --- | --- | --- |
 | `apiServer` | string | API server. |
 | `apiVersion` | string | Always `v1` in 2.x. |
-| `storeId` | string | Your store ID. |
-| `publicKey` | string | Public storefront key. |
+| `storeId` | string | Your shop ID. |
+| `publicKey` | string | Public storefront token. |
 | `track` | boolean | Send analytics events. Defaults to `false`. There is no consent hook in 2.x. |
 
 ## Fetch data
