@@ -4,5 +4,5 @@ HOSTED-CHECKS.md
 search-tests.json
 versions.env
 scripts/
-changelog/connector-changelog.md
+changelog/
 .mintignore
