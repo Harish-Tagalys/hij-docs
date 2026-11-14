@@ -1,0 +1,370 @@
+---
+description: "Fetch a merchandised collection with the headless HIJ Connector and render your own product listing page with filters, sort options and pagination."
+---
+
+# Collections connector
+
+{% hint style="info" %}
+The Collections connector returns data only. Your code renders the page. If you'd rather use ready-made widgets, see the [UI widgets quick start](../ui-widgets/quick-start.md).
+{% endhint %}
+
+{% hint style="info" %}
+Collections are merchandised in the HIJ dashboard: pinned products, boosted brands and hidden products all apply to the response automatically.
+{% endhint %}
+
+<table data-view="cards">
+  <thead>
+    <tr>
+      <th width="48"></th>
+      <th></th>
+      <th></th>
+      <th data-hidden data-card-target data-type="content-ref"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><i class="fa-life-ring"></i></td>
+      <td><strong>Configuring failover for the Collections connector</strong></td>
+      <td></td>
+      <td><a href="../reuse/page-b.md">page-b.md</a></td>
+    </tr>
+  </tbody>
+</table>
+
+## Configuration
+
+Load the Connector and set the configuration once per page, exactly as in the [quick start](../ui-widgets/quick-start.md), but with the Connector script:
+
+```html
+<script src="https://cdn.hij-search.example/hij-connector-3.0.21.min.js" defer></script>
+```
+
+## Initialization
+
+```javascript
+HIJ.Connector.Collection.call({
+  params: {
+    collectionId: "<COLLECTION-ID>",
+    perPage: 24,
+    page: 1,
+    sort: "featured",
+    filters: { colour: ["blue", "green"], price: { min: 20, max: 80 } },
+  },
+  onSuccess: function (response, helpers) {
+    renderProductListingPage(response, helpers);
+  },
+  onFailure: function (error, helpers) {
+    renderFallbackMessage(error);
+  },
+});
+```
+
+## Request parameters
+
+| Param | Type | Required | Default | Since | Description | REST equivalent |
+| --- | --- | --- | --- | --- | --- | --- |
+| `collectionId` | string | Yes | | 3.0.0 | ID of the collection, from the dashboard or your catalog. | path `/v2/collections/{id}` |
+| `perPage` | number | No | `24` | 3.0.0 | Products per page. Maximum `96`. | `per_page` |
+| `page` | number | No | `1` | 3.0.0 | Page number, starting at 1. | `page` |
+| `sort` | string | No | collection default | 3.0.0 | Sort option ID. | `sort` |
+| `filters` | object | No | {} | 3.0.0 | Applied filters keyed by filter ID. Checkbox filters take an array of item IDs; range filters take `{ min, max }`. | `f[colour][]=blue` |
+| `fields` | string[] | No | all | 3.0.3 | Product fields to return. | `fields` |
+| `includeFilters` | boolean | No | `true` | 3.0.6 | Set to `false` to skip filters when you only need products, for example on page 2+. | `include_filters` |
+| `promoTiles` | boolean | No | `false` | 3.0.15 | Return the promotional tiles configured for this collection, with their grid positions. <mark style="background-color:blue;">Added in connector 3.0.15</mark> | `promo_tiles` |
+| `context` | object | No | {} | 3.0.0 | Extra context passed through to analytics. | (not sent) |
+
+## Rendering the product listing page
+
+A typical `renderProductListingPage` does the following:
+
+1. Render the heading from `response.collection`.
+   - Use `collection.title` and `collection.description`.
+   - Use `collection.image` for a banner, when present.
+2. Render the filters from `helpers.getFilters()`.
+   - Checkbox filters:
+     - Render each item with its `count`.
+     - Render nested `items` under a selected parent.
+   - Range filters: render a slider between `min` and `max`.
+3. Render the products from `helpers.getProducts()`.
+   - Insert `response.promo_tiles` at their `position` when `promoTiles` is `true`.
+4. Render the sort control from `helpers.getSortOptions()`.
+5. Render pagination from `helpers.getCurrentPage()` and `helpers.getTotalPages()`.
+6. Re-render on every state change. Each helper that changes state (`applyFilter`, `applySortOption`, `goToPage` and so on) fetches again and calls `onSuccess`.
+
+## Response
+
+```json
+{
+  "status": "OK",
+  "collection": {
+    "id": "summer-linen",
+    "title": "Summer linen",
+    "description": "Breathable linen for warm days.",
+    "image": { "src": "https://cdn.hij-search.example/demo/summer-linen.jpg", "alt": "Linen shirts on a rail" }
+  },
+  "total": 132,
+  "page": 1,
+  "per_page": 24,
+  "total_pages": 6,
+  "sort_options": [
+    { "id": "featured", "label": "Featured", "selected": true },
+    { "id": "price-asc", "label": "Price: low to high", "selected": false },
+    { "id": "price-desc", "label": "Price: high to low", "selected": false },
+    { "id": "newest", "label": "Newest", "selected": false }
+  ],
+  "filters": [
+    {
+      "id": "colour",
+      "label": "Colour",
+      "type": "checkbox",
+      "items": [
+        { "id": "blue", "label": "Blue", "count": 41, "selected": true },
+        { "id": "green", "label": "Green", "count": 18, "selected": true },
+        { "id": "white", "label": "White", "count": 37, "selected": false }
+      ]
+    },
+    {
+      "id": "product_type",
+      "label": "Type",
+      "type": "checkbox",
+      "items": [
+        {
+          "id": "shirts",
+          "label": "Shirts",
+          "count": 60,
+          "selected": true,
+          "items": [
+            { "id": "shirts-short-sleeve", "label": "Short sleeve", "count": 22, "selected": false },
+            { "id": "shirts-long-sleeve", "label": "Long sleeve", "count": 38, "selected": false }
+          ]
+        }
+      ]
+    },
+    { "id": "price", "label": "Price", "type": "range", "min": 12, "max": 240, "selected_min": 20, "selected_max": 80 }
+  ],
+  "products": [
+    {
+      "id": "1001",
+      "handle": "relaxed-linen-shirt",
+      "title": "Relaxed linen shirt",
+      "url": "/products/relaxed-linen-shirt",
+      "price": 59.0,
+      "compare_at_price": 79.0,
+      "image": { "src": "https://cdn.hij-search.example/demo/1001.jpg", "alt": "Blue relaxed linen shirt" },
+      "available": true,
+      "tags": ["linen", "summer"]
+    }
+  ],
+  "promo_tiles": [
+    { "id": "promo-1", "position": 5, "html": "<a href=\"/pages/care\">How to care for linen</a>" }
+  ]
+}
+```
+
+## Helpers
+
+`helpers` is passed to `onSuccess` and `onFailure`. It reads and changes the state of this request.
+
+### Filter
+
+<details>
+<summary>getFilters()</summary>
+
+Returns every filter in the response, in dashboard order.
+
+```javascript
+var filters = helpers.getFilters();
+// [{ id: "colour", label: "Colour", type: "checkbox", items: [...] }, ...]
+```
+
+</details>
+
+<details>
+<summary>getFilterById(filterId)</summary>
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| `filterId` | string | ID of the filter, for example `colour`. |
+
+Returns the filter, or `undefined` if it isn't in the response.
+
+</details>
+
+<details>
+<summary>getFilterItemById(filterId, filterItemId)</summary>
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| `filterId` | string | ID of the filter. |
+| `filterItemId` | string | ID of the item. Nested items are found too. |
+
+</details>
+
+<details>
+<summary>getAppliedFilters()</summary>
+
+```javascript
+helpers.getAppliedFilters();
+// { colour: ["blue", "green"], price: { min: 20, max: 80 } }
+```
+
+</details>
+
+<details>
+<summary>applyFilter(filterId, value)</summary>
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| `filterId` | string | ID of the filter. |
+| `value` | string \| string[] \| object | An item ID, several item IDs, or `{ min, max }` for a range. |
+
+Applying a filter resets the page to 1 and fetches again.
+
+</details>
+
+<details>
+<summary>clearFilter(filterId, value)</summary>
+
+Removes one value, or the whole filter when `value` is left out.
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| `filterId` | string | ID of the filter. |
+| `value` | string | Optional item ID. |
+
+</details>
+
+<details>
+<summary>clearAllFilters()</summary>
+
+Removes every applied filter and fetches again.
+
+</details>
+
+<details>
+<summary>isFilterApplied(filterId)</summary>
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| `filterId` | string | ID of the filter. |
+
+Returns `true` if any value of the filter is applied.
+
+</details>
+
+### Sort options
+
+<details>
+<summary>getSortOptions()</summary>
+
+Returns the sort options with the applied one marked `selected: true`.
+
+{% hint style="warning" %}
+**Changed in connector 3.0.19:** this helper was called `getSortChoices()` before 3.0.19. The old name was removed, not deprecated. See the [3.0.19 changelog entry](../changelog/connector.md#3-0-19).
+{% endhint %}
+
+```javascript
+helpers.getSortOptions().forEach(function (option) {
+  console.log(option.id, option.label, option.selected);
+});
+```
+
+</details>
+
+<details>
+<summary>getSortOptionById(sortOptionId)</summary>
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| `sortOptionId` | string | ID of the sort option. |
+
+</details>
+
+<details>
+<summary>getAppliedSortOption()</summary>
+
+Returns the applied sort option, or the collection's default.
+
+</details>
+
+<details>
+<summary>applySortOption(sortOptionId)</summary>
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| `sortOptionId` | string | ID of the sort option. Resets the page to 1. |
+
+</details>
+
+### Pagination
+
+<details>
+<summary>goToPage(pageNumber)</summary>
+
+| Argument | Type | Description |
+| --- | --- | --- |
+| `pageNumber` | number | Page to load. Out-of-range values are clamped. |
+
+</details>
+
+<details>
+<summary>goToNextPage() and goToPreviousPage()</summary>
+
+Load the next or previous page. They do nothing on the last or first page.
+
+</details>
+
+<details>
+<summary>getCurrentPage(), getTotalPages(), hasNextPage(), hasPreviousPage()</summary>
+
+Read the pagination state without fetching.
+
+</details>
+
+### Products
+
+<details>
+<summary>getProducts()</summary>
+
+Returns the products on the current page. With `promoTiles: true` <mark style="background-color:blue;">Added in connector 3.0.15</mark>, promotional tiles are **not** mixed in; insert them yourself from `response.promo_tiles`.
+
+</details>
+
+<details>
+<summary>getTotalProductsCount()</summary>
+
+Total products matching the applied filters.
+
+</details>
+
+### Request state
+
+<details>
+<summary>getRequestParams()</summary>
+
+Returns the params for the current state, ready to pass to `call()` again, for example after a back navigation.
+
+</details>
+
+<details>
+<summary>getEncodedQueryString(requestParams)</summary>
+
+Encodes params into a query string so you can keep state in the URL.
+
+```javascript
+var qs = helpers.getEncodedQueryString(helpers.getRequestParams());
+history.replaceState(null, "", "?" + qs);
+// ?hij_sort=price-asc&hij_page=2&hij_f%5Bcolour%5D%5B%5D=blue
+```
+
+</details>
+
+## Analytics
+
+The connector sends `collection_viewed` when `onSuccess` runs for page 1, and `product_clicked` when you call `helpers.trackProductClick(product)`. Both respect `analyticsConsentProvided()`.
+
+| Event | Sent by | Payload |
+| --- | --- | --- |
+| `collection_viewed` | Automatically | `collection_id`, `product_ids`, `applied_filters`, `sort` |
+| `product_clicked` | `helpers.trackProductClick(product)` | `collection_id`, `product_id`, `position` |
+| `collection_page_changed` | Automatically, page 2+ | `collection_id`, `page`, `product_ids` |
