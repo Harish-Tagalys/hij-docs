@@ -4,7 +4,7 @@ description: "Fetch a similar-products recommendation for the current product wi
 
 # Recipe: similar products on the product page
 
-**Applies to:** product `recipes` · SDKs `headless` · version `3.x` · store types `hydrogen`, `custom-frontend`, `liquid` · requires `headless`
+**Applies to:** section `Recipes` (flow step 7 of 8) · product `recipes` · SDKs `headless` · version `3.x` · status `current` · store types `hydrogen`, `custom-frontend`, `liquid` · requires `headless`
 
 Show "Similar products" under the product details. Written for the [headless Connector](https://hij.gitbook.io/hij-docs/headless) 3.0.21.
 

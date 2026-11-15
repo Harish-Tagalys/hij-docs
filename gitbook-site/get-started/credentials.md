@@ -4,7 +4,7 @@ description: "Find your HIJ shop ID and storefront token, and the collection, re
 
 # Credentials and IDs
 
-**Applies to:** product `get-started` · version `none` · store types `liquid`, `hydrogen`, `custom-frontend`, `server-side` · requires none
+**Applies to:** section `Get started` (flow step 1 of 8) · product `get-started` · version `none` · status `current` · store types `liquid`, `hydrogen`, `custom-frontend`, `server-side` · requires none
 
 Every request to HIJ identifies your store with two values: the **shop ID** and the **storefront token**. Both are created when you [install the app](install-app.md).
 

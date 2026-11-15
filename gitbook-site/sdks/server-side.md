@@ -4,7 +4,7 @@ description: "The HIJ JS SDKs run in the browser only. A server-side SDK for Nod
 
 # Server-side SDK (planned)
 
-**Applies to:** product `sdks` · version `none` · store types `server-side`, `hydrogen` · requires `storefront-api`
+**Applies to:** section `JS SDKs` (flow step 3 of 8) · product `sdks` · version `none` · status `current` · store types `server-side`, `hydrogen` · requires `storefront-api`
 
 {% hint style="info" %}
 **Planned.** A server-side SDK for Node.js and edge runtimes such as Oxygen is planned. It isn't available yet. To be told when early access opens, contact HIJ support from **Help** in the HIJ Search app and mention "server-side SDK".

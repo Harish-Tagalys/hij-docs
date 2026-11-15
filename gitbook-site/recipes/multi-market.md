@@ -4,7 +4,7 @@ description: "Configure HIJ for Shopify Markets: set the shopper's market and cu
 
 # Recipe: multi-market stores
 
-**Applies to:** product `recipes` · SDKs `full-stack`, `headless` · version `3.x` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `full-stack`, `headless`
+**Applies to:** section `Recipes` (flow step 7 of 8) · product `recipes` · SDKs `full-stack`, `headless` · version `3.x` · status `current` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `full-stack`, `headless`
 
 Stores that sell in several Shopify Markets need HIJ to return each shopper's prices, availability and product URLs. Written for full stack 3.0.20 and headless 3.0.21; the configuration is shared.
 

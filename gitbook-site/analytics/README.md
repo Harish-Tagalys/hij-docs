@@ -4,7 +4,7 @@ description: "Which analytics events HIJ needs, which ones the SDKs and the Shop
 
 # Analytics overview
 
-**Applies to:** product `analytics` · version `none` · store types `liquid`, `hydrogen`, `custom-frontend`, `server-side` · requires `credentials`
+**Applies to:** section `Analytics` (flow step 4 of 8) · product `analytics` · version `none` · status `current` · store types `liquid`, `hydrogen`, `custom-frontend`, `server-side` · requires `credentials`
 
 HIJ learns from shopper behaviour. Searches, clicks, product views, add to cart and orders drive ranking, personalisation, merchandising reports and [A/B test](https://hij.gitbook.io/hij-docs/ab-testing) results. Every integration path needs analytics; what changes is who sends each event.
 

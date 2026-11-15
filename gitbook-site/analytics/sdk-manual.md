@@ -4,7 +4,7 @@ description: "Send product views, add to cart, checkout and order events with HI
 
 # SDK manual analytics
 
-**Applies to:** product `analytics` · version `3.x` · store types `hydrogen`, `custom-frontend` · requires `credentials`
+**Applies to:** section `Analytics` (flow step 4 of 8) · product `analytics` · version `3.x` · status `current` · store types `hydrogen`, `custom-frontend` · requires `credentials`
 
 Both JS SDKs include `HIJ.Analytics`. The SDK already sends search, suggestion and collection events. Use `HIJ.Analytics.track()` for the store events it can't see: product views, add to cart, checkout and orders.
 

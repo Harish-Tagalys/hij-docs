@@ -4,7 +4,7 @@ description: "Load the headless HIJ Connector SDK, configure it, handle analytic
 
 # Headless quick start: HIJ Connector
 
-**Applies to:** product `headless` · version `3.x` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `install-app`, `credentials`
+**Applies to:** section `JS SDKs` (flow step 3 of 8) · product `headless` · version `Headless 3.x` · status `current` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `install-app`, `credentials`
 
 ## Overview
 

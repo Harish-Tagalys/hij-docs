@@ -4,7 +4,7 @@ description: "Recommendation blocks for Shopify checkout: what's planned, how th
 
 # Checkout recommendations
 
-**Applies to:** product `checkout-recommendations` · version `none` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `install-app`, `analytics`
+**Applies to:** section `Checkout recommendations` (flow step 6 of 8) · product `checkout-recommendations` · version `none` · status `current` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `install-app`, `analytics`
 
 {% hint style="info" %}
 **Not available yet.** Checkout recommendations are in development and aren't exposed to stores today. You can design and save the block's style now with the [style builder](style-builder.md); the configuration will carry over when the block ships.

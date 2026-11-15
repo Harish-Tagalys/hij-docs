@@ -4,9 +4,9 @@ description: "Render the HIJ colour filter as swatches and show colour swatches 
 
 # Recipe: colour swatches
 
-**Applies to:** product `recipes` · SDKs `full-stack` · version `3.x` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `full-stack`
+**Applies to:** section `Recipes` (flow step 7 of 8) · product `recipes` · SDKs `full-stack` · version `3.x` · status `current` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `full-stack`
 
-Show the colour filter as round swatches instead of checkboxes, and show each product's colours on its tile. Written for the [full stack search results widget](https://hij.gitbook.io/hij-docs/full-stack/search-results) 3.0.20.
+Show the colour filter as round swatches instead of checkboxes, and show each product's colours on its tile. Written for the [full stack search results widget](https://hij.gitbook.io/hij-docs/full-stack/widgets/search-results) 3.0.20.
 
 ## 1. Expose swatch data
 

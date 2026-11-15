@@ -4,7 +4,7 @@ description: "Run HIJ collection A/B tests on a Remix storefront on any host: re
 
 # A/B testing on Remix
 
-**Applies to:** product `ab-testing` · version `none` · store types `custom-frontend` · requires `storefront-api`, `analytics`
+**Applies to:** section `A/B testing` (flow step 5 of 8) · product `ab-testing` · version `none` · status `current` · store types `custom-frontend` · requires `storefront-api`, `analytics`
 
 Remix storefronts resolve the variant on the server like [Hydrogen](hydrogen-oxygen.md): the loader passes the assignment cookie to the Storefront API and forwards the updated cookie. This page covers what's different on a self-hosted or platform-hosted Remix app.
 

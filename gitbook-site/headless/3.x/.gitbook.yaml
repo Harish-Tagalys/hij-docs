@@ -1,4 +1,4 @@
-# GitBook space "JS SDKs / Headless / 3.x". Mapped by ../../gitbook-docs.yaml (site-wide Git Sync), key space-headless-3x.
+# GitBook space "JS SDKs / Headless / Headless 3.x · Latest". Mapped by ../../gitbook-docs.yaml (site-wide Git Sync), key space-headless-3x.
 root: ./
 
 structure:
@@ -7,3 +7,5 @@ structure:
 
 redirects:
   quick-start: README.md
+  collections: collections.md
+  failover: failover.md

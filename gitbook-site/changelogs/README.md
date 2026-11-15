@@ -4,7 +4,7 @@ description: "Release notes for the full stack and headless SDKs, the Storefront
 
 # Changelogs
 
-**Applies to:** product `changelogs` · version `all` · store types `liquid`, `hydrogen`, `custom-frontend`, `server-side` · requires none
+**Applies to:** section `Changelogs` (flow step 8 of 8) · product `changelogs` · version `all` · status `current` · store types `liquid`, `hydrogen`, `custom-frontend`, `server-side` · requires none
 
 Each product is versioned on its own. Pick a changelog:
 

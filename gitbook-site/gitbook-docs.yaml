@@ -38,14 +38,14 @@ site:
       children:
         - type: section
           key: section-sdks
-          title: SDK overview
+          title: Overview
           path: sdks
           icon: compass
-          description: "Full stack or headless, and the browser-only rule."
+          description: "Full stack or headless, and the browser-only rule"
           children:
             - type: space
               key: space-sdks
-              title: SDK overview
+              title: JS SDKs overview
               path: current
               default: true
               content:
@@ -59,14 +59,14 @@ site:
           children:
             - type: space
               key: space-full-stack-3x
-              title: "3.x"
+              title: "Full stack 3.x · Latest"
               path: v3
               default: true
               content:
                 directory: ./full-stack/3.x
             - type: space
               key: space-full-stack-2x
-              title: "2.x (legacy)"
+              title: "Full stack 2.x · Legacy"
               path: v2
               content:
                 directory: ./full-stack/2.x
@@ -79,14 +79,14 @@ site:
           children:
             - type: space
               key: space-headless-3x
-              title: "3.x"
+              title: "Headless 3.x · Latest"
               path: v3
               default: true
               content:
                 directory: ./headless/3.x
             - type: space
               key: space-headless-2x
-              title: "2.x (legacy)"
+              title: "Headless 2.x · Legacy"
               path: v2
               content:
                 directory: ./headless/2.x
@@ -99,8 +99,8 @@ site:
           key: section-analytics
           title: Analytics
           path: analytics
-          icon: chart-column
-          description: "Which events, who sends them, and how."
+          icon: chart-line
+          description: "Which events, who sends them, and how"
           children:
             - type: space
               key: space-analytics
@@ -114,24 +114,24 @@ site:
           title: GTM template
           path: gtm
           icon: tags
-          description: Google Tag Manager tag template releases.
+          description: Google Tag Manager tag template releases
           children:
             - type: space
               key: space-gtm-r20260217
-              title: r20260217
+              title: "GTM r20260217 · Latest"
               path: r20260217
               default: true
               content:
                 directory: ./gtm/r20260217
             - type: space
               key: space-gtm-r20250801
-              title: r20250801
+              title: "GTM r20250801 · Legacy"
               path: r20250801
               content:
                 directory: ./gtm/r20250801
             - type: space
               key: space-gtm-r20240718
-              title: r20240718
+              title: "GTM r20240718 · Legacy"
               path: r20240718
               content:
                 directory: ./gtm/r20240718

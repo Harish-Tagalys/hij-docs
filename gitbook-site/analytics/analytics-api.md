@@ -4,7 +4,7 @@ description: "Send HIJ analytics events directly with POST /v2/events from a bro
 
 # Analytics API
 
-**Applies to:** product `analytics` · version `v2` · store types `hydrogen`, `custom-frontend`, `server-side`, `liquid` · requires `credentials`
+**Applies to:** section `Analytics` (flow step 4 of 8) · product `analytics` · version `v2` · status `current` · store types `hydrogen`, `custom-frontend`, `server-side`, `liquid` · requires `credentials`
 
 The Analytics API takes the same events the SDKs and the Shopify Pixel send. Use it when nothing else sends an event for you: on the [Storefront API path](https://hij.gitbook.io/hij-docs/storefront-api/next-step/analytics-required), in native apps, and for server-side events such as orders.
 

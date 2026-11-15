@@ -4,7 +4,7 @@ description: "Add HIJ search, suggestions, merchandised collections and recommen
 
 # Integrate HIJ Search with Shopify
 
-**Applies to:** product `get-started` · version `none` · store types `liquid`, `hydrogen`, `custom-frontend`, `server-side` · requires none
+**Applies to:** section `Get started` (flow step 1 of 8) · product `get-started` · version `none` · status `current` · store types `liquid`, `hydrogen`, `custom-frontend`, `server-side` · requires none
 
 HIJ Search adds product search, search suggestions, merchandised collections and recommendations to a Shopify store. Every integration follows the same steps:
 

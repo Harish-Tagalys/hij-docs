@@ -4,7 +4,7 @@ description: "A checklist to confirm search, collections, analytics, consent and
 
 # Verify your integration
 
-**Applies to:** product `get-started` · version `none` · store types `liquid`, `hydrogen`, `custom-frontend`, `server-side` · requires `analytics`
+**Applies to:** section `Get started` (flow step 1 of 8) · product `get-started` · version `none` · status `current` · store types `liquid`, `hydrogen`, `custom-frontend`, `server-side` · requires `analytics`
 
 Run through this checklist on a staging store or preview theme before you launch, and again after any theme or front-end release.
 
@@ -38,7 +38,7 @@ Open **Analytics → Live events** in the app, then browse the store in another 
 
 ## Failover
 
-- [ ] Block `api.hij-search.example` in your browser's developer tools and reload a search page. The fallback renders from your catalog feed. See [full stack failover](https://hij.gitbook.io/hij-docs/full-stack/failover) or [headless failover](https://hij.gitbook.io/hij-docs/headless/failover).
+- [ ] Block `api.hij-search.example` in your browser's developer tools and reload a search page. The fallback renders from your catalog feed. See [full stack failover](https://hij.gitbook.io/hij-docs/full-stack/widgets/failover) or [headless failover](https://hij.gitbook.io/hij-docs/headless/connectors/failover).
 
 ## Ready to launch
 

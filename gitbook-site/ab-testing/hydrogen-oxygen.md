@@ -4,7 +4,7 @@ description: "Run HIJ collection A/B tests on a Hydrogen storefront deployed to 
 
 # A/B testing on Hydrogen and Oxygen
 
-**Applies to:** product `ab-testing` · version `none` · store types `hydrogen` · requires `storefront-api`, `analytics`
+**Applies to:** section `A/B testing` (flow step 5 of 8) · product `ab-testing` · version `none` · status `current` · store types `hydrogen` · requires `storefront-api`, `analytics`
 
 On Hydrogen, the variant is chosen on the server, in the collection route's `loader`. HIJ does the assignment: you pass the shopper's assignment cookie to the Storefront API and forward the updated cookie in your response. The A/B testing library used by Liquid themes isn't needed.
 

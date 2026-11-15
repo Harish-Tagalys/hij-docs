@@ -4,7 +4,7 @@ description: "Dated changes to the HIJ Storefront API v2, newest first."
 
 # Storefront API changelog
 
-**Applies to:** product `storefront-api` · version `v2` · store types `server-side`, `hydrogen`, `custom-frontend` · requires none
+**Applies to:** section `Changelogs` (flow step 8 of 8) · product `storefront-api` · version `v2` · status `current` · store types `server-side`, `hydrogen`, `custom-frontend` · requires none
 
 The Storefront API has one version, v2. Changes are additive unless marked **Breaking**. Link to an entry with its date anchor, for example [2026-09-15](#id-2026-09-15).
 

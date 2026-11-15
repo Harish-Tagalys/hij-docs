@@ -4,7 +4,7 @@ description: "Initialise HIJ UI widgets only when their container scrolls into v
 
 # Recipe: lazy widget initialisation
 
-**Applies to:** product `recipes` · SDKs `full-stack` · version `3.x` · store types `liquid`, `custom-frontend` · requires `full-stack`
+**Applies to:** section `Recipes` (flow step 7 of 8) · product `recipes` · SDKs `full-stack` · version `3.x` · status `current` · store types `liquid`, `custom-frontend` · requires `full-stack`
 
 Widgets lower on the page, such as a "New arrivals" strip on the home page or "Recently viewed" above the footer, don't need to load until the shopper gets there. Written for the [full stack UI widgets](https://hij.gitbook.io/hij-docs/full-stack) 3.0.20.
 

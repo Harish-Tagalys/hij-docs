@@ -4,9 +4,9 @@ description: "Fetch a merchandised collection with the headless HIJ Connector an
 
 # Collections connector
 
-**Applies to:** product `headless` · version `3.x` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `headless`
+**Applies to:** section `JS SDKs` (flow step 3 of 8) · product `headless` · version `Headless 3.x` · status `current` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `headless`
 
-This page covers headless **3.x**. Still on 2.x? [View the 2.x version of this page](https://hij.gitbook.io/hij-docs/headless/v2/collections).
+This page covers headless **3.x**. Still on 2.x? [View the 2.x version of this page](https://hij.gitbook.io/hij-docs/headless/v2/connectors/collections).
 
 {% hint style="info" %}
 The Collections connector returns data only. Your code renders the page. If you'd rather use ready-made widgets, see the [UI widgets quick start](https://hij.gitbook.io/hij-docs/full-stack).

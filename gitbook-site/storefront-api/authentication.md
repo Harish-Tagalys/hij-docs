@@ -4,7 +4,7 @@ description: "Authenticate Storefront API v2 requests with your shop ID and stor
 
 # Storefront API authentication
 
-**Applies to:** product `storefront-api` · version `v2` · store types `server-side`, `hydrogen`, `custom-frontend` · requires `credentials`, `analytics`
+**Applies to:** section `Storefront API` (flow step 2 of 8) · product `storefront-api` · version `v2` · status `current` · store types `server-side`, `hydrogen`, `custom-frontend` · requires `credentials`, `analytics`
 
 Every Storefront API request carries two credentials from [Credentials](https://hij.gitbook.io/hij-docs/get-started/credentials):
 
