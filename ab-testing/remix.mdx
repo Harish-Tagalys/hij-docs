@@ -8,6 +8,15 @@ paths: ["custom-frontend"]
 requires: ["storefront-api", "analytics"]
 ---
 
+<Visibility for="agents">
+```yaml Page metadata
+product: ab-testing
+version: none
+paths: [custom-frontend]
+requires: [storefront-api, analytics]
+```
+</Visibility>
+
 Remix storefronts resolve the variant on the server like [Hydrogen](/ab-testing/hydrogen-oxygen): the loader passes the assignment cookie to the Storefront API and forwards the updated cookie. This page covers what's different on a self-hosted or platform-hosted Remix app.
 
 ## Step 1: Load the collection

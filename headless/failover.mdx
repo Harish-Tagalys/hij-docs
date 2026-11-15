@@ -10,6 +10,15 @@ requires: ["headless"]
 
 import Failover from "/snippets/failover.mdx";
 
+<Visibility for="agents">
+```yaml Page metadata
+product: headless
+version: 3.x
+paths: [liquid, hydrogen, custom-frontend]
+requires: [headless]
+```
+</Visibility>
+
 <Failover connector="SearchResults connector" fallback="CatalogSearchResults connector" />
 
 ## Handle the fallback in your UI

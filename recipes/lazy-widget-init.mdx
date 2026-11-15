@@ -9,6 +9,15 @@ paths: ["liquid", "custom-frontend"]
 requires: ["full-stack"]
 ---
 
+<Visibility for="agents">
+```yaml Page metadata
+product: recipes
+version: 3.x
+paths: [liquid, custom-frontend]
+requires: [full-stack]
+```
+</Visibility>
+
 Widgets lower on the page, such as a "New arrivals" strip on the home page or "Recently viewed" above the footer, don't need to load until the shopper gets there. Written for the [full stack UI widgets](/full-stack/quick-start) {{UI_WIDGETS_VERSION}}.
 
 Widgets must be initialised when their container is visible and has a width, which also makes them a good fit for an `IntersectionObserver`.

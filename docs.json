@@ -39,7 +39,10 @@
         "groups": [
           {
             "group": "Storefront API v2",
-            "pages": ["storefront-api/overview", "storefront-api/authentication"]
+            "pages": [
+              "storefront-api/overview",
+              "storefront-api/authentication"
+            ]
           },
           {
             "group": "Endpoints",
@@ -51,7 +54,9 @@
           },
           {
             "group": "Next step",
-            "pages": ["storefront-api/analytics-required"]
+            "pages": [
+              "storefront-api/analytics-required"
+            ]
           }
         ]
       },
@@ -63,10 +68,29 @@
             "item": "Overview",
             "icon": "compass",
             "description": "Full stack or headless, and the browser-only rule",
-            "groups": [
+            "anchors": [
               {
-                "group": "JS SDKs",
-                "pages": ["sdks/overview", "sdks/server-side"]
+                "anchor": "Overview",
+                "icon": "compass",
+                "groups": [
+                  {
+                    "group": "JS SDKs",
+                    "pages": [
+                      "sdks/overview",
+                      "sdks/server-side"
+                    ]
+                  }
+                ]
+              },
+              {
+                "anchor": "Full stack",
+                "icon": "table-cells",
+                "href": "/full-stack/quick-start"
+              },
+              {
+                "anchor": "Headless",
+                "icon": "plug",
+                "href": "/headless/quick-start"
               }
             ]
           },
@@ -74,31 +98,59 @@
             "item": "Full stack",
             "icon": "table-cells",
             "description": "UI widgets SDK, HIJ.UIWidgets.*",
-            "versions": [
+            "dropdowns": [
               {
-                "version": "Full stack 3.x",
-                "default": true,
-                "tag": "Latest",
-                "groups": [
+                "dropdown": "Overview",
+                "icon": "compass",
+                "description": "Full stack or headless, and the browser-only rule",
+                "href": "/sdks/overview"
+              },
+              {
+                "dropdown": "Full stack",
+                "icon": "table-cells",
+                "description": "UI widgets SDK, HIJ.UIWidgets.*",
+                "versions": [
                   {
-                    "group": "Get started",
-                    "pages": ["full-stack/quick-start"]
+                    "version": "Full stack 3.x",
+                    "default": true,
+                    "tag": "Latest",
+                    "groups": [
+                      {
+                        "group": "Get started",
+                        "pages": [
+                          "full-stack/quick-start"
+                        ]
+                      },
+                      {
+                        "group": "Widgets",
+                        "pages": [
+                          "full-stack/search-results",
+                          "full-stack/search-suggestions",
+                          "full-stack/failover"
+                        ]
+                      }
+                    ]
                   },
                   {
-                    "group": "Widgets",
-                    "pages": ["full-stack/search-results", "full-stack/search-suggestions", "full-stack/failover"]
+                    "version": "Full stack 2.x",
+                    "tag": "Legacy",
+                    "groups": [
+                      {
+                        "group": "Full stack 2.x",
+                        "pages": [
+                          "full-stack/v2/quick-start",
+                          "full-stack/v2/search-results"
+                        ]
+                      }
+                    ]
                   }
                 ]
               },
               {
-                "version": "Full stack 2.x",
-                "tag": "Legacy",
-                "groups": [
-                  {
-                    "group": "Full stack 2.x",
-                    "pages": ["full-stack/v2/quick-start", "full-stack/v2/search-results"]
-                  }
-                ]
+                "dropdown": "Headless",
+                "icon": "plug",
+                "description": "Connector SDK, HIJ.Connector.*",
+                "href": "/headless/quick-start"
               }
             ]
           },
@@ -106,29 +158,56 @@
             "item": "Headless",
             "icon": "plug",
             "description": "Connector SDK, HIJ.Connector.*",
-            "versions": [
+            "dropdowns": [
               {
-                "version": "Headless 3.x",
-                "default": true,
-                "tag": "Latest",
-                "groups": [
-                  {
-                    "group": "Get started",
-                    "pages": ["headless/quick-start"]
-                  },
-                  {
-                    "group": "Connectors",
-                    "pages": ["headless/collections", "headless/failover"]
-                  }
-                ]
+                "dropdown": "Overview",
+                "icon": "compass",
+                "description": "Full stack or headless, and the browser-only rule",
+                "href": "/sdks/overview"
               },
               {
-                "version": "Headless 2.x",
-                "tag": "Legacy",
-                "groups": [
+                "dropdown": "Full stack",
+                "icon": "table-cells",
+                "description": "UI widgets SDK, HIJ.UIWidgets.*",
+                "href": "/full-stack/quick-start"
+              },
+              {
+                "dropdown": "Headless",
+                "icon": "plug",
+                "description": "Connector SDK, HIJ.Connector.*",
+                "versions": [
                   {
-                    "group": "Headless 2.x",
-                    "pages": ["headless/v2/quick-start", "headless/v2/collections"]
+                    "version": "Headless 3.x",
+                    "default": true,
+                    "tag": "Latest",
+                    "groups": [
+                      {
+                        "group": "Get started",
+                        "pages": [
+                          "headless/quick-start"
+                        ]
+                      },
+                      {
+                        "group": "Connectors",
+                        "pages": [
+                          "headless/collections",
+                          "headless/failover"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "version": "Headless 2.x",
+                    "tag": "Legacy",
+                    "groups": [
+                      {
+                        "group": "Headless 2.x",
+                        "pages": [
+                          "headless/v2/quick-start",
+                          "headless/v2/collections"
+                        ]
+                      }
+                    ]
                   }
                 ]
               }
@@ -144,15 +223,26 @@
             "item": "Analytics",
             "icon": "chart-line",
             "description": "Which events, who sends them, and how",
-            "groups": [
+            "anchors": [
               {
-                "group": "Analytics",
-                "pages": [
-                  "analytics/overview",
-                  "analytics/shopify-pixel",
-                  "analytics/analytics-api",
-                  "analytics/sdk-manual"
+                "anchor": "Analytics",
+                "icon": "chart-line",
+                "groups": [
+                  {
+                    "group": "Analytics",
+                    "pages": [
+                      "analytics/overview",
+                      "analytics/shopify-pixel",
+                      "analytics/analytics-api",
+                      "analytics/sdk-manual"
+                    ]
+                  }
                 ]
+              },
+              {
+                "anchor": "GTM template",
+                "icon": "tags",
+                "href": "/analytics/gtm/setup"
               }
             ]
           },
@@ -160,35 +250,54 @@
             "item": "GTM template",
             "icon": "tags",
             "description": "Google Tag Manager tag template releases",
-            "versions": [
+            "dropdowns": [
               {
-                "version": "GTM r20260217",
-                "default": true,
-                "tag": "Latest",
-                "groups": [
-                  {
-                    "group": "GTM template",
-                    "pages": ["analytics/gtm/setup"]
-                  }
-                ]
+                "dropdown": "Analytics",
+                "icon": "chart-line",
+                "description": "Which events, who sends them, and how",
+                "href": "/analytics/overview"
               },
               {
-                "version": "GTM r20250801",
-                "tag": "Legacy",
-                "groups": [
+                "dropdown": "GTM template",
+                "icon": "tags",
+                "description": "Google Tag Manager tag template releases",
+                "versions": [
                   {
-                    "group": "GTM template r20250801",
-                    "pages": ["analytics/gtm/r20250801/setup"]
-                  }
-                ]
-              },
-              {
-                "version": "GTM r20240718",
-                "tag": "Legacy",
-                "groups": [
+                    "version": "GTM r20260217",
+                    "default": true,
+                    "tag": "Latest",
+                    "groups": [
+                      {
+                        "group": "GTM template",
+                        "pages": [
+                          "analytics/gtm/setup"
+                        ]
+                      }
+                    ]
+                  },
                   {
-                    "group": "GTM template r20240718",
-                    "pages": ["analytics/gtm/r20240718/setup"]
+                    "version": "GTM r20250801",
+                    "tag": "Legacy",
+                    "groups": [
+                      {
+                        "group": "GTM template r20250801",
+                        "pages": [
+                          "analytics/gtm/r20250801/setup"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "version": "GTM r20240718",
+                    "tag": "Legacy",
+                    "groups": [
+                      {
+                        "group": "GTM template r20240718",
+                        "pages": [
+                          "analytics/gtm/r20240718/setup"
+                        ]
+                      }
+                    ]
                   }
                 ]
               }
@@ -202,7 +311,12 @@
         "groups": [
           {
             "group": "A/B testing",
-            "pages": ["ab-testing/overview", "ab-testing/liquid", "ab-testing/hydrogen-oxygen", "ab-testing/remix"]
+            "pages": [
+              "ab-testing/overview",
+              "ab-testing/liquid",
+              "ab-testing/hydrogen-oxygen",
+              "ab-testing/remix"
+            ]
           }
         ]
       },
@@ -212,7 +326,10 @@
         "groups": [
           {
             "group": "Checkout recommendations",
-            "pages": ["checkout-recommendations/overview", "checkout-recommendations/style-builder"]
+            "pages": [
+              "checkout-recommendations/overview",
+              "checkout-recommendations/style-builder"
+            ]
           }
         ]
       },
@@ -255,21 +372,66 @@
     }
   },
   "redirects": [
-    { "source": "/gtm/setup", "destination": "/analytics/gtm/setup" },
-    { "source": "/gtm/r20250801/setup", "destination": "/analytics/gtm/r20250801/setup" },
-    { "source": "/gtm/r20240718/setup", "destination": "/analytics/gtm/r20240718/setup" },
-    { "source": "/gtm/:slug*", "destination": "/analytics/gtm/:slug*" },
-    { "source": "/ab-testing/setup-liquid", "destination": "/ab-testing/liquid" },
-    { "source": "/quick-start", "destination": "/full-stack/quick-start" },
-    { "source": "/ui-widgets/:slug*", "destination": "/full-stack/:slug*" },
-    { "source": "/v2/ui-widgets/:slug*", "destination": "/full-stack/v2/:slug*" },
-    { "source": "/legacy/:slug*", "destination": "/full-stack/v2/:slug*" },
-    { "source": "/connector/collections", "destination": "/headless/collections" },
-    { "source": "/changelog/connector", "destination": "/headless/changelog" },
-    { "source": "/reuse/page-a", "destination": "/full-stack/failover" },
-    { "source": "/reuse/page-b", "destination": "/headless/failover" },
-    { "source": "/api/overview", "destination": "/storefront-api/overview" },
-    { "source": "/api/endpoints/:slug*", "destination": "/storefront-api/endpoints/:slug*" }
+    {
+      "source": "/gtm/setup",
+      "destination": "/analytics/gtm/setup"
+    },
+    {
+      "source": "/gtm/r20250801/setup",
+      "destination": "/analytics/gtm/r20250801/setup"
+    },
+    {
+      "source": "/gtm/r20240718/setup",
+      "destination": "/analytics/gtm/r20240718/setup"
+    },
+    {
+      "source": "/gtm/:slug*",
+      "destination": "/analytics/gtm/:slug*"
+    },
+    {
+      "source": "/ab-testing/setup-liquid",
+      "destination": "/ab-testing/liquid"
+    },
+    {
+      "source": "/quick-start",
+      "destination": "/full-stack/quick-start"
+    },
+    {
+      "source": "/ui-widgets/:slug*",
+      "destination": "/full-stack/:slug*"
+    },
+    {
+      "source": "/v2/ui-widgets/:slug*",
+      "destination": "/full-stack/v2/:slug*"
+    },
+    {
+      "source": "/legacy/:slug*",
+      "destination": "/full-stack/v2/:slug*"
+    },
+    {
+      "source": "/connector/collections",
+      "destination": "/headless/collections"
+    },
+    {
+      "source": "/changelog/connector",
+      "destination": "/headless/changelog"
+    },
+    {
+      "source": "/reuse/page-a",
+      "destination": "/full-stack/failover"
+    },
+    {
+      "source": "/reuse/page-b",
+      "destination": "/headless/failover"
+    },
+    {
+      "source": "/api/overview",
+      "destination": "/storefront-api/overview"
+    },
+    {
+      "source": "/api/endpoints/:slug*",
+      "destination": "/storefront-api/endpoints/:slug*"
+    }
   ],
   "footer": {
     "socials": {}

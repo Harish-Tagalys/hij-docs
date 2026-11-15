@@ -8,6 +8,15 @@ paths: ["hydrogen"]
 requires: ["storefront-api", "analytics"]
 ---
 
+<Visibility for="agents">
+```yaml Page metadata
+product: ab-testing
+version: none
+paths: [hydrogen]
+requires: [storefront-api, analytics]
+```
+</Visibility>
+
 On Hydrogen, the variant is chosen on the server, in the collection route's `loader`. HIJ does the assignment: you pass the shopper's assignment cookie to the Storefront API and forward the updated cookie in your response. The A/B testing library used by Liquid themes isn't needed.
 
 ## Step 1: Read the assignment cookie

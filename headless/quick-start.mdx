@@ -8,6 +8,15 @@ paths: ["liquid", "hydrogen", "custom-frontend"]
 requires: ["install-app", "credentials"]
 ---
 
+<Visibility for="agents">
+```yaml Page metadata
+product: headless
+version: 3.x
+paths: [liquid, hydrogen, custom-frontend]
+requires: [install-app, credentials]
+```
+</Visibility>
+
 ## Overview
 
 The HIJ Connector is the headless SDK. It fetches search results, search suggestions and merchandised collections, keeps the request state (applied filters, sort option, page) and sends analytics events. It doesn't render anything: your code builds the page from the data and helpers it returns.

@@ -10,6 +10,15 @@ requires: ["full-stack"]
 
 import Failover from "/snippets/failover.mdx";
 
+<Visibility for="agents">
+```yaml Page metadata
+product: full-stack
+version: 3.x
+paths: [liquid, hydrogen, custom-frontend]
+requires: [full-stack]
+```
+</Visibility>
+
 <Failover connector="SearchResults widget" fallback="CatalogSearchResults widget" />
 
 ## Configure the fallback
