@@ -61,6 +61,29 @@
     if (dest.product === cur.product && !isVersionItem) return here(); // the sub-product already open
     return project(here(), dest.version) || href;
   }
+  // Navigate through documentation.ai's own (Next.js) router when the page already links to the target: clicking that
+  // existing link changes page without a reload. Banners ("View the 2.x version of this page") and the sidebar usually
+  // carry one. Only when no such link exists do we fall back to a full page load.
+  var INJECTED = ".hij-menu, .hij-group, .hij-extra"; // containers of links this script adds
+  // Links this script adds (tab menus, landing entries, Next step) are plain anchors, so route them the same way.
+  document.addEventListener("click", function (e) {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    var a = e.target && e.target.closest && e.target.closest("a[href]");
+    if (!a || !a.closest(INJECTED)) return;
+    var t = pathOf(a.getAttribute("href"));
+    if (!t || t === here()) return;
+    e.preventDefault();
+    go(t);
+  }, true);
+  function go(target) {
+    var links = document.querySelectorAll("a[href]");
+    for (var i = 0; i < links.length; i++) {
+      var l = links[i];
+      if (l.closest(INJECTED)) continue; // our own links are plain anchors; vendor links (incl. dropdown items) use the router
+      if (pathOf(l.getAttribute("href")) === target && !l.target) { l.click(); return; }
+    }
+    location.assign(target);
+  }
   document.addEventListener("click", function (e) {
     if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     var a = e.target && e.target.closest && e.target.closest("a.dai-sidebar-dropdown-item");
@@ -69,7 +92,7 @@
     if (!target || target === pathOf(a.getAttribute("href"))) return; // native behaviour is already right
     e.preventDefault();
     e.stopPropagation();
-    if (target !== here()) location.assign(target);
+    if (target !== here()) go(target);
     else document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true })); // close the popover
   }, true);
 
