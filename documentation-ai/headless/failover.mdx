@@ -7,6 +7,21 @@ paths: ["liquid", "hydrogen", "custom-frontend"]
 requires: ["headless"]
 ---
 
+<div hidden data-page-metadata="true">
+
+```yaml page-metadata
+title: "Failover for the Connector"
+url: /headless/failover
+section: "JS SDKs"  # flow step 3 of 8
+product: headless
+version: Headless 3.x
+status: current
+paths: [liquid, hydrogen, custom-frontend]
+requires: [headless]
+```
+
+</div>
+
 If the HIJ Search API can't be reached, the SearchResults connector switches to the CatalogSearchResults connector, which reads products straight from your store's own catalog feed. Keep the fallback configured even if you never expect an outage.
 
 ## Handle the fallback in your UI

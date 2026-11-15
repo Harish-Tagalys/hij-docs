@@ -8,6 +8,21 @@ requires: ["credentials", "analytics"]
 keywords: ["storefront api analytics", "send events", "headless analytics"]
 ---
 
+<div hidden data-page-metadata="true">
+
+```yaml page-metadata
+title: "Analytics is required"
+url: /storefront-api/analytics-required
+section: "Storefront API"  # flow step 2 of 8
+product: storefront-api
+version: v2
+status: current
+paths: [server-side, hydrogen, custom-frontend, liquid]
+requires: [credentials, analytics]
+```
+
+</div>
+
 The Storefront API returns data and nothing else. It doesn't know what the shopper did with the results, so it can't send analytics events. Without events, ranking and personalisation stop learning and the dashboard reports stay empty.
 
 | Your store | Store events (product view, collection view, add to cart, checkout) | Search and click events |
