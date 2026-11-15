@@ -1,0 +1,195 @@
+/*
+ * HIJ nav styles. Mintlify includes every .css file in the content folder on
+ * every page (https://www.mintlify.com/docs/customize/custom-scripts).
+ * Selectors use the documented hooks (#sidebar, #navbar, .nav-anchor,
+ * data-component-part) plus the .hij-* classes added by hij-nav.js.
+ */
+
+/* ---- Section landing: sub-products as entries after the section's pages ---- */
+
+/* Anchors render above the groups; show them after the pages instead. */
+#sidebar #navigation-items:has(> ul a.nav-anchor) {
+  display: flex;
+  flex-direction: column;
+}
+#sidebar #navigation-items > ul:has(a.nav-anchor) {
+  order: 2;
+  margin-top: 0.25rem;
+}
+/* The section's own anchor repeats its first page; the group lists it already. */
+#sidebar #navigation-items li:has(> a.nav-anchor[href="/sdks/overview"]),
+#sidebar #navigation-items li:has(> a.nav-anchor[href="/analytics/overview"]) {
+  display: none;
+}
+/* Product entries: icon, name and a chevron. */
+a.nav-anchor[href="/full-stack/quick-start"],
+a.nav-anchor[href="/headless/quick-start"],
+a.nav-anchor[href="/analytics/gtm/setup"] {
+  padding-right: 0.75rem;
+}
+a.nav-anchor[href="/full-stack/quick-start"]::after,
+a.nav-anchor[href="/headless/quick-start"]::after,
+a.nav-anchor[href="/analytics/gtm/setup"]::after {
+  content: "\203A";
+  margin-left: auto;
+  font-size: 1.125rem;
+  line-height: 1;
+  color: rgb(156 163 175);
+}
+
+/* ---- Inside a product: one stacked card [dropdown] over [version row] ---- */
+
+#navigation-items > button[aria-haspopup="menu"]:has(+ .hij-version-row) {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.hij-version-row {
+  position: relative;
+  margin-bottom: 1.25rem;
+}
+.hij-version-trigger {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem 0.5rem 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: left;
+  color: rgb(17 24 39);
+  background: transparent;
+  border: 1px solid rgb(17 24 39 / 0.08);
+  border-top: 0;
+  border-radius: 0 0 0.75rem 0.75rem;
+  cursor: pointer;
+}
+.hij-version-trigger:hover,
+.hij-version-trigger[aria-expanded="true"] {
+  background: rgb(75 85 99 / 0.05);
+}
+.hij-version-icon {
+  display: inline-flex;
+  width: 2rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: rgb(var(--primary, 79 70 229));
+  border: 1px solid rgb(17 24 39 / 0.08);
+  border-radius: 0.5rem;
+}
+.hij-version-label {
+  flex: 0 1 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.hij-version-updown {
+  display: inline-flex;
+  margin-left: auto;
+  color: rgb(156 163 175);
+}
+
+.hij-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 0.375rem;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1.125rem;
+  border-radius: 4px;
+  background: rgb(245 245 244);
+  color: rgb(68 64 60);
+  border: 1px solid rgb(231 229 228);
+}
+.hij-badge[data-tag="Latest"] {
+  background: rgb(238 242 255);
+  color: rgb(67 56 202);
+  border-color: rgb(199 210 254);
+}
+
+.hij-version-menu {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 0.25rem);
+  left: 0;
+  right: 0;
+  padding: 0.25rem;
+  background: rgb(255 255 255);
+  border: 1px solid rgb(17 24 39 / 0.08);
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px -10px rgb(0 0 0 / 0.2);
+}
+.hij-version-menu[hidden] {
+  display: none;
+}
+.hij-version-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.625rem;
+  font-size: 0.875rem;
+  color: rgb(55 65 81);
+  border-radius: 0.75rem;
+  text-decoration: none;
+}
+.hij-version-item:hover {
+  background: rgb(75 85 99 / 0.05);
+}
+.hij-version-row .hij-version-item[data-active] {
+  color: rgb(var(--primary, 79 70 229));
+  font-weight: 600;
+}
+.hij-version-check {
+  display: inline-flex;
+  margin-left: auto;
+  color: rgb(var(--primary, 79 70 229));
+}
+
+/* The sidebar card replaces the header version menu on desktop. On smaller
+   screens the sidebar is hidden, so the header/drawer menu stays. */
+@media (min-width: 1024px) {
+  html[data-hij-versioned] #navbar [data-component-part="version-select-trigger"] {
+    display: none;
+  }
+}
+
+/* ---- Dark mode ---- */
+.dark .hij-version-trigger {
+  color: rgb(229 231 235);
+  border-color: rgb(255 255 255 / 0.1);
+}
+.dark .hij-version-trigger:hover,
+.dark .hij-version-trigger[aria-expanded="true"] {
+  background: rgb(229 231 235 / 0.05);
+}
+.dark .hij-version-icon {
+  color: rgb(var(--primary-light, 129 140 248));
+  border-color: rgb(255 255 255 / 0.1);
+}
+.dark .hij-version-menu {
+  background: rgb(17 17 17);
+  border-color: rgb(255 255 255 / 0.1);
+}
+.dark .hij-version-item {
+  color: rgb(209 213 219);
+}
+.dark .hij-version-item:hover {
+  background: rgb(229 231 235 / 0.05);
+}
+.dark .hij-version-row .hij-version-item[data-active],
+.dark .hij-version-check {
+  color: rgb(var(--primary-light, 129 140 248));
+}
+.dark .hij-badge {
+  background: rgb(41 37 36);
+  color: rgb(214 211 209);
+  border-color: rgb(68 64 60);
+}
+.dark .hij-badge[data-tag="Latest"] {
+  background: rgb(49 46 129 / 0.4);
+  color: rgb(165 180 252);
+  border-color: rgb(67 56 202 / 0.6);
+}

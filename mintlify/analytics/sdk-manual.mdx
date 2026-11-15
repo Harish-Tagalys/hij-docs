@@ -9,6 +9,15 @@ requires: ["credentials"]
 keywords: ["HIJ.Analytics.track", "headless analytics", "hydrogen analytics", "add to cart event", "product view event"]
 ---
 
+<Visibility for="agents">
+```yaml Page metadata
+product: analytics
+version: 3.x
+paths: [hydrogen, custom-frontend]
+requires: [credentials]
+```
+</Visibility>
+
 Both JS SDKs include `HIJ.Analytics`. The SDK already sends search, suggestion and collection events. Use `HIJ.Analytics.track()` for the store events it can't see: product views, add to cart, checkout and orders.
 
 <Info>
