@@ -54,9 +54,10 @@
     var cur = versionOf(here());
     var dest = href && versionOf(href);
     if (!cur || !dest) return null;
+    // Icon markup (e.g. a Font Awesome licence comment) can precede the label, so match the label anywhere.
     var text = (anchor.textContent || "").trim();
     var isVersionItem = dest.product === cur.product &&
-      dest.product.versions.some(function (v) { return text.indexOf(v.label) === 0; });
+      dest.product.versions.some(function (v) { return text.indexOf(v.label) >= 0; });
     if (dest.product === cur.product && !isVersionItem) return here(); // the sub-product already open
     return project(here(), dest.version) || href;
   }
