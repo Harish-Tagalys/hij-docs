@@ -8,6 +8,22 @@ paths: ["liquid", "custom-frontend"]
 requires: ["full-stack"]
 ---
 
+<div hidden data-page-metadata="true">
+
+```yaml page-metadata
+title: "Recipe: lazy widget initialisation"
+url: /recipes/lazy-widget-init
+section: "Recipes"  # flow step 7 of 8
+product: recipes
+version: 3.x
+status: current
+paths: [liquid, custom-frontend]
+requires: [full-stack]
+sdks: [full-stack]
+```
+
+</div>
+
 Widgets lower on the page, such as a "New arrivals" strip on the home page or "Recently viewed" above the footer, don't need to load until the shopper gets there. Written for the [full stack UI widgets](/full-stack/quick-start) 3.0.20.
 
 Widgets must be initialised when their container is visible and has a width, which also makes them a good fit for an `IntersectionObserver`.

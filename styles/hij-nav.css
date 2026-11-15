@@ -1,0 +1,58 @@
+/* HIJ Search Docs: styles for scripts/hij-nav.js on documentation.ai's classic template.
+   Uses documentation.ai's theme variables (--brand, --heading, --body, --sub-text, --border-muted, --popover,
+   --accent), so light and dark mode follow the theme. Rules keyed on html.hij-* only apply once the script ran. */
+
+/* 1. Tab menus: chevron on "JS SDKs" / "Analytics", hover/focus panel. */
+.dai-navbar-tabs a[data-hij-tab] .hij-tab-chevron {
+  display: inline-flex;
+  margin-left: 2px;
+  opacity: 0.7;
+  transition: transform 0.15s ease;
+}
+.dai-navbar-tabs a[data-hij-tab][aria-expanded="true"] .hij-tab-chevron { transform: rotate(180deg); }
+
+.hij-menu {
+  position: fixed;
+  z-index: 60;
+  width: 14rem;
+  padding: 0.375rem;
+  border: 1px solid var(--border-muted, #eaeaea);
+  border-radius: 1rem;
+  background: var(--popover, #fff);
+  box-shadow: 0 10px 30px -10px rgb(0 0 0 / 0.2);
+}
+.hij-menu a {
+  display: block;
+  padding: 0.5rem 0.625rem;
+  border-radius: 0.625rem;
+  text-decoration: none;
+}
+.hij-menu a:hover, .hij-menu a:focus-visible { background: var(--accent, #f1f1f1); outline: none; }
+.hij-menu .hij-menu-title { display: block; font-size: 0.875rem; font-weight: 500; color: var(--heading, #1a1a1a); }
+.hij-menu .hij-menu-desc { display: block; margin-top: 1px; font-size: 0.75rem; color: var(--sub-text, #595959); }
+.hij-menu a[aria-current="page"] .hij-menu-title { color: var(--brand, #4f46e5); font-weight: 600; }
+
+/* 2. Section landing: sub-products are listed as entries, so the dropdown selector is not shown there. */
+html.hij-landing aside.dai-sidebar > button.dai-sidebar-dropdown { display: none; }
+aside.dai-sidebar .hij-extra { margin-top: 2rem; } /* same gap as between the nav's groups (space-y-8) */
+aside.dai-sidebar .hij-extra:has(> .hij-continues:first-child) { margin-top: 0; } /* entries continue the list above */
+aside.dai-sidebar .hij-extra > .hij-group + .hij-group { margin-top: 2rem; }
+aside.dai-sidebar .hij-group ul { list-style: none; margin: 0; padding: 0; }
+aside.dai-sidebar a.hij-entry { justify-content: space-between; }
+aside.dai-sidebar a.hij-entry .hij-entry-chevron { margin-left: auto; color: var(--sub-text, #595959); }
+
+/* 3. Inside a sub-product: the section selector and the version selector form one bordered card. */
+html.hij-entered aside.dai-sidebar > button.dai-sidebar-dropdown {
+  background: color-mix(in srgb, var(--accent, #f1f1f1) 50%, var(--background, #fff));
+}
+html.hij-entered aside.dai-sidebar > button.dai-sidebar-dropdown:has(~ button.dai-sidebar-dropdown) {
+  margin-bottom: 0 !important;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+html.hij-entered aside.dai-sidebar > button.dai-sidebar-dropdown ~ button.dai-sidebar-dropdown {
+  margin-top: 0 !important;
+  border-top-width: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}

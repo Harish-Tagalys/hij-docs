@@ -1,6 +1,7 @@
 {
   "name": "HIJ Search Docs",
   "initialRoute": "index",
+  "template": "classic",
   "icons": {
     "library": "fontawesome"
   },
@@ -13,9 +14,9 @@
     }
   },
   "navigation": {
-    "products": [
+    "tabs": [
       {
-        "product": "Get started",
+        "tab": "Get started",
         "icon": "rocket",
         "groups": [
           {
@@ -46,7 +47,7 @@
         ]
       },
       {
-        "product": "Storefront API",
+        "tab": "Storefront API",
         "icon": "code",
         "groups": [
           {
@@ -97,123 +98,140 @@
         ]
       },
       {
-        "product": "JS SDKs",
+        "tab": "JS SDKs",
         "icon": "js",
-        "groups": [
+        "dropdowns": [
           {
-            "group": "JS SDKs",
-            "pages": [
-              {
-                "title": "Overview",
-                "path": "sdks/overview"
-              },
-              {
-                "title": "Server-side (planned)",
-                "path": "sdks/server-side"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "product": "Full stack",
-        "icon": "table-cells",
-        "versions": [
-          {
-            "version": "3.x",
+            "dropdown": "Overview",
+            "icon": "compass",
+            "description": "Full stack or headless, and the browser-only rule",
             "groups": [
               {
-                "group": "Get started",
+                "group": "JS SDKs",
                 "pages": [
                   {
-                    "title": "Quick start",
-                    "path": "full-stack/quick-start"
-                  }
-                ]
-              },
-              {
-                "group": "Widgets",
-                "pages": [
-                  {
-                    "title": "Search results",
-                    "path": "full-stack/search-results"
+                    "title": "Overview",
+                    "path": "sdks/overview"
                   },
                   {
-                    "title": "Search suggestions",
-                    "path": "full-stack/search-suggestions"
-                  },
-                  {
-                    "title": "Failover",
-                    "path": "full-stack/failover"
+                    "title": "Server-side (planned)",
+                    "path": "sdks/server-side"
                   }
                 ]
               }
             ]
           },
           {
-            "version": "2.x (legacy)",
-            "groups": [
+            "dropdown": "Full stack",
+            "icon": "table-cells",
+            "description": "UI widgets SDK, HIJ.UIWidgets.*",
+            "dropdowns": [
               {
-                "group": "Full stack 2.x",
-                "pages": [
+                "dropdown": "Full stack 3.x",
+                "icon": "code-branch",
+                "description": "Latest",
+                "groups": [
                   {
-                    "title": "Quick start",
-                    "path": "full-stack/v2/quick-start"
+                    "group": "Get started",
+                    "pages": [
+                      {
+                        "title": "Quick start",
+                        "path": "full-stack/quick-start"
+                      }
+                    ]
                   },
                   {
-                    "title": "Search results",
-                    "path": "full-stack/v2/search-results"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "product": "Headless",
-        "icon": "plug",
-        "versions": [
-          {
-            "version": "3.x",
-            "groups": [
-              {
-                "group": "Get started",
-                "pages": [
-                  {
-                    "title": "Quick start",
-                    "path": "headless/quick-start"
+                    "group": "Widgets",
+                    "pages": [
+                      {
+                        "title": "Search results",
+                        "path": "full-stack/search-results"
+                      },
+                      {
+                        "title": "Search suggestions",
+                        "path": "full-stack/search-suggestions"
+                      },
+                      {
+                        "title": "Failover",
+                        "path": "full-stack/failover"
+                      }
+                    ]
                   }
                 ]
               },
               {
-                "group": "Connectors",
-                "pages": [
+                "dropdown": "Full stack 2.x",
+                "icon": "code-branch",
+                "description": "Legacy",
+                "groups": [
                   {
-                    "title": "Collections",
-                    "path": "headless/collections"
-                  },
-                  {
-                    "title": "Failover",
-                    "path": "headless/failover"
+                    "group": "Full stack 2.x",
+                    "pages": [
+                      {
+                        "title": "Quick start",
+                        "path": "full-stack/v2/quick-start"
+                      },
+                      {
+                        "title": "Search results",
+                        "path": "full-stack/v2/search-results"
+                      }
+                    ]
                   }
                 ]
               }
             ]
           },
           {
-            "version": "2.x (legacy)",
-            "groups": [
+            "dropdown": "Headless",
+            "icon": "plug",
+            "description": "Connector SDK, HIJ.Connector.*",
+            "dropdowns": [
               {
-                "group": "Headless 2.x",
-                "pages": [
+                "dropdown": "Headless 3.x",
+                "icon": "code-branch",
+                "description": "Latest",
+                "groups": [
                   {
-                    "title": "Quick start",
-                    "path": "headless/v2/quick-start"
+                    "group": "Get started",
+                    "pages": [
+                      {
+                        "title": "Quick start",
+                        "path": "headless/quick-start"
+                      }
+                    ]
                   },
                   {
-                    "title": "Collections",
-                    "path": "headless/v2/collections"
+                    "group": "Connectors",
+                    "pages": [
+                      {
+                        "title": "Collections",
+                        "path": "headless/collections"
+                      },
+                      {
+                        "title": "Failover",
+                        "path": "headless/failover"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "dropdown": "Headless 2.x",
+                "icon": "code-branch",
+                "description": "Legacy",
+                "groups": [
+                  {
+                    "group": "Headless 2.x",
+                    "pages": [
+                      {
+                        "title": "Quick start",
+                        "path": "headless/v2/quick-start"
+                      },
+                      {
+                        "title": "Collections",
+                        "path": "headless/v2/collections"
+                      }
+                    ]
                   }
                 ]
               }
@@ -222,73 +240,87 @@
         ]
       },
       {
-        "product": "Analytics",
+        "tab": "Analytics",
         "icon": "chart-line",
-        "groups": [
+        "dropdowns": [
           {
-            "group": "Analytics",
-            "pages": [
-              {
-                "title": "Overview",
-                "path": "analytics/overview"
-              },
-              {
-                "title": "Shopify Pixel",
-                "path": "analytics/shopify-pixel"
-              },
-              {
-                "title": "Analytics API",
-                "path": "analytics/analytics-api"
-              },
-              {
-                "title": "SDK manual analytics",
-                "path": "analytics/sdk-manual"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "product": "GTM template",
-        "icon": "tags",
-        "versions": [
-          {
-            "version": "r20260217",
+            "dropdown": "Analytics",
+            "icon": "chart-line",
+            "description": "Which events, who sends them, and how",
             "groups": [
               {
-                "group": "GTM template",
+                "group": "Analytics",
                 "pages": [
                   {
-                    "title": "Set up",
-                    "path": "analytics/gtm/setup"
+                    "title": "Overview",
+                    "path": "analytics/overview"
+                  },
+                  {
+                    "title": "Shopify Pixel",
+                    "path": "analytics/shopify-pixel"
+                  },
+                  {
+                    "title": "Analytics API",
+                    "path": "analytics/analytics-api"
+                  },
+                  {
+                    "title": "SDK manual analytics",
+                    "path": "analytics/sdk-manual"
                   }
                 ]
               }
             ]
           },
           {
-            "version": "r20250801 (legacy)",
-            "groups": [
+            "dropdown": "GTM template",
+            "icon": "tags",
+            "description": "Google Tag Manager tag template releases",
+            "dropdowns": [
               {
-                "group": "GTM template r20250801",
-                "pages": [
+                "dropdown": "GTM r20260217",
+                "icon": "code-branch",
+                "description": "Latest",
+                "groups": [
                   {
-                    "title": "Set up",
-                    "path": "analytics/gtm/r20250801/setup"
+                    "group": "GTM template",
+                    "pages": [
+                      {
+                        "title": "Set up",
+                        "path": "analytics/gtm/setup"
+                      }
+                    ]
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "version": "r20240718 (legacy)",
-            "groups": [
+              },
               {
-                "group": "GTM template r20240718",
-                "pages": [
+                "dropdown": "GTM r20250801",
+                "icon": "code-branch",
+                "description": "Legacy",
+                "groups": [
                   {
-                    "title": "Set up",
-                    "path": "analytics/gtm/r20240718/setup"
+                    "group": "GTM template r20250801",
+                    "pages": [
+                      {
+                        "title": "Set up",
+                        "path": "analytics/gtm/r20250801/setup"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "dropdown": "GTM r20240718",
+                "icon": "code-branch",
+                "description": "Legacy",
+                "groups": [
+                  {
+                    "group": "GTM template r20240718",
+                    "pages": [
+                      {
+                        "title": "Set up",
+                        "path": "analytics/gtm/r20240718/setup"
+                      }
+                    ]
                   }
                 ]
               }
@@ -297,7 +329,7 @@
         ]
       },
       {
-        "product": "A/B testing",
+        "tab": "A/B testing",
         "icon": "flask",
         "groups": [
           {
@@ -324,7 +356,7 @@
         ]
       },
       {
-        "product": "Checkout recommendations",
+        "tab": "Checkout recommendations",
         "icon": "cart-shopping",
         "groups": [
           {
@@ -343,7 +375,7 @@
         ]
       },
       {
-        "product": "Recipes",
+        "tab": "Recipes",
         "icon": "book-open",
         "groups": [
           {
@@ -374,7 +406,7 @@
         ]
       },
       {
-        "product": "Changelogs",
+        "tab": "Changelogs",
         "icon": "clock-rotate-left",
         "groups": [
           {
@@ -481,7 +513,14 @@
       "view"
     ]
   },
-  "search": {
-    "strict-dimensions": false
-  }
+  "customCss": [
+    {
+      "src": "styles/hij-nav.css"
+    }
+  ],
+  "scripts": [
+    {
+      "src": "scripts/hij-nav.js"
+    }
+  ]
 }
