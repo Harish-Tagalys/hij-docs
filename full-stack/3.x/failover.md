@@ -4,7 +4,7 @@ description: "What the HIJ UI widgets do when HIJ Search can't be reached, and h
 
 # Failover for UI widgets
 
-**Applies to:** product `full-stack` · version `3.x` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `full-stack`
+**Applies to:** section `JS SDKs` (flow step 3 of 8) · product `full-stack` · version `Full stack 3.x` · status `current` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `full-stack`
 
 If the HIJ Search API can't be reached, the SearchResults widget switches to the CatalogSearchResults widget, which reads products straight from your store's own catalog feed. Keep the fallback configured even if you never expect an outage.
 

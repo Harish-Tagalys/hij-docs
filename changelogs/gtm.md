@@ -4,7 +4,7 @@ description: "Every release of the HIJ Search Analytics tag template for Google 
 
 # GTM template releases
 
-**Applies to:** product `analytics` · version `all` · store types `liquid`, `hydrogen`, `custom-frontend` · requires none
+**Applies to:** section `Changelogs` (flow step 8 of 8) · product `analytics` · version `all` · status `current` · store types `liquid`, `hydrogen`, `custom-frontend` · requires none
 
 Template releases are named by date. The Community Template Gallery always installs the current release. Each release has its own setup page in the GTM template version menu.
 

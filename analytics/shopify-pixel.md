@@ -4,7 +4,7 @@ description: "On Liquid stores, the HIJ Shopify Pixel sends product views, colle
 
 # Shopify Pixel
 
-**Applies to:** product `analytics` · version `none` · store types `liquid` · requires `install-app`
+**Applies to:** section `Analytics` (flow step 4 of 8) · product `analytics` · version `none` · status `current` · store types `liquid` · requires `install-app`
 
 The HIJ Search app installs a Shopify web pixel on Liquid stores. It listens to Shopify's standard customer events and sends the matching HIJ events, so you don't write any analytics code for store events.
 

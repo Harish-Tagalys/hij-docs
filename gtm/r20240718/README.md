@@ -8,7 +8,7 @@ description: "Legacy: install and configure GTM template release r20240718, whic
 **Legacy documentation: GTM template r20240718.** This release sends events to the v1 analytics API, which is frozen. Upgrade to the current release to use the v2 event set. [View the current GTM template documentation](https://hij.gitbook.io/hij-docs/gtm).
 {% endhint %}
 
-**Applies to:** product `analytics` · version `r20240718` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `credentials`
+**Applies to:** section `Analytics` (flow step 4 of 8) · product `analytics` · version `GTM template r20240718` · status `legacy` (current: [GTM template r20260217](https://hij.gitbook.io/hij-docs/gtm)) · store types `liquid`, `hydrogen`, `custom-frontend` · requires `credentials`
 
 The HIJ tag template sends shopper events to the HIJ analytics API from Google Tag Manager. This page covers template release **r20240718**.
 

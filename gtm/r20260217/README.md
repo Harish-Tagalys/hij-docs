@@ -4,7 +4,7 @@ description: "Send HIJ Search analytics events from Google Tag Manager with the 
 
 # Set up the HIJ Google Tag Manager template
 
-**Applies to:** product `analytics` · version `r20260217` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `credentials`
+**Applies to:** section `Analytics` (flow step 4 of 8) · product `analytics` · version `GTM template r20260217` · status `current` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `credentials`
 
 The HIJ tag template sends shopper events to the HIJ analytics API from Google Tag Manager (GTM). Use it when your store already pushes ecommerce events to the data layer and you'd rather not call `HIJ.Analytics` from your own code ([SDK manual analytics](https://hij.gitbook.io/hij-docs/analytics/sdk-manual)). See the [analytics overview](https://hij.gitbook.io/hij-docs/analytics) for how the template fits with the other methods.
 

@@ -4,7 +4,7 @@ description: "Decide between the Storefront API, the full stack UI widgets SDK a
 
 # Choose your integration path
 
-**Applies to:** product `get-started` · version `none` · store types `liquid`, `hydrogen`, `custom-frontend`, `server-side` · requires none
+**Applies to:** section `Get started` (flow step 1 of 8) · product `get-started` · version `none` · status `current` · store types `liquid`, `hydrogen`, `custom-frontend`, `server-side` · requires none
 
 HIJ offers two integration paths. Both use the same catalog, merchandising and analytics.
 

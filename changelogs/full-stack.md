@@ -4,7 +4,7 @@ description: "Release notes for every HIJ UI widgets SDK (full stack) release, n
 
 # Full stack changelog
 
-**Applies to:** product `full-stack` · version `all` · store types `liquid`, `hydrogen`, `custom-frontend` · requires none
+**Applies to:** section `Changelogs` (flow step 8 of 8) · product `full-stack` · version `all` · status `current` · store types `liquid`, `hydrogen`, `custom-frontend` · requires none
 
 Release notes for the full stack UI widgets SDK (`HIJ.UIWidgets.*`). The current release is **3.0.20**. The last 2.x release is **2.1.8**.
 Link to a release with its version anchor, for example [3.0.9](#id-3.0.9).
@@ -27,7 +27,7 @@ Link to a release with its version anchor, for example [3.0.9](#id-3.0.9).
 
 **Changes:**
 
-- Fallback widgets now take over only when HIJ Search can't be reached, returns a 5xx error or rate limits requests (429). See [failover](https://hij.gitbook.io/hij-docs/full-stack/failover).
+- Fallback widgets now take over only when HIJ Search can't be reached, returns a 5xx error or rate limits requests (429). See [failover](https://hij.gitbook.io/hij-docs/full-stack/widgets/failover).
 
 **Fixes:**
 

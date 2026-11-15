@@ -4,7 +4,7 @@ description: "Choose between the full stack UI widgets SDK and the headless Conn
 
 # JS SDKs overview
 
-**Applies to:** product `sdks` · version `3.x` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `credentials`
+**Applies to:** section `JS SDKs` (flow step 3 of 8) · product `sdks` · version `3.x` · status `current` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `credentials`
 
 HIJ has two JavaScript SDKs. Both load from the HIJ CDN, read the same [credentials](https://hij.gitbook.io/hij-docs/get-started/credentials) and call the [Storefront API](https://hij.gitbook.io/hij-docs/storefront-api) for you.
 

@@ -8,7 +8,7 @@ description: "Legacy: install and configure GTM template release r20250801. New 
 **Legacy documentation: GTM template r20250801.** This release still works but no longer receives new features. Upgrade to the current release for consent mode support. [View the current GTM template documentation](https://hij.gitbook.io/hij-docs/gtm).
 {% endhint %}
 
-**Applies to:** product `analytics` · version `r20250801` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `credentials`
+**Applies to:** section `Analytics` (flow step 4 of 8) · product `analytics` · version `GTM template r20250801` · status `legacy` (current: [GTM template r20260217](https://hij.gitbook.io/hij-docs/gtm)) · store types `liquid`, `hydrogen`, `custom-frontend` · requires `credentials`
 
 The HIJ tag template sends shopper events to the HIJ analytics API from Google Tag Manager. This page covers template release **r20250801**.
 

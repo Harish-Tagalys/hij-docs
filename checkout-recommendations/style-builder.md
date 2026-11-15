@@ -4,7 +4,7 @@ description: "Pick the layout, columns, price display, button style, accent colo
 
 # Checkout recommendations style builder
 
-**Applies to:** product `checkout-recommendations` · version `none` · store types `liquid`, `hydrogen`, `custom-frontend` · requires none
+**Applies to:** section `Checkout recommendations` (flow step 6 of 8) · product `checkout-recommendations` · version `none` · status `current` · store types `liquid`, `hydrogen`, `custom-frontend` · requires none
 
 Choose the style tokens for the [checkout recommendations](README.md) block: pick one value per token from the table below, then write the configuration JSON, starting from the example.
 

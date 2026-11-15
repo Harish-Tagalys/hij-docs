@@ -12,3 +12,5 @@
 ## Next step
 
 * [Analytics is required](analytics-required.md "Analytics is required")
+* [Analytics overview](https://app.gitbook.com/s/RW2cL6y9zkJlxO7UJcl9)
+* [Analytics API](https://app.gitbook.com/s/RW2cL6y9zkJlxO7UJcl9/analytics-api)

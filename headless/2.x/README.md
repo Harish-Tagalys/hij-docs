@@ -8,7 +8,7 @@ description: "Legacy: set up the HIJ Connector SDK 2.x. New integrations should 
 **Legacy documentation: Headless 2.x.** This version is frozen and receives security and critical fixes only. New integrations should use the [current Headless 3.x documentation](https://hij.gitbook.io/hij-docs/headless). [View the 3.x version of this page](https://hij.gitbook.io/hij-docs/headless).
 {% endhint %}
 
-**Applies to:** product `headless` · version `2.x` · store types `hydrogen`, `custom-frontend` · requires `credentials`
+**Applies to:** section `JS SDKs` (flow step 3 of 8) · product `headless` · version `Headless 2.x` · status `legacy` (current: [Headless 3.x](https://hij.gitbook.io/hij-docs/headless)) · store types `hydrogen`, `custom-frontend` · requires `credentials`
 
 ## Include the SDK
 

@@ -4,7 +4,7 @@ description: "Release notes for every HIJ Connector SDK (headless) release, newe
 
 # Headless changelog
 
-**Applies to:** product `headless` · version `all` · store types `liquid`, `hydrogen`, `custom-frontend` · requires none
+**Applies to:** section `Changelogs` (flow step 8 of 8) · product `headless` · version `all` · status `current` · store types `liquid`, `hydrogen`, `custom-frontend` · requires none
 
 Release notes for the headless Connector SDK (`HIJ.Connector.*`). The current release is **3.0.21**. The last 2.x release is **2.4.3**.
 Link to a release with its version anchor, for example [3.0.19](#id-3.0.19).

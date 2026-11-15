@@ -4,7 +4,7 @@ description: "Short, complete solutions for common HIJ integration tasks: colour
 
 # Recipes
 
-**Applies to:** product `recipes` · version `3.x` · store types `liquid`, `hydrogen`, `custom-frontend` · requires none
+**Applies to:** section `Recipes` (flow step 7 of 8) · product `recipes` · version `3.x` · status `current` · store types `liquid`, `hydrogen`, `custom-frontend` · requires none
 
 Each recipe solves one task end to end and names the SDK and version it was written for.
 

@@ -4,7 +4,7 @@ description: "Test collection merchandising with HIJ A/B tests: how traffic is s
 
 # A/B testing overview
 
-**Applies to:** product `ab-testing` · version `none` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `analytics`
+**Applies to:** section `A/B testing` (flow step 5 of 8) · product `ab-testing` · version `none` · status `current` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `analytics`
 
 An A/B test compares a **primary collection** with one or more **variant collections**. Each variant has the same products with different merchandising: other pinned products, boosted brands or another default sort. HIJ splits traffic between them, keeps each shopper in one variant for 30 days and reports conversion per variant.
 

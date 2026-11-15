@@ -4,7 +4,7 @@ description: "Base URL, authentication, response codes, pagination, sorting and 
 
 # Storefront API overview
 
-**Applies to:** product `storefront-api` · version `v2` · store types `server-side`, `hydrogen`, `custom-frontend` · requires `credentials`, `analytics`
+**Applies to:** section `Storefront API` (flow step 2 of 8) · product `storefront-api` · version `v2` · status `current` · store types `server-side`, `hydrogen`, `custom-frontend` · requires `credentials`, `analytics`
 
 The Storefront API returns the same search, suggestions and collection data as the JavaScript SDKs. Use it for server-side rendering, native apps and anywhere you can't run the SDKs, which work in the browser only. This reference covers **v2**, the only version.
 

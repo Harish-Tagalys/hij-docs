@@ -4,7 +4,7 @@ description: "Install the HIJ Search app on your Shopify store, approve its acce
 
 # Install the HIJ Search app
 
-**Applies to:** product `get-started` · version `none` · store types `liquid`, `hydrogen`, `custom-frontend`, `server-side` · requires none
+**Applies to:** section `Get started` (flow step 1 of 8) · product `get-started` · version `none` · status `current` · store types `liquid`, `hydrogen`, `custom-frontend`, `server-side` · requires none
 
 Every HIJ integration starts with the HIJ Search app. The app reads your catalog, keeps it in sync, creates your shop ID and storefront token, and installs the [Shopify Pixel](https://hij.gitbook.io/hij-docs/analytics/shopify-pixel) on Liquid stores.
 

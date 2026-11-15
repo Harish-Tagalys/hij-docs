@@ -5,10 +5,10 @@ description: "Legacy: the full stack 2.x search results widget. New integrations
 # Search results widget (2.x, legacy)
 
 {% hint style="warning" %}
-**Legacy documentation: Full stack 2.x.** This version is frozen and receives security and critical fixes only. New integrations should use the [current Full stack 3.x documentation](https://hij.gitbook.io/hij-docs/full-stack). [View the 3.x version of this page](https://hij.gitbook.io/hij-docs/full-stack/search-results).
+**Legacy documentation: Full stack 2.x.** This version is frozen and receives security and critical fixes only. New integrations should use the [current Full stack 3.x documentation](https://hij.gitbook.io/hij-docs/full-stack). [View the 3.x version of this page](https://hij.gitbook.io/hij-docs/full-stack/widgets/search-results).
 {% endhint %}
 
-**Applies to:** product `full-stack` · version `2.x` · store types `liquid`, `custom-frontend` · requires `full-stack`
+**Applies to:** section `JS SDKs` (flow step 3 of 8) · product `full-stack` · version `Full stack 2.x` · status `legacy` (current: [Full stack 3.x](https://hij.gitbook.io/hij-docs/full-stack/widgets/search-results)) · store types `liquid`, `custom-frontend` · requires `full-stack`
 
 ## Render
 

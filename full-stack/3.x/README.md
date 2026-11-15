@@ -4,7 +4,7 @@ description: "Load the HIJ UI widgets SDK, configure it, handle analytics consen
 
 # Full stack quick start: HIJ UI widgets
 
-**Applies to:** product `full-stack` · version `3.x` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `install-app`, `credentials`
+**Applies to:** section `JS SDKs` (flow step 3 of 8) · product `full-stack` · version `Full stack 3.x` · status `current` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `install-app`, `credentials`
 
 ## Overview
 
@@ -194,7 +194,7 @@ Initialise a widget by calling its `init` method with a CSS selector and options
   - [Search results](search-results.md)
   - [Search suggestions](search-suggestions.md) (attached to the store's query input field)
 - Collections
-  - HIJ-powered: render with the headless [Collections connector](https://hij.gitbook.io/hij-docs/headless/collections)
+  - HIJ-powered: render with the headless [Collections connector](https://hij.gitbook.io/hij-docs/headless/connectors/collections)
   - Fallback: reads your catalog feed when the API can't be reached (see [failover](failover.md))
 - Recommendations
   - `HIJ.UIWidgets.Recommendations.init(selector, { params: { recommendationId } })` renders a strip. See [lazy widget initialisation](https://hij.gitbook.io/hij-docs/recipes/lazy-widget-init) for strips lower on the page.

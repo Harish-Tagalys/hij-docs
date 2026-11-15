@@ -4,9 +4,9 @@ description: "Initialise and customise the HIJ search results widget: options, t
 
 # Search results widget
 
-**Applies to:** product `full-stack` · version `3.x` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `full-stack`
+**Applies to:** section `JS SDKs` (flow step 3 of 8) · product `full-stack` · version `Full stack 3.x` · status `current` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `full-stack`
 
-This page covers full stack **3.x**. Still on 2.x? [View the 2.x version of this page](https://hij.gitbook.io/hij-docs/full-stack/v2/search-results).
+This page covers full stack **3.x**. Still on 2.x? [View the 2.x version of this page](https://hij.gitbook.io/hij-docs/full-stack/v2/widgets/search-results).
 
 {% hint style="info" %}
 **Search redirects:** if a query matches a redirect set up in the HIJ dashboard, the widget sends the shopper to the redirect URL before rendering any results. Turn this off with `params.followRedirects: false`.
@@ -837,7 +837,7 @@ Available as `args.helpers` inside every template, and as the second argument of
 <details>
 <summary>Core helpers</summary>
 
-The widget is built on the headless Connector, so every [Connector helper](https://hij.gitbook.io/hij-docs/headless/collections#helpers) is also available, such as `getFilters()`, `getAppliedFilters()` and `getSortOptions()`.
+The widget is built on the headless Connector, so every [Connector helper](https://hij.gitbook.io/hij-docs/headless/connectors/collections#helpers) is also available, such as `getFilters()`, `getAppliedFilters()` and `getSortOptions()`.
 
 </details>
 

@@ -4,7 +4,7 @@ description: "Split traffic between a collection and its variant collections in 
 
 # A/B testing collections in a Liquid theme
 
-**Applies to:** product `ab-testing` · version `none` · store types `liquid` · requires `install-app`, `analytics`
+**Applies to:** section `A/B testing` (flow step 5 of 8) · product `ab-testing` · version `none` · status `current` · store types `liquid` · requires `install-app`, `analytics`
 
 {% hint style="info" %}
 This guide is for stores that render collection pages with a Liquid theme. For headless storefronts, see [Hydrogen/Oxygen](hydrogen-oxygen.md) or [Remix](remix.md). Start with the [A/B testing overview](README.md) if you haven't created a test yet.

@@ -1,4 +1,4 @@
-# GitBook space "JS SDKs / Full stack / 2.x (legacy)". Mapped by ../../gitbook-docs.yaml (site-wide Git Sync), key space-full-stack-2x.
+# GitBook space "JS SDKs / Full stack / Full stack 2.x · Legacy". Mapped by ../../gitbook-docs.yaml (site-wide Git Sync), key space-full-stack-2x.
 root: ./
 
 structure:
@@ -7,3 +7,4 @@ structure:
 
 redirects:
   quick-start: README.md
+  search-results: search-results.md

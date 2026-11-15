@@ -4,7 +4,7 @@ description: "Attach the HIJ suggestions widget to your store's query input fiel
 
 # Search suggestions widget
 
-**Applies to:** product `full-stack` · version `3.x` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `full-stack`
+**Applies to:** section `JS SDKs` (flow step 3 of 8) · product `full-stack` · version `Full stack 3.x` · status `current` · store types `liquid`, `hydrogen`, `custom-frontend` · requires `full-stack`
 
 The suggestions widget attaches to the query input field your theme already has. As the shopper types, it opens a panel under the field with:
 

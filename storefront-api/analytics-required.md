@@ -4,7 +4,7 @@ description: "The Storefront API doesn't send analytics events. Liquid stores ge
 
 # Analytics is required
 
-**Applies to:** product `storefront-api` · version `v2` · store types `server-side`, `hydrogen`, `custom-frontend`, `liquid` · requires `credentials`, `analytics`
+**Applies to:** section `Storefront API` (flow step 2 of 8) · product `storefront-api` · version `v2` · status `current` · store types `server-side`, `hydrogen`, `custom-frontend`, `liquid` · requires `credentials`, `analytics`
 
 The Storefront API returns data and nothing else. It doesn't know what the shopper did with the results, so it can't send analytics events. Without events, ranking and personalisation stop learning and the dashboard reports stay empty.
 
